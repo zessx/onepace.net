@@ -37,7 +37,6 @@ function episodeString(data, header, body, footer) {
         '</p>' +
         '<div style="float:right;">'+
             (data['episodes'] ? '<div>Episodes: ' + data['episodes'] + '</div>' : '') +
-            (data['chapters'] ? '<div>Chapters: ' + data['chapters'] + '</div>' : '') +
         '</div>'+
         (data['torrent'] ? '<div><a class="small-button smallblue" href="' + data['torrent']['dir'] + '"><i class="fa fa-users"></i> Torrent</a>' +
         '<a class="small-button smallblue" href="' + data['torrent']['magnet'] + '"><i class="fa fa-magnet"></i> Magnet</a></div>' : '') +
