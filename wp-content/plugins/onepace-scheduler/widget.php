@@ -9,7 +9,7 @@ Version: 1
 Author URI: http://onepace.net/
 */
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/server/mysql_utils.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/server/get_scheduled.php';
 
 class onepace_scheduler extends WP_Widget {
     function onepace_scheduler() {
@@ -50,14 +50,12 @@ class onepace_scheduler extends WP_Widget {
         ?>
         <ul>
             <?php
-            connect();
-            $result = run_query("call get_scheduled({$limit})");
-            disconnect();
-            $rows = get_rows_from_result($result);
+            $rows = get_scheduled::get_data($limit);
+
             foreach($rows as $row) {
                 $time = strtotime($row['scheduled_for']);
                 $diff = $time - time();
-                $title = '';
+                $date = '';
                 
                 if($diff >= 365*24*3600) {
                     $date = 'Upcoming';
@@ -72,7 +70,7 @@ class onepace_scheduler extends WP_Widget {
                     $minuteString = $days <= 0 ? ($hours > 0 ? ", " : "") . "$minutes minute" . ($minutes == 1 ? "" : "s") : "";
                     $date = $dayString . $hourString . $minuteString;
 
-                    $title = date("Y-m-d H:i", strtotime($row['scheduled_for']));
+                    $date_title = date("Y-m-d H:i", strtotime($row['scheduled_for']));
                 }
 
                 $status = $row['status'];
@@ -80,8 +78,20 @@ class onepace_scheduler extends WP_Widget {
                     $date .= " ($status)";
                 }
 
+                if (strlen($row['chapters']) == 0) {
+                    $ep_title = $row['title'];
+                } else {
+                    $ep_title = "Chapter " . $row['chapters'];
+                }
+
                 ?>
-                <li><?php echo $row['title']; ?><br /><span style="font-size:13px;" <?php echo (!empty($title) ? " title=\"$title\"" : ""); ?>><?php echo $date; ?></span></li>
+                <li>
+                    <?php echo $ep_title; ?>
+                    <br />
+                    <span style="font-size:13px;" <?php echo (!empty($date_title) ? " title=\"$date_title\"" : ""); ?>>
+                        <?php echo $date; ?>
+                    </span>
+                </li>
                 <?php
             }
             ?>
