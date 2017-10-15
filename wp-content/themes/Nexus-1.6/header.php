@@ -61,7 +61,7 @@
 					<img src="<?php echo esc_attr( $logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" id="logo" />
 				</a>
 			</div>
-
+			<div id="top-progress"></div>
 			<div id="top-navigation" class="clearfix">
 				<?php do_action( 'et_header_top' ); ?>
 

@@ -1,7 +1,7 @@
 var episode_data = {};
 var captcha_response = "";
 
-$(document).ready(function(){   
+$(document).ready(function() {   
     $('.container').on('change', 'select.arcs', function() {
         changeArc();
     });
