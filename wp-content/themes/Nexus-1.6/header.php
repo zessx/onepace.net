@@ -14,6 +14,7 @@
 <head>
 	<link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri(); ?>/favicon.ico" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/js/progress.css" />
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<title><?php elegant_titles(); ?></title>
@@ -61,7 +62,6 @@
 					<img src="<?php echo esc_attr( $logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" id="logo" />
 				</a>
 			</div>
-			<div id="top-progress"></div>
 			<div id="top-navigation" class="clearfix">
 				<?php do_action( 'et_header_top' ); ?>
 
@@ -124,5 +124,6 @@
 					</li>
 				</ul>
 			</div> <!-- #top-navigation -->
+			<div id="top-progress"></div>
 		</div> <!-- .container -->
 	</header> <!-- #main-header -->
