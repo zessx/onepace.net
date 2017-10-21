@@ -104,7 +104,7 @@
 						</a>
 					</li>
 					<li class="trello" title="Trello progress board">
-						<a href="https://trello.com/b/37nkGfOw/one-pace" target="_blank">
+						<a href="https://trello.com/b/xO3CQ0dT" target="_blank">
 							<span class="et-social-normal"></span>
 							<span class="et-social-hover"></span>
 						</a>
