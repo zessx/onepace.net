@@ -16,37 +16,8 @@ $(document).ready(function() {
     $(document).on('click', 'video', function() {
         this.paused ? this.play() : this.pause();
     });
-    
-    loadProgressBar();
 });
-function loadProgressBar() {
-    var selector = '#main-header > .container > #top-progress';
-    $.ajax({url:'/server/get_progress.php', success: function(data) {
-        console.log('ss');
-        var html = progressHtml(data);
-        $(selector).append(html);
-    }});
-}
-function progressHtml(data) {
-    var i = 0;
-    var html = '<table width="100%"><tr>';
-    $.each(data, function(index, item) {
-        if(i < 100) {
-            if(item.is_progress) {
-                html += '<td class="is-progress"></td>';
-            } else {
-                html += '<td class="not-progress"></td>';
-            }
-            i++;
-        } else {
-            i = 0;
-            html += '</tr><tr>';
-        }
-    });
 
-    html += '</tr></table>';
-    return html;
-}
 function generatePost(identifier, header, body, footer) {
     var selector = 'article.entry-content.clearfix > p:last';
     

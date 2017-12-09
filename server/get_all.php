@@ -46,7 +46,6 @@ foreach($rows as $row) {
         'chapter_count' => $chapter_count,
         'episodes' => $row['episodes'],
         'episode_count' => $episode_count,
-        'part_number' => $row['part_number'],
         'stream_id' => $row['stream_id'],
         'seconds' => $seconds,
         'saved_seconds' => $saved_seconds
