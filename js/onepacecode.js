@@ -80,104 +80,18 @@ function hex(color) {
     return (x.length === 1) ? '0' + x : x;
 }
 
-var content = '#content span.content';
-function loadDownloads() {
-    $('.loading').show();
-    $.ajax({url: '/server/get_all.php', dataType: 'json'}).done(function(data) {
-        $(content).html("");
-        $(content).hide();
-        $(content).animate({opacity:0});
-
-        $.each(data['arcs'], function(i, arc) {
-            if(arc['episodes'].length > 0) {
-                var title =  (arc['chapters'] ? 'Chapter ' + arc['chapters'] + ': ' + arc['title'] + ' Arc' : arc['title']);
-		
-                $(content).append(
-                    '<div style="margin-bottom:20px;" class="arc" id="' + i + '">'+
-                        '<h4 style="border-bottom:1px solid #A7A2A2;padding-bottom:5px;">'+
-                            title + (arc['torrent'] ? ' <a class="small-button smallblue" target="_blank" href="'+arc['torrent']['dir']+'"><i class="fa fa-users"></i> Torrent</a> <a class="small-button smallblue" href="'+arc['torrent']['magnet']+'"><i class="fa fa-magnet"></i> Magnet</a>' : '')+
-                        '</h4>'+
-                    '</div>'
-                );
-
-                $.each(arc['episodes'], function() {
-                    $(content + ' > #' + i + '.arc').append(
-                        '<div class="links">'+
-                            (this['part_number'] ? 'Episode ' + this['part_number'] : this['title'])+
-                            (this['torrent'] ? ' <a class="small-button smallblue" target="_blank" href="'+this['torrent']['dir']+'"><i class="fa fa-users"></i> Torrent</a> <a class="small-button smallblue" href="'+this['torrent']['magnet']+'"><i class="fa fa-magnet"></i> Magnet</a>' : '')+
-                        '</div>'
-                    );
-                });
-            }
-        });
-        
-        $(content).animate({opacity:1.0,height:"toggle"}, 500, function() {
-            $('.loading').hide();
-        });
-    });
-}
-function loadTorrents() {
-    $('.loading').show();
-    $.ajax({
-        url: '/torrents/index.php',
-        dataType: 'json'
-    }).done(function(data) {
-        $(content).html("");
-        $(content).hide();
-        $(content).animate({opacity:0});
-		
-        $.each(data, function(i, arc) {
-            if(arc['torrents'].length > 0) {
-                var title = (arc['chapters'] ? 'Chapter ' + arc['chapters'] + ': ' + arc['name'] + ' Arc' : arc['name']);
-		
-                $(content).append(
-                    '<div style="margin-bottom:20px;" class="arc" id="' + i + '">'+
-                        '<h4 style="border-bottom:1px solid #A7A2A2;padding-bottom:5px;">' + title + '</h4>'+
-                    '</div>'
-                );
-                $.each(arc['torrents'], function() {
-                    appendTorrent($(content + ' > #' + i + '.arc'), this);
-                    
-                });
-            }
-        });
-        
-        $(content).animate({opacity:1.0,height:"toggle"}, 500, function() {
-            $('.loading').hide();
-        });
-    });
-}
-
-function appendTorrent($element, torrent) {
-	var seeders = torrent['scrape']['seeders'];
-	var leechers = torrent['scrape']['leechers'];
-	var completed = torrent['scrape']['completed'];
-			
-	$element.append(
-		'<div class="links">'+
-			'<a href="' + torrent['dir']+'">' + torrent['display_name'] + '</a>'+
-			'<br />'+
-			'<a class="magnet-icon" href="' + torrent['magnet'] + '"><i class="fa fa-magnet"></i></a>'+
-			'<span class="info">Size: ' + torrent['size'] +
-				'<span style="margin-left:2em;">S: ' + seeders + '</span>'+
-				'<span style="margin-left:2em;">L: ' + leechers + '</span>'+
-				'<span style="margin-left:2em;">C: ' + completed + '</span>'+
-			'</span>'+
-		'</div>'
-	);
-}
-
 function loadStreams() {
     var selector = 'article.entry-content.clearfix > p:last';
     $(selector).append(streamString());
 
-    $.ajax({url: "/server/get_all.php", dataType: 'json'}).done(function(data) {
+    $.ajax({url: "/server/get_streams.php", dataType: 'json'}).done(function(data) {
         episode_data = data;
 		
         setArcsSelector();
         changeArc();
     });
 }
+
 function streamString() {
     var s =
     '<select class="arcs">'+
