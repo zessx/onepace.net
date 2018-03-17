@@ -39,6 +39,7 @@ foreach($rows as $row) {
     $saved_seconds = $toei_seconds > $seconds ? $toei_seconds - $seconds : 0;
 
     $data['arcs'][$arc_i]['episodes'][] = [
+        'id' => $row['id'],
         'crc32' => $row['crc32'],
 		'resolution' => $row['resolution'],
         'title' => $row['title'],
