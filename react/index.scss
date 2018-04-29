@@ -1,0 +1,83 @@
+body {
+    margin: 0px;
+}
+.logo {
+    text-align: center;
+    img {
+        width: 20%;
+    }
+}
+.text {
+    margin: 20px;
+    font-family:Calibri;
+}
+h1,h2,h3,h4,h5,h6,h7 {
+    font-weight:bold;
+    font-weight: 800;
+    font-family: Arial;
+}
+.help {
+    cursor: help;
+    border-bottom: 1px dotted gray;
+}
+.menu {
+    margin: 10px;
+    a {
+        margin: 10px;
+    }
+}
+.posts {
+    width: 70%;
+    margin: auto;
+}
+.post {
+    margin-bottom: 50px;
+    .footer {
+        font-style: italic;
+        .author {
+            margin-right: 10px;
+        }
+    }
+}
+.watch-container {
+    .top {
+        span.episodes {
+            margin: 10px;
+        }
+        span.chapters {
+            margin: 10px;
+        }
+        select {
+            border: 0;
+            font-size: 16px;
+            padding: 3px;
+            color: #fdfdfd;
+            font-family: Calibri;
+            background-color: #0C0C0C;
+            border-radius: 4px 4px 0px 0px;
+        }
+        select.episodes {
+            margin: 0px 3px 0px 2px;
+        }
+    }
+}
+
+.magnet, .torrent, .animetosho {
+    color: #337ab7;
+    text-decoration: none;
+    margin-left: 16px;
+
+    .fa {
+        position: relative;
+        top: 1px;
+    }
+}
+
+.animetosho .fa {
+    font-weight: bold;
+}
+
+.video-player {
+    width:100%;
+    height: 90%;
+}

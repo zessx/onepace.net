@@ -1,3 +1,4 @@
-wp-config.php
-page_streams/config.php
-node_modules/
+index.js
+index.css
+onepace_error.log
+onepace_info.log
