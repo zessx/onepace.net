@@ -19,12 +19,15 @@ $rows = $context->query("select episodes.id,".
 "episodes.stream_id,".
 "episodes.torrent_hash,".
 "episodes.is_released,".
+"episodes.part,".
 "episodes.status,".
 "arcs.id as arc_id,".
 "arcs.title as arc_title,".
 "arcs.chapters as arc_chapters,".
 "arcs.completed as arc_completed,".
-"arcs.torrent_hash as arc_torrent_hash ".
+"arcs.resolution as arc_resolution,".
+"arcs.torrent_hash as arc_torrent_hash,".
+"arcs.released as arc_released ".
 "from episodes ".
 "right join arcs on arcs.id = episodes.arc_id ".
 "where arcs.hidden = false and ((episodes.scheduled_for is null or episodes.scheduled_for <= CURDATE()) and (episodes.deprecated_on is null or episodes.deprecated_on > CURDATE()));");
@@ -42,7 +45,8 @@ foreach($rows as $row) {
             'title' => scr_value($row, 'arc_title'),
             'chapters' => scr_value($row, 'arc_chapters'),
             'episodes' => [],
-            'completed' => scr_value($row, 'arc_completed') == 1 ? true : false
+            'resolution' => scr_value($row, 'arc_resolution'),
+            "released" => scr_value($row, "arc_released") == 1,
         ];
         
         $arc_i++;
@@ -63,7 +67,8 @@ foreach($rows as $row) {
         'episodes' => scr_value($row, 'episodes'),
         'stream_id' => scr_value($row, 'stream_id'),
         'isReleased' => scr_value($row, 'is_released') == 1,
-        'status' => scr_value($row, 'status')
+        'status' => scr_value($row, 'status'),
+        'part' => scr_value($row, 'part'),
     ];
     $episode_i++;
     
