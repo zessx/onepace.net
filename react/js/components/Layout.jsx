@@ -1,9 +1,6 @@
-import React from 'react';
-import '../../index.scss';
-import 'babel-polyfill';
-import Watch from './Watch';
-import About from './About';
-import Posts from './Posts';
+import React from "react";
+import "../../index.scss";
+import "babel-polyfill";
 
 export default class Layout extends React.Component {
   render() {
