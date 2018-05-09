@@ -3,7 +3,9 @@ require("es6-promise").polyfill();
 require("isomorphic-fetch");
 
 export default class NetworkHandler {
-  static async request(route, data, onSuccess = (f) => f, onError = (f) => f) {
+  static async request(route, data, onSuccess, onError) {
+    onSuccess = onSuccess == null ? (f) => f : onSuccess;
+    onError = onError == null ? (f) => f : onError;
     try {
       const response = await fetch(Config.ServerURL + route, {
         "method": "POST",

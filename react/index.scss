@@ -81,3 +81,23 @@ h1,h2,h3,h4,h5,h6,h7 {
     width:100%;
     height: 90%;
 }
+
+table.releases {
+    tr:hover {
+        background-color: #ffeeee;
+    }
+    td {
+        padding: 0;
+    }
+    td.name {
+        color: grey;
+    }
+    td a {
+        text-decoration: none;
+        color: black;
+    }
+    td a:hover {
+        background-color:grey;
+        color: white;
+    }
+}

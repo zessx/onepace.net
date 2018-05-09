@@ -69,6 +69,7 @@ foreach($rows as $row) {
         'isReleased' => scr_value($row, 'is_released') == 1,
         'status' => scr_value($row, 'status'),
         'part' => scr_value($row, 'part'),
+        'arcId' => scr_value($row, 'arc_id'),
     ];
     $episode_i++;
     

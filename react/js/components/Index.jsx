@@ -9,19 +9,21 @@ import {
 import "../../index.scss";
 import "babel-polyfill";
 import Layout from "./Layout";
-import Posts from "./Posts";
 import Watch from "./Watch";
 import About from "./About";
+import ReleaseList from "./ReleaseList";
 
 export default class Index extends React.Component {
   render() {
     return (
-      <Layout>
-        <div className="logo">
-          <img src="assets/Logo.png" />
-        </div>
-        <Posts />
-      </Layout>
+      <div>
+        <Layout>
+          <div className="logo">
+            <img src="assets/Logo.png" />
+          </div>
+          <About />
+        </Layout>
+      </div>
     );
   }
 }
@@ -30,8 +32,8 @@ ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/">
       <IndexRoute component={Index} />
-      <Route path="watch" component={Watch} />
-      <Route path="about" component={About} />
+      <Route name="watch" path="/watch(?episode=:episode)" component={Watch} />
+      <Route name="releaselist" path="/releaselist" component={ReleaseList} />
     </Route>
   </Router>,
   document.getElementById("reactentry")

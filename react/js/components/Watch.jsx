@@ -2,6 +2,7 @@ import React from "react";
 import NetworkHandler from "../NetworkHandler";
 import Layout from "./Layout";
 import FontAwesome from "react-fontawesome";
+import ArrayUtils from "../ArrayUtils";
 
 export default class Watch extends React.Component {
   state = {
@@ -12,19 +13,27 @@ export default class Watch extends React.Component {
   componentDidMount() {
     NetworkHandler.request("/get_streams.php", {}, (response) => {
       const { arcs } = response;
-      const selectedArcId = localStorage.getItem("watchSelectedArcId");
-      const selectedEpisodeId = localStorage.getItem("watchSelectedEpisodeId");
+      let selectedArcId = null;
+      let selectedEpisodeId = this.props.location.query.episode;
       let selectedArc = null;
       let selectedEpisode = null;
+      if (selectedEpisodeId == null || selectedEpisodeId <= 0) {
+        selectedArcId = localStorage.getItem("watchSelectedArcId");
+        selectedEpisodeId = localStorage.getItem("watchSelectedEpisodeId");
+      } else {
+        const [episode] = ArrayUtils.mapMany(arcs, (i) => i.episodes).filter((i) => i.id === selectedEpisodeId);
+        selectedEpisode = episode;
+        selectedArcId = episode != null ? episode.arcId : null;
+      }
       if (arcs.length > 0 && selectedArcId != null) {
         [selectedArc] = arcs.filter((i) => i.id === selectedArcId);
-        if (selectedArc != null && selectedEpisodeId != null && selectedArc.episodes.length > 0) {
+        if (selectedArc != null && selectedEpisode == null && selectedEpisodeId != null && selectedArc.episodes.length > 0) {
           [selectedEpisode] = selectedArc.episodes.filter((i) => i.id === selectedEpisodeId);
         }
       }
       if (selectedArc == null && arcs.length > 0) {
         [selectedArc] = arcs;
-        if (selectedArc != null && selectedArc.episodes.length > 0) {
+        if (selectedArc != null && selectedEpisode == null && selectedArc.episodes.length > 0) {
           [selectedEpisode] = selectedArc.episodes;
         }
       }

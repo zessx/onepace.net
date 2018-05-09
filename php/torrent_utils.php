@@ -23,6 +23,10 @@ class TorrentUtils {
         }
         return null;
     }
+    static function scrape_http($torrent) {
+        $httptscraper = new httptscraper();
+        return $httptscraper->scrape($torrent["trackers"][0], $torrent['hash'])[0];
+    }
 }
 
 function get_torrent($path) {
@@ -32,8 +36,10 @@ function get_torrent($path) {
     if($extension == 'torrent') {
         $data = $bencode->decode_file($path);
         $trackers = array();
-        foreach($data['announce-list'][0] as $announce) {
-            $trackers[] = $announce;
+        if(isset($data["announce-list"]) && is_array($data["announce-list"])) {
+            foreach($data['announce-list'][0] as $announce) {
+                $trackers[] = $announce;
+            }
         }
         $info = $data['info'];
         $dn = $info['name'];

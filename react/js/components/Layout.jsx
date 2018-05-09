@@ -8,7 +8,6 @@ export default class Layout extends React.Component {
       <div>
         <div className="menu">
           <a href="/#/">Home</a>
-          <a href="/#/about">About</a>
           <a href="/#/watch">Watch</a>
         </div>
         {this.props.children}
