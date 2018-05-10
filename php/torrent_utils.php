@@ -60,7 +60,7 @@ function get_torrent($path) {
         $created = date('Y-m-d H:i:s', $created_raw);
         $interval = (new DateTime())->diff(new DateTime($created));
         return [
-            'new' => $interval->days <= 7,
+            'age_days' => $interval->days,
             'hash' => $hash,
             'trackers' => $trackers,
             'magnet' => $magnet_url,

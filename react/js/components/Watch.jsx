@@ -2,45 +2,39 @@ import React from "react";
 import NetworkHandler from "../NetworkHandler";
 import Layout from "./Layout";
 import FontAwesome from "react-fontawesome";
-import ArrayUtils from "../ArrayUtils";
 
 export default class Watch extends React.Component {
   state = {
     "arcs": [],
+    "episodes": [],
     "selectedArc": null,
     "selectedEpisode": null,
   };
   componentDidMount() {
     NetworkHandler.request("/get_streams.php", {}, (response) => {
-      const { arcs } = response;
-      let selectedArcId = null;
+      const {
+        arcs,
+        episodes,
+      } = response;
       let selectedEpisodeId = this.props.location.query.episode;
       let selectedArc = null;
       let selectedEpisode = null;
       if (selectedEpisodeId == null || selectedEpisodeId <= 0) {
-        selectedArcId = localStorage.getItem("watchSelectedArcId");
         selectedEpisodeId = localStorage.getItem("watchSelectedEpisodeId");
-      } else {
-        const [episode] = ArrayUtils.mapMany(arcs, (i) => i.episodes).filter((i) => i.id === selectedEpisodeId);
-        selectedEpisode = episode;
-        selectedArcId = episode != null ? episode.arcId : null;
       }
-      if (arcs.length > 0 && selectedArcId != null) {
-        [selectedArc] = arcs.filter((i) => i.id === selectedArcId);
-        if (selectedArc != null && selectedEpisode == null && selectedEpisodeId != null && selectedArc.episodes.length > 0) {
-          [selectedEpisode] = selectedArc.episodes.filter((i) => i.id === selectedEpisodeId);
-        }
+      if (selectedEpisodeId != null && selectedEpisodeId > 0) {
+        [selectedEpisode] = episodes.filter((i) => i.id == selectedEpisodeId);
+        [selectedArc] = arcs.filter((i) => i.id == selectedEpisode.arcId);
       }
-      if (selectedArc == null && arcs.length > 0) {
+      if (arcs.length > 0 && selectedEpisode == null) {
         [selectedArc] = arcs;
-        if (selectedArc != null && selectedEpisode == null && selectedArc.episodes.length > 0) {
-          [selectedEpisode] = selectedArc.episodes;
-        }
+        [selectedEpisode] = episodes.filter((i) => i.arcId == selectedArc.id);
       }
       this.setState({
         "selectedArc": selectedArc,
         "selectedEpisode": selectedEpisode,
         "arcs": arcs,
+        "episodes": episodes,
       });
     });
   }
@@ -49,15 +43,8 @@ export default class Watch extends React.Component {
     let selectedEpisode = null;
     if (this.state.arcs.length > 0) {
       [selectedArc] = this.state.arcs.filter((i) => i.id === arcId);
-      if (selectedArc != null) {
-        localStorage.setItem("watchSelectedArcId", selectedArc.id);
-        if (selectedArc.episodes.length > 0) {
-          [selectedEpisode] = selectedArc.episodes;
-        }
-        if (selectedEpisode != null) {
-          localStorage.setItem("watchSelectedEpisodeId", selectedEpisode.id);
-        }
-      }
+      [selectedEpisode] = this.state.episodes.filter((i) => i.arcId == arcId);
+      localStorage.setItem("watchSelectedEpisodeId", selectedEpisode.id);
     }
     this.setState({
       "selectedArc": selectedArc,
@@ -66,15 +53,27 @@ export default class Watch extends React.Component {
     this.videoRef.load();
   }
   changeEpisode = (episodeId) => {
-    let selectedEpisode = null;
-    if (this.state.arcs.length > 0 && this.state.selectedArc != null && this.state.selectedArc.episodes.length > 0) {
-      [selectedEpisode] = this.state.selectedArc.episodes.filter((i) => i.id === episodeId);
-      if (selectedEpisode != null) {
-        localStorage.setItem("watchSelectedEpisodeId", selectedEpisode.id);
+    const [selectedEpisode] = this.state.episodes.filter((i) => i.id === episodeId);
+    const [selectedArc] = this.state.arcs.filter((i) => i.id === selectedEpisode.arcId);
+    localStorage.setItem("watchSelectedEpisodeId", selectedEpisode.id);
+    this.setState({
+      "selectedEpisode": selectedEpisode,
+      "selectedArc": selectedArc,
+    });
+    this.videoRef.load();
+  }
+  nav = (dir) => {
+    const episodes = this.state.episodes.filter((i) => i.isReleased);
+    for (let i = 0; i < episodes.length; i++) {
+      const episode = episodes[i];
+      if (episode.id === this.state.selectedEpisode.id) {
+        if (!((dir == "prev" && i == 0) || (dir == "next" && i >= episodes.length - 1))) {
+          const otherEpisode = episodes[dir == "prev" ? i - 1 : i + 1];
+          this.changeEpisode(otherEpisode.id);
+        }
+        break;
       }
     }
-    this.setState({ "selectedEpisode": selectedEpisode });
-    this.videoRef.load();
   }
   render() {
     const {
@@ -84,7 +83,8 @@ export default class Watch extends React.Component {
     } = this.state;
     const episodes = selectedEpisode != null && selectedEpisode.episodes != null && selectedEpisode.episodes.length > 0 ? "Episodes: " + selectedEpisode.episodes : "";
     const chapters = selectedEpisode != null && selectedEpisode.chapters != null && selectedEpisode.chapters.length > 0 ? "Chapters: " + selectedEpisode.chapters : "";
-    const torrent = selectedArc != null && selectedArc.torrent != null ? selectedArc.torrent : selectedEpisode != null && selectedEpisode.torrent != null ? selectedEpisode.torrent : null;
+    const torrent = selectedArc != null && selectedArc.torrent.length ? selectedArc.torrent : selectedEpisode != null && selectedEpisode.torrent.length ? selectedEpisode.torrent : null;
+    const magnet = selectedArc != null && selectedArc.magnet.length ? selectedArc.magnet : selectedEpisode != null && selectedEpisode.magnet.length ? selectedEpisode.magnet : null;
     const animetoshoq = selectedArc != null && selectedEpisode == null ? "One Pace " + selectedArc.title : selectedEpisode != null ? selectedEpisode.crc32 : null;
     return (
       <Layout>
@@ -113,11 +113,10 @@ export default class Watch extends React.Component {
               value={selectedEpisode == null ? 0 : selectedEpisode.id}
               onChange={(e) => this.changeEpisode(e.target.value)}>
               {
-                (arcs.length == 0 && <option>Loading...</option>) ||
-                (selectedArc == null && <option>No arc selected</option>) ||
-                selectedArc.episodes.map((episode, i) => {
+                (this.state.episodes.length == 0 && <option>Loading...</option>) ||
+                this.state.episodes.filter((i) => i.arcId == selectedArc.id).map((episode, i) => {
                   let title = "[One Pace]";
-                  title += episode.chapters != null ? "[" + episode.chapters + "]" : "";
+                  title += episode.chapters != null && episode.chapters.length > 0 ? "[" + episode.chapters + "]" : "";
                   title += episode.part != null ? " " + selectedArc.title + " " + ("00" + episode.part.toString()).slice(-2) : episode.title.length > 0 ? " " + episode.title : "";
                   title += " [" + episode.resolution + "]";
                   title += episode.crc32 != null && episode.crc32.length > 0 ? "[" + episode.crc32 + "]" : "";
@@ -127,12 +126,14 @@ export default class Watch extends React.Component {
                 })
               }
             </select>
+            <span className="nav prev" onClick={() => this.nav("prev")}>&lt; Previous</span>
+            <span className="nav next" onClick={() => this.nav("next")}>Next &gt;</span>
             {torrent != null &&
               <span>
-                <a className="torrent" href={"/torrents/" + torrent.torrent_name}>
+                <a className="torrent" href={torrent}>
                   <FontAwesome name="download" /> Torrent
                 </a>
-                <a className="magnet" href={torrent.magnet}>
+                <a className="magnet" href={magnet}>
                   <FontAwesome name="magnet" /> Magnet
                 </a>
               </span>

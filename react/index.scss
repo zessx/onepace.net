@@ -83,21 +83,39 @@ h1,h2,h3,h4,h5,h6,h7 {
 }
 
 table.releases {
+    width: 100%;
     tr:hover {
-        background-color: #ffeeee;
+        background-color: #dddddd;
     }
     td {
-        padding: 0;
+        margin: 0;
+        padding: 0 10px 0 10px;
     }
     td.name {
-        color: grey;
+        cursor: default;
     }
     td a {
         text-decoration: none;
         color: black;
+        text-decoration: none;
+        padding: 2px;
     }
     td a:hover {
-        background-color:grey;
+        background-color:#337ab7;
         color: white;
+        transition: background-color 200ms, color 200ms;
+        -webkit-transition: background-color 200ms, color 200ms;
+        -ms-transition: background-color 200ms, color 200ms;
     }
+}
+span.nav {
+    color: #337ab7;
+    margin: 10px;
+    cursor: pointer;
+}
+span.next {
+    margin-right: 20px;
+}
+div.section {
+    margin: 20px;
 }

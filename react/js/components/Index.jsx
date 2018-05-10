@@ -21,6 +21,10 @@ export default class Index extends React.Component {
           <div className="logo">
             <img src="assets/Logo.png" />
           </div>
+          <div className="section">
+            <h2>New releases</h2>
+            <ReleaseList newOnly={true} />
+          </div>
           <About />
         </Layout>
       </div>
@@ -33,7 +37,6 @@ ReactDOM.render(
     <Route path="/">
       <IndexRoute component={Index} />
       <Route name="watch" path="/watch(?episode=:episode)" component={Watch} />
-      <Route name="releaselist" path="/releaselist" component={ReleaseList} />
     </Route>
   </Router>,
   document.getElementById("reactentry")

@@ -5,9 +5,10 @@ export default class About extends React.Component {
     return (
       <div className="text">
         <div className="about">
-          <h2>Was ist das?</h2>
+          <h2>Info</h2>
           <p>
-            One Pace is a One Piece project that condenses the anime into more accurate adaptations of the manga. It involves removing filler scenes, shortening slow or padded scenes, and merging episodes together.
+            One Pace is a One Piece project that condenses the anime into more accurate adaptations of the manga.
+            It involves removing filler scenes, shortening slow or padded scenes, and merging episodes together.
           </p>
         </div>
         <div className="members">

@@ -1,13 +1,10 @@
 <?php
+header('Content-Type: application/json; charset=utf-8;');
 require_once 'db_context.php';
 require_once 'torrent_utils.php';
 include_once 'string_utils.php';
 include_once 'secure_indexer.php';
-
 $torrents = TorrentUtils::getTorrents();
-
-$data = [];
-
 $context = new db_context();
 $context->connect();
 $rows = $context->query("select episodes.id,".
@@ -32,33 +29,36 @@ $rows = $context->query("select episodes.id,".
 "right join arcs on arcs.id = episodes.arc_id ".
 "where arcs.hidden = false and ((episodes.scheduled_for is null or episodes.scheduled_for <= CURDATE()) and (episodes.deprecated_on is null or episodes.deprecated_on > CURDATE()));");
 $context->disconnect();
-
-$arc_i = -1;
-$episode_i = -1;
+$data = [];
 $arc_id = -1;
 foreach($rows as $row) {
+    $arc_magnet = '';
+    $arc_torrent = '';
+    $episode_magnet = '';
+    $episode_torrent = '';
     if($arc_id != scr_value($row, 'arc_id')) {
         $arc_id = scr_value($row, 'arc_id');
-        
+        $torrent = TorrentUtils::findTorrent($torrents, scr_value($row, 'arc_torrent_hash'));
+        if($torrent != null) {
+            $arc_magnet = $torrent['magnet'];
+            $arc_torrent = $torrent['torrent_name'];
+        }
         $data['arcs'][] = [
             'id' => scr_value($row, 'arc_id'),
             'title' => scr_value($row, 'arc_title'),
             'chapters' => scr_value($row, 'arc_chapters'),
-            'episodes' => [],
             'resolution' => scr_value($row, 'arc_resolution'),
             "released" => scr_value($row, "arc_released") == 1,
+            'magnet' => $arc_magnet,
+            'torrent' => '/torrents/' . $arc_torrent,
         ];
-        
-        $arc_i++;
-        $episode_i = -1;
-        
-        $torrent = TorrentUtils::findTorrent($torrents, scr_value($row, 'arc_torrent_hash'));
-        if($torrent != null) {
-            $data['arcs'][$arc_i]['torrent'] = $torrent;
-        }
     }
-    
-    $data['arcs'][$arc_i]['episodes'][] = [
+    $torrent = TorrentUtils::findTorrent($torrents, scr_value($row, 'torrent_hash'));
+    if($torrent != null) {
+        $episode_magnet = $torrent['magnet'];
+        $episode_torrent = $torrent['torrent_name'];
+    }
+    $data['episodes'][] = [
         'id' => scr_value($row, 'id'),
         'crc32' => scr_value($row, 'crc32'),
         'resolution' => scr_value($row, 'resolution'),
@@ -70,20 +70,16 @@ foreach($rows as $row) {
         'status' => scr_value($row, 'status'),
         'part' => scr_value($row, 'part'),
         'arcId' => scr_value($row, 'arc_id'),
+        'torrent' => $torrent,
+        'magnet' => $episode_magnet,
+        'torrent' => '/torrents/' . $episode_torrent,
     ];
-    $episode_i++;
-    
-    $torrent = TorrentUtils::findTorrent($torrents, scr_value($row, 'torrent_hash'));
-    if($torrent != null) {
-        $data['arcs'][$arc_i]['episodes'][$episode_i]['torrent'] = $torrent;
-    }
 }
-
 function usortchapters($a, $b) {
     return strnatcmp($a['chapters'], $b['chapters']);
 }
 usort($data['arcs'], "usortchapters");
-
+usort($data['episodes'], 'usortchapters');
 for($i = 0; $i < sizeof($data['arcs']); $i++) {
     $arc = $data['arcs'][$i];
     if($arc['chapters'] == null) {
@@ -91,10 +87,6 @@ for($i = 0; $i < sizeof($data['arcs']); $i++) {
         $data['arcs'][] = $arc;
         $data['arcs'] = array_values($data['arcs']);
     }
-
-    usort($data['arcs'][$i]['episodes'], 'usortchapters');
 }
-
-header('Content-Type: application/json; charset=utf-8;');
 echo json_encode($data);
 ?>
