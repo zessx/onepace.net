@@ -41,7 +41,7 @@ foreach($rows as $row) {
         $torrent = TorrentUtils::findTorrent($torrents, scr_value($row, 'arc_torrent_hash'));
         if($torrent != null) {
             $arc_magnet = $torrent['magnet'];
-            $arc_torrent = $torrent['torrent_name'];
+            $arc_torrent = '/torrents/' . $torrent['torrent_name'];
         }
         $data['arcs'][] = [
             'id' => scr_value($row, 'arc_id'),
@@ -50,13 +50,13 @@ foreach($rows as $row) {
             'resolution' => scr_value($row, 'arc_resolution'),
             "released" => scr_value($row, "arc_released") == 1,
             'magnet' => $arc_magnet,
-            'torrent' => '/torrents/' . $arc_torrent,
+            'torrent' => $arc_torrent,
         ];
     }
     $torrent = TorrentUtils::findTorrent($torrents, scr_value($row, 'torrent_hash'));
     if($torrent != null) {
         $episode_magnet = $torrent['magnet'];
-        $episode_torrent = $torrent['torrent_name'];
+        $episode_torrent = '/torrents/' . $torrent['torrent_name'];
     }
     $data['episodes'][] = [
         'id' => scr_value($row, 'id'),
@@ -70,9 +70,8 @@ foreach($rows as $row) {
         'status' => scr_value($row, 'status'),
         'part' => scr_value($row, 'part'),
         'arcId' => scr_value($row, 'arc_id'),
-        'torrent' => $torrent,
         'magnet' => $episode_magnet,
-        'torrent' => '/torrents/' . $episode_torrent,
+        'torrent' => $episode_torrent,
     ];
 }
 function usortchapters($a, $b) {
