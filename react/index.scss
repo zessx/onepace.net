@@ -21,10 +21,10 @@ h1,h2,h3,h4,h5,h6,h7 {
     border-bottom: 1px dotted gray;
 }
 .menu {
-    margin: 10px;
-    a {
-        margin: 10px;
-    }
+   padding: 10px;
+}
+.menu a{
+    padding:10px;
 }
 .posts {
     width: 70%;
@@ -81,7 +81,16 @@ h1,h2,h3,h4,h5,h6,h7 {
     width:100%;
     height: 90%;
 }
-
+.darkmode{
+    color: white;
+    background-color: black;
+}
+.button {
+    cursor:pointer;
+}
+.button:hover{
+    text-decoration: underline;
+}
 table.releases {
     width: 100%;
     tr:hover {
