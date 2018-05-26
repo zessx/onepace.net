@@ -19,7 +19,7 @@ export default class About extends React.Component {
 
             <h2>Team Members</h2>
               < ul>
-                <li>Sewil</li>
+                <li>Sewil &nbsp; Editor</li>
                 <li>Galaxy 9000</li>
                 <li>Feeso</li>
                 <li>Halee</li>

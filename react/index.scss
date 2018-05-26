@@ -1,21 +1,21 @@
 body {
 	font-family: Arial;
 	font-size: 15px;
-    background: #282a99;
     color: #ffffff;
+    background-color: #D7CB9E;
+    padding: 15px;
 }
 * {
     box-sizing: border-box;
 }
-.logo {
-    text-align: center;
-}
 .topnav {
-    background-color: #282828;
+    background-color: #591719;
     border: 1px solid white;
     border-radius: 20px;
     overflow: hidden;
-	padding: 5px;
+    margin-left: 40px;
+    margin-right: 40px;
+	padding: 3px;
 }
 .topnav a {
     float: left;
@@ -26,8 +26,8 @@ body {
     font-size: 17px;
 }
 .topnav a:hover {
-    background-color: #484848;
-    color: #ffffff;
+    background-color: #D7CB9E;
+    color: #000000;
     border: 1px solid #ffffff;
     border-radius: 30px;
 }
@@ -43,7 +43,7 @@ li a {
 }
 li a:hover {
     color: #000000;
-    background-color: #484848;
+    background-color: #161618;
     border: 1px solid #ffffff;
     padding: 3px;
     border-radius: 5px;
@@ -55,8 +55,16 @@ li a:hover {
 .side {
     float: left;
     width: 25%;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 25px;
+    padding-right: 10px;
+}
+.row {
+    background-color: #161618;
+    padding: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
+    border: 1px solid #ffffff;
+    border-radius: 20px;
 }
 .row:after {
     content: "";
@@ -64,10 +72,10 @@ li a:hover {
     clear: both;
 }
 .card {
-    background-color: #282828;
-    padding: 15px;
+    background-color: #18345C;
     border: 1px solid #ffffff;
     border-radius: 20px;
+    padding: 15px;
 }
 @media screen and (max-width: 800px) {
     .main, .side {   
