@@ -9,7 +9,7 @@ export default class Watch extends React.Component {
     "episodes": [],
     "selectedArc": null,
     "selectedEpisode": null,
-    darkMode :false
+    darkMode :true
   };
   componentDidMount() {
     var darkMode = localStorage.getItem("darkMode");

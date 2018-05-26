@@ -1,24 +1,84 @@
 body {
-    margin: 0px;
+	font-family: Arial;
+	font-size: 15px;
+    background: #282a99;
+    /*background-image: "assets/logo.png";*/
+    color: #ffffff;
+}
+* {
+    box-sizing: border-box;
+}
+.logo {
+    text-align: center;
+}
+.topnav {
+    background-color: #383838;
+    border: 1px solid white;
+    border-radius: 5px;
+    overflow: hidden;
+	padding: 3px;
+}
+.topnav a {
+    float: left;
+    color: #ffffff;
+    text-align: center;
+    padding: 12px 13px;
+    text-decoration: none;
+    font-size: 17px;
+}
+.topnav a:hover {
+    background-color: #282828;
+    color: #ffffff;
+}
+ul{
+    list-style-type: none;
+}
+li a {
+	color: #ffffff;
+	text-decoration: none;
+}
+.main {   
+    float: left;
+    width: 75%;
+    background-color: #282828;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+}
+.side {
+    float: left;
+    width: 25%;
+    background-color: #383838;
+    padding-left: 15px;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.card {
+    background-color: #282828;
+    padding: 15px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+}
+@media screen and (max-width: 800px) {
+    .main, .side {   
+        width: 100%;
+        padding: 0;
+    }
+}
+@media screen and (max-width: 400px) {
+    .topnav a {
+        float: none;
+        width: 100%;
+    }
 }
 .logo {
     text-align: center;
     img {
         width: 20%;
+        height: 20%;
     }
-}
-.text {
-    margin: 20px;
-    font-family:Calibri;
-}
-h1,h2,h3,h4,h5,h6,h7 {
-    font-weight:bold;
-    font-weight: 800;
-    font-family: Arial;
-}
-.help {
-    cursor: help;
-    border-bottom: 1px dotted gray;
 }
 .menu {
    padding: 10px;
@@ -51,9 +111,9 @@ h1,h2,h3,h4,h5,h6,h7 {
             border: 0;
             font-size: 16px;
             padding: 3px;
-            color: #fdfdfd;
-            font-family: Calibri;
-            background-color: #0C0C0C;
+            color: #ffffff;
+            font-family: Arial;
+            background-color: #282828;
             border-radius: 4px 4px 0px 0px;
         }
         select.episodes {
@@ -116,15 +176,4 @@ table.releases {
         -webkit-transition: background-color 200ms, color 200ms;
         -ms-transition: background-color 200ms, color 200ms;
     }
-}
-span.nav {
-    color: #337ab7;
-    margin: 10px;
-    cursor: pointer;
-}
-span.next {
-    margin-right: 20px;
-}
-div.section {
-    margin: 20px;
 }

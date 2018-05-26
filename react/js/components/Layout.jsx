@@ -6,9 +6,9 @@ export default class Layout extends React.Component {
   render() {
     return (
       <div>
-        <div className="menu">
+        <div className="topnav">
           <a href="/#/">Home</a>
-          <a href="/#/watch">Watch</a>
+          <a href="/#/Watch">Watch</a>
         </div>
         {this.props.children}
       </div>
