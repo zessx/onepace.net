@@ -43,7 +43,7 @@ export default class About extends React.Component {
                 </ul>
                 <hr/>
 
-                <iframe src="https://discordapp.com/widget?id=229653982530764800&theme=dark" width="350px" height="500px" allowtransparency="true" frameborder="0"></iframe>
+                <center><iframe src="https://discordapp.com/widget?id=229653982530764800&theme=dark" width="350px" height="500px" allowtransparency="true" border></iframe></center>
               </div>
         </div>
     </div>

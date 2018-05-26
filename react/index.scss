@@ -2,7 +2,6 @@ body {
 	font-family: Arial;
 	font-size: 15px;
     background: #282a99;
-    /*background-image: "assets/logo.png";*/
     color: #ffffff;
 }
 * {
@@ -12,42 +11,52 @@ body {
     text-align: center;
 }
 .topnav {
-    background-color: #383838;
+    background-color: #282828;
     border: 1px solid white;
-    border-radius: 5px;
+    border-radius: 20px;
     overflow: hidden;
-	padding: 3px;
+	padding: 5px;
 }
 .topnav a {
     float: left;
     color: #ffffff;
     text-align: center;
-    padding: 12px 13px;
+    padding: 10px 10px;
     text-decoration: none;
     font-size: 17px;
 }
 .topnav a:hover {
-    background-color: #282828;
+    background-color: #484848;
     color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 30px;
 }
 ul{
     list-style-type: none;
 }
+li {
+    padding: 5px;
+}
 li a {
 	color: #ffffff;
-	text-decoration: none;
+    text-decoration: none;
+}
+li a:hover {
+    color: #000000;
+    background-color: #484848;
+    border: 1px solid #ffffff;
+    padding: 3px;
+    border-radius: 5px;
 }
 .main {   
     float: left;
     width: 75%;
-    background-color: #282828;
-    border: 1px solid #ffffff;
-    border-radius: 5px;
 }
 .side {
     float: left;
     width: 25%;
     padding-left: 15px;
+    padding-right: 15px;
 }
 .row:after {
     content: "";
@@ -58,7 +67,7 @@ li a {
     background-color: #282828;
     padding: 15px;
     border: 1px solid #ffffff;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 @media screen and (max-width: 800px) {
     .main, .side {   
