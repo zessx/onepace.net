@@ -11,7 +11,8 @@ import "babel-polyfill";
 import Layout from "./Layout";
 import Watch from "./Watch";
 import About from "./About";
-import ReleaseList from "./ReleaseList";
+import Torrents from "./Torrents";
+import Side from './Side';
 
 export default class Index extends React.Component {
   componentDidMount() {
@@ -21,12 +22,10 @@ export default class Index extends React.Component {
     return (
       <div>
         <Layout>
-          <div className="header">
-            <div className="logo">
-              <img src="assets/Logo.png" />
-            </div>
+          <div className="row">
+            <Watch location={this.props.location} />
+            <Side />
           </div>
-          <About />
         </Layout>
       </div>
     );
@@ -35,9 +34,10 @@ export default class Index extends React.Component {
 
 ReactDOM.render(
   <Router history={hashHistory}>
-    <Route path="/">
+    <Route path="/(?episode=:episode)">
       <IndexRoute component={Index} />
-      <Route name="watch" path="/watch(?episode=:episode)" component={Watch} />
+      <Route name="torrents" path="/torrents" component={Torrents} />
+      <Route name="about" path="/about" component={About} />
     </Route>
   </Router>,
   document.getElementById("reactentry")

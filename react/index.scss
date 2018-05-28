@@ -1,41 +1,40 @@
 body {
-    font-family: Arial;
+    font-family: Calibri;
     font-size: 15px;
     color: #ffffff;
-    background-color: #D7CB9E;
-    padding: 15px;
+    background-color: #293848;
+    padding: 0px;
+    margin: 0px;
 }
 * {
     box-sizing: border-box;
 }
 .topnav {
-    background-color: #591719;
-    border-radius: 20px;
-    border: 3px solid #000000;
+    background-color: #313131;
     overflow: hidden;
-    margin-left: 40px;
-    margin-right: 40px;
-	padding: 3px;
+    margin-bottom: 10px;
 }
 .topnav img {
     float: left;
     padding: 10px;
 }
-.topnav a {
+.topnav .link {
     float: left;
     color: #ffffff;
     text-align: center;
-    padding: 10px 10px;
+    padding: 20px 0;
+    margin: 0 14px;
     text-decoration: none;
     font-size: 17px;
+    font-weight: bold;
 }
-.topnav a:hover {
-    background-color: #D7CB9E;
-    color: #000000;
-    border: 1px solid #ffffff;
-    border-radius: 30px;
+.topnav .link:nth-child(2) {
+    margin-left: 5px;
 }
-ul{
+.topnav .link:hover {
+    color: #d2d2d2;
+}
+ul {
     list-style-type: none;
 }
 li {
@@ -64,10 +63,10 @@ li a:hover {
 }
 .row {
     background-color: #161618;
-    padding: 40px;
+    padding: 20px;
     margin-left: 40px;
     margin-right: 40px;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 .row:after {
     content: "";
@@ -76,8 +75,6 @@ li a:hover {
 }
 .card {
     background-color: #18345C;
-    border: 3px solid #591719;
-    border-radius: 20px;
     padding: 15px;
 }
 @media screen and (max-width: 800px) {
@@ -92,12 +89,9 @@ li a:hover {
         width: 100%;
     }
 }
-.logo {
-    text-align: center;
-    img {
-        width: 20%;
-        height: 20%;
-    }
+img.logo {
+    height: 70px;
+    margin: -6px 13px;
 }
 .menu {
    padding: 10px;
@@ -118,29 +112,26 @@ li a:hover {
         }
     }
 }
-.watch-container {
-    .top {
-        span.episodes {
-            margin: 10px;
-        }
-        span.chapters {
-            margin: 10px;
-        }
-        select {
-            border: 0;
-            font-size: 16px;
-            padding: 3px;
-            color: #ffffff;
-            font-family: Arial;
-            background-color: #282828;
-            border-radius: 4px 4px 0px 0px;
-        }
-        select.episodes {
-            margin: 0px 3px 0px 2px;
-        }
+.watch-top {
+    span.episodes {
+        margin: 10px;
+    }
+    span.chapters {
+        margin: 10px;
+    }
+    select {
+        border: 0;
+        font-size: 16px;
+        padding: 3px;
+        color: #ffffff;
+        font-family: Arial;
+        background-color: #282828;
+        border-radius: 4px 4px 0px 0px;
+    }
+    select.episodes {
+        margin: 0px 3px 0px 2px;
     }
 }
-
 .magnet, .torrent, .animetosho {
     color: #337ab7;
     text-decoration: none;
@@ -157,8 +148,9 @@ li a:hover {
 }
 
 .video-player {
-    width:100%;
-    height: 90%;
+    width: 100%;
+    height: 68%;
+    background-color: #282828;
 }
 .darkmode{
     color: white;
@@ -174,25 +166,29 @@ table.releases {
     width: 100%;
     tr:hover {
         background-color: #dddddd;
+        color: black;
     }
     td {
         margin: 0;
         padding: 0 10px 0 10px;
+        a {
+            color: white;
+            text-decoration: none;
+            padding: 2px;
+            cursor: pointer;
+        }
+        a:hover {
+            color: black;
+        }
     }
-    td.name {
-        cursor: default;
-    }
-    td a {
-        text-decoration: none;
-        color: black;
-        text-decoration: none;
-        padding: 2px;
-    }
-    td a:hover {
-        background-color:#337ab7;
-        color: white;
-        transition: background-color 200ms, color 200ms;
-        -webkit-transition: background-color 200ms, color 200ms;
-        -ms-transition: background-color 200ms, color 200ms;
-    }
+}
+
+.bottom-shadow {
+    -webkit-box-shadow: 0 5px 11px -4px black;
+    -moz-box-shadow: 0 5px 11px -4px black;
+    box-shadow: 0 5px 11px -4px black;
+}
+
+.h2 {
+    margin: 0;
 }
