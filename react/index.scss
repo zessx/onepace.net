@@ -10,12 +10,16 @@ body {
 }
 .topnav {
     background-color: #591719;
-    border: 1px solid white;
     border-radius: 20px;
+    border: 3px solid #000000;
     overflow: hidden;
     margin-left: 40px;
     margin-right: 40px;
 	padding: 3px;
+}
+.topnav img {
+    float: left;
+    padding: 10px;
 }
 .topnav a {
     float: left;
@@ -63,7 +67,6 @@ li a:hover {
     padding: 40px;
     margin-left: 40px;
     margin-right: 40px;
-    border: 1px solid #ffffff;
     border-radius: 20px;
 }
 .row:after {
@@ -73,7 +76,7 @@ li a:hover {
 }
 .card {
     background-color: #18345C;
-    border: 1px solid #ffffff;
+    border: 3px solid #591719;
     border-radius: 20px;
     padding: 15px;
 }
