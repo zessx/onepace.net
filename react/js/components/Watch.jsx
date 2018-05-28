@@ -13,6 +13,7 @@ export default class Watch extends React.Component {
     darkMode :false
   };
   componentDidMount() {
+    document.title = "One Pace | Watch";
     var darkMode = localStorage.getItem("darkMode");
     if(darkMode == null){
       darkMode = false;
