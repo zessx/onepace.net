@@ -16,7 +16,6 @@ $rows = $context->query(
     ." and ((episodes.scheduled_for is null or episodes.scheduled_for <= CURDATE())"
     ." and (episodes.deprecated_on is null or episodes.deprecated_on > CURDATE()))"
     ." group by arc_torrent_hash, torrent_hash"
-    ." order by episodes.id desc"
 .";");
 $context->disconnect();
 $data = [];
@@ -45,5 +44,9 @@ foreach($rows as $row) {
         'ageDays' => $torrent['age_days'],
     ];
 }
+function usortf($a, $b) {
+    return $a['createddate'] < $b['createddate'];
+}
+usort($data['releases'], "usortf");
 echo json_encode($data);
 ?>
