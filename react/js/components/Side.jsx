@@ -12,7 +12,7 @@ export default class Side extends Component {
         </ul>
         <hr />
         <center>
-          <iframe src="https://discordapp.com/widget?id=229653982530764800&theme=dark" style={{ border: 'none', width: '95%', height: '70%' }} width="95%" height="70%"></iframe>
+          <iframe src="https://discordapp.com/widget?id=229653982530764800&theme=dark" style={{ border: 'none', width: '100%', height: '70%' }}></iframe>
         </center>
       </div>
     );
