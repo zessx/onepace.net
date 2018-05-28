@@ -9,7 +9,7 @@ export default class ReleaseList extends React.Component {
 
   componentDidMount() {
     NetworkHandler.request("/getreleases.php", {}, (responseJson) => {
-      let releases = responseJson.releases.sort((a, b) => a.createddate < b.createddate);
+      let releases = responseJson.releases;
       releases = this.props.newOnly ? releases.filter((i) => i.ageDays <= 30) : releases;
       this.setState({ "releases": releases });
     }, null);

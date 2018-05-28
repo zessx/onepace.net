@@ -2,6 +2,7 @@ import React from "react";
 import NetworkHandler from "../NetworkHandler";
 import Layout from "./Layout";
 import FontAwesome from "react-fontawesome";
+import { browserHistory } from 'react-router';
 
 export default class Watch extends React.Component {
   state = {
@@ -12,6 +13,7 @@ export default class Watch extends React.Component {
     darkMode :true
   };
   componentDidMount() {
+    document.title = "One Pace | Watch";
     var darkMode = localStorage.getItem("darkMode");
     if(darkMode == null){
       darkMode = false;
@@ -36,6 +38,9 @@ export default class Watch extends React.Component {
         [selectedArc] = arcs;
         [selectedEpisode] = episodes.filter((i) => i.arcId == selectedArc.id);
       }
+      if (selectedEpisode != null) {
+        browserHistory.push('/#/watch?episode=' + selectedEpisode.id);
+      }
       this.setState({
         "selectedArc": selectedArc,
         "selectedEpisode": selectedEpisode,
@@ -51,6 +56,7 @@ export default class Watch extends React.Component {
       [selectedArc] = this.state.arcs.filter((i) => i.id === arcId);
       [selectedEpisode] = this.state.episodes.filter((i) => i.arcId == arcId);
       localStorage.setItem("watchSelectedEpisodeId", selectedEpisode.id);
+      browserHistory.push('/#/watch?episode=' + selectedEpisode.id);
     }
     this.setState({
       "selectedArc": selectedArc,
@@ -66,6 +72,7 @@ export default class Watch extends React.Component {
       "selectedEpisode": selectedEpisode,
       "selectedArc": selectedArc,
     });
+    browserHistory.push('/#/watch?episode=' + episodeId);
     this.videoRef.load();
   }
   nav = (dir) => {

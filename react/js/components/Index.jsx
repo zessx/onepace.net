@@ -14,6 +14,9 @@ import About from "./About";
 import ReleaseList from "./ReleaseList";
 
 export default class Index extends React.Component {
+  componentDidMount() {
+    document.title = "One Pace | Home";
+  }
   render() {
     return (
       <div>
