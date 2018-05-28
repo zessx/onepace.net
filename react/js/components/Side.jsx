@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class Side extends Component {
   render() {
     return (
-      <div className="side card">
+      <div className="side">
         <h2>Links</h2>
         <ul>
           <li><a target="_blank" rel="noopener noreferrer" href="http://forums.arlongpark.net/showthread.php?t=38681">Arlong Park Forums Thread</a></li>

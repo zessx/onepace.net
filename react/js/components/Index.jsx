@@ -12,7 +12,6 @@ import Layout from "./Layout";
 import Watch from "./Watch";
 import About from "./About";
 import Torrents from "./Torrents";
-import Side from './Side';
 
 export default class Index extends React.Component {
   componentDidMount() {
@@ -22,7 +21,6 @@ export default class Index extends React.Component {
     return (
       <div>
         <Layout>
-          <Side />
           <Watch location={this.props.location} />
         </Layout>
       </div>

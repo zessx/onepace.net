@@ -17,7 +17,7 @@ export default class Torrents extends React.Component {
     return (
       <div>
         <Layout>
-          <div className="row">
+          <div className="card">
             <h2 className="h2">Torrents</h2>
             <hr />
             <table className="releases">

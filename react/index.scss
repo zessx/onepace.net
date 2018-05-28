@@ -11,8 +11,9 @@ body {
 }
 .topnav {
     background-color: #313131;
-    overflow: hidden;
-    margin-bottom: 10px;
+    width: 100%;
+    display: inline-block;
+    margin-bottom: -1000px;
 }
 .topnav img {
     float: left;
@@ -56,32 +57,21 @@ li a:hover {
     width: 75%;
 }
 .side {
+    background-color: #232323;
     border-left: 4px solid #395d9e;
     float: left;
     width: 16%;
-    padding-left: 25px;
-    padding-right: 10px;
-}
-.row {
-    background-color: #161618;
-    padding: 20px;
-    margin-left: 40px;
-    margin-right: 40px;
-    border-radius: 10px;
-}
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
+    padding: 57px 15px;
+    height: 100%;
 }
 .card {
+    float: left;
     background-color: #232323;
     padding: 0 15px;
-    height: 100%;
-    margin-right: 10px;
-    margin-top: 1px;
-    background-color: #18345C;
+    margin: 80px 0 0 20px;
     padding: 15px;
+    width: 82%;
+    border-radius: 4px;
 }
 @media screen and (max-width: 800px) {
     .main, .side {
