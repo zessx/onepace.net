@@ -5,7 +5,11 @@ include_once 'logger.php';
 class db_context {
     private $connection;
     function connect() {
-        $this->connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT, DB_SOCKET);
+        $socket = null;
+        if(!DEBUG) {
+            $socket = DB_SOCKET;
+        }
+        $this->connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT, $socket);
         if (mysqli_connect_errno()) {
             log_error('Failed to connect to MySQL: ' . mysqli_connect_error());
         }
