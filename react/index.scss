@@ -1,6 +1,6 @@
 body {
-	font-family: Arial;
-	font-size: 15px;
+    font-family: Arial;
+    font-size: 15px;
     color: #ffffff;
     background-color: #D7CB9E;
     padding: 15px;
@@ -42,7 +42,7 @@ li {
     padding: 5px;
 }
 li a {
-	color: #ffffff;
+    color: #ffffff;
     text-decoration: none;
 }
 li a:hover {
@@ -52,7 +52,7 @@ li a:hover {
     padding: 3px;
     border-radius: 5px;
 }
-.main {   
+.main {
     float: left;
     width: 75%;
 }
@@ -81,7 +81,7 @@ li a:hover {
     padding: 15px;
 }
 @media screen and (max-width: 800px) {
-    .main, .side {   
+    .main, .side {
         width: 100%;
         padding: 0;
     }
@@ -102,7 +102,7 @@ li a:hover {
 .menu {
    padding: 10px;
 }
-.menu a{
+.menu a {
     padding:10px;
 }
 .posts {

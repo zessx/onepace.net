@@ -21,11 +21,11 @@ export default class Index extends React.Component {
     return (
       <div>
         <Layout>
-        <div className="header">
-          <div className="logo">
-            <img src="assets/Logo.png" />
+          <div className="header">
+            <div className="logo">
+              <img src="assets/Logo.png" />
+            </div>
           </div>
-        </div>
           <About />
         </Layout>
       </div>
