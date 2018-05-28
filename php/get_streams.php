@@ -13,9 +13,8 @@ $rows = $context->query("select episodes.id,".
 "episodes.title,".
 "episodes.chapters,".
 "episodes.episodes,".
-"episodes.stream_id,".
 "episodes.torrent_hash,".
-"episodes.is_released,".
+"episodes.released_date,".
 "episodes.part,".
 "episodes.status,".
 "arcs.id as arc_id,".
@@ -27,7 +26,7 @@ $rows = $context->query("select episodes.id,".
 "arcs.released as arc_released ".
 "from episodes ".
 "right join arcs on arcs.id = episodes.arc_id ".
-"where arcs.hidden = false and ((episodes.scheduled_for is null or episodes.scheduled_for <= CURDATE()) and (episodes.deprecated_on is null or episodes.deprecated_on > CURDATE()));");
+"where arcs.hidden = false;");
 $context->disconnect();
 $data = [];
 $arc_id = -1;
@@ -66,7 +65,7 @@ foreach($rows as $row) {
         'chapters' => scr_value($row, 'chapters'),
         'episodes' => scr_value($row, 'episodes'),
         'stream_id' => scr_value($row, 'stream_id'),
-        'isReleased' => scr_value($row, 'is_released') == 1,
+        'isReleased' => isset($row['released_date']) && strtotime($row['released_date']) <= time(),
         'status' => scr_value($row, 'status'),
         'part' => scr_value($row, 'part'),
         'arcId' => scr_value($row, 'arc_id'),

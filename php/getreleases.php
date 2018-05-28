@@ -8,13 +8,11 @@ $torrents = TorrentUtils::getTorrents();
 $context = new db_context();
 $context->connect();
 $rows = $context->query(
-    "select episodes.crc32, episodes.torrent_hash, arcs.torrent_hash as arc_torrent_hash from episodes"
+    "select episodes.crc32, episodes.torrent_hash, episodes.released_date, arcs.torrent_hash as arc_torrent_hash from episodes"
     ." right join arcs on arcs.id = episodes.arc_id "
     ." where"
     ." arcs.hidden = false"
-    ." and episodes.is_released = 1"
-    ." and ((episodes.scheduled_for is null or episodes.scheduled_for <= CURDATE())"
-    ." and (episodes.deprecated_on is null or episodes.deprecated_on > CURDATE()))"
+    ." and episodes.released_date is not null and episodes.released_date <= CURDATE()"
     ." group by arc_torrent_hash, torrent_hash"
 .";");
 $context->disconnect();
@@ -35,13 +33,17 @@ foreach($rows as $row) {
         }
     }
     $torrent_hashes[$hash] = $torrent;
+    $createddate = strtotime($row['released_date']);
+    $created = date('Y-m-d H:i:s', $createddate);
+    $interval = (new DateTime())->diff(new DateTime($created));
+    $days = $interval->days;
     $data["releases"][] = [
         'crc32' => scr_value($row, 'crc32'),
         'name' => $torrent['display_name'],
         'magnet' => $torrent['magnet'],
         'torrent' => "/torrents/" . $torrent['torrent_name'],
-        'createddate' => $torrent['created_raw'],
-        'ageDays' => $torrent['age_days'],
+        'createddate' => $createddate,
+        'ageDays' => $days,
     ];
 }
 function usortf($a, $b) {
