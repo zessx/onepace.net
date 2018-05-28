@@ -12,7 +12,6 @@ body {
 .topnav {
     background-color: #313131;
     overflow: hidden;
-    margin-bottom: 10px;
 }
 .topnav img {
     float: left;
@@ -56,9 +55,9 @@ li a:hover {
     width: 75%;
 }
 .side {
+    border-left: 4px solid #395d9e;
     float: left;
-    width: 25%;
-    padding-left: 25px;
+    width: 16%;
     padding-right: 10px;
 }
 .row {
@@ -74,8 +73,11 @@ li a:hover {
     clear: both;
 }
 .card {
-    background-color: #18345C;
-    padding: 15px;
+    background-color: #232323;
+    padding: 0 15px;
+    height: 100%;
+    margin-right: 10px;
+    margin-top: 1px;
 }
 @media screen and (max-width: 800px) {
     .main, .side {

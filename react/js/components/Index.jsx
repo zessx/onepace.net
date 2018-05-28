@@ -22,10 +22,8 @@ export default class Index extends React.Component {
     return (
       <div>
         <Layout>
-          <div className="row">
-            <Watch location={this.props.location} />
-            <Side />
-          </div>
+          <Side />
+          <Watch location={this.props.location} />
         </Layout>
       </div>
     );
