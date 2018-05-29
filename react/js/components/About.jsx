@@ -22,7 +22,7 @@ export default class About extends React.Component {
                <h2>One Pace Team</h2>
                <ul className="vl">
                   <li>Sewil<span style={{
-                     "marginLeft": "58px",
+                     "marginLeft": "56px",
                      }}>Editor</span>
                   </li>
                   <li>Galaxy 9000<span style={{
@@ -38,24 +38,24 @@ export default class About extends React.Component {
                      }} className="help" title="Finds the soundtracks that plays in the anime, and manages the One Piece Track List (http://onepiecetracklist.com), a megalist of the timestamps for the released soundtracks that have ever occured in the One Piece Anime.">Soundtracker</span>
                   </li>
                   <li>Datenshi<span style={{
-                     "marginLeft": "34px",
+                     "marginLeft": "33px",
                      }} className="help" title="Makes our custom infoboxes and title cards and occasionally edits out non-canon characters from scenes or shots.">Timer, Graphics</span>
                   </li>
                   <li>Grug<span style={{
-                     "marginLeft": "59px",
+                     "marginLeft": "56px",
                      }}>Quality Checker</span>
                   </li>
                   <li>Pepperjack<span style={{
                      "marginLeft": "18px",
                      }}>Quality Checker</span>
                   </li>
-                  <li>KaitouYahiko<span style={{
+                  <li>Kaitou Yahiko<span style={{
                      "marginLeft": "7px",
                      }}>Karaoke Effects, Graphics</span>
                   </li>
                   <li>Rael<span style={{
                      "marginLeft": "61px",
-                     }}>Quality Checker</span>
+                     }}>Editor</span>
                   </li>
                   <li>Lance<span style={{
                      "marginLeft": "52px",
@@ -63,7 +63,7 @@ export default class About extends React.Component {
                   </li>
                   <li>Jojoejoe3<span style={{
                     "marginLeft": "28px",
-                  }}>Website</span>
+                  }}>Webdeveloper</span>
                   </li>
                </ul>
                <hr />
@@ -72,7 +72,7 @@ export default class About extends React.Component {
               <h2>FAQ</h2>
               <ul className="vl">
                 <li>Q: Are you going to edit or are you currently editing <i>blank episode</i>?</li>
-                <li>A: Please look at the arcs in the main page, the ones marked incomplete are still in progress and notcurrently finished. However for any arcs not started we cannot make any promises they will be completed.</li>
+                <li>A: Please look at the arcs in the main page, the ones marked incomplete are still in progress and not currently finished. However for any arcs not started we cannot make any promises they will be completed.</li>
                 <li>Q: Some chapters in between are missing, where are they?</li>
                 <li>A: We don't work in sequential order, we prioritize arcs that need it most or ones we think would be fun to edit.</li>
                 <li>Q: What editing software do you use?</li>

@@ -13,7 +13,7 @@ body {
     background-color: #313131;
     width: 100%;
     display: inline-block;
-    margin-bottom: -1000px;
+    position: absolute;
 }
 .topnav img {
     float: left;
@@ -52,7 +52,6 @@ li a:hover {
     padding: 3px;
 }
 .main {
-    float: left;
     width: 75%;
 }
 .side {
