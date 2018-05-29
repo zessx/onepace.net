@@ -84,10 +84,6 @@ export default class Watch extends React.Component {
   }
   render() {
     const { selectedArc, selectedEpisode, arcs } = this.state;
-    const episodes = selectedEpisode != null && selectedEpisode.episodes != null && selectedEpisode.episodes.length > 0 ? "Episodes: " + selectedEpisode.episodes : "";
-    const chapters = selectedEpisode != null && selectedEpisode.chapters != null && selectedEpisode.chapters.length > 0 ? "Chapters: " + selectedEpisode.chapters : "";
-    const torrent = selectedArc != null && selectedArc.torrent.length ? selectedArc.torrent : selectedEpisode != null && selectedEpisode.torrent.length ? selectedEpisode.torrent : null;
-    const magnet = selectedArc != null && selectedArc.magnet.length ? selectedArc.magnet : selectedEpisode != null && selectedEpisode.magnet.length ? selectedEpisode.magnet : null;
     const animetoshoq = selectedArc != null && selectedEpisode == null ? "One Pace " + selectedArc.title : selectedEpisode != null ? selectedEpisode.crc32 : null;
     return (
       <div className="card">
@@ -127,22 +123,9 @@ export default class Watch extends React.Component {
               })
             }
           </select>
-          <span className="episodes">{episodes}</span>
-          <span className="chapters">{chapters}</span>
-
           <span className="nav prev" className="prev-ep" onClick={() => this.nav("prev")}>&nbsp; &laquo; &nbsp;</span>
           <span className="nav next" className="next-ep" onClick={() => this.nav("next")}>&nbsp; &raquo; &nbsp;</span>
-          {torrent != null &&
-            <span>
-              <a className="torrent" href={torrent}>
-                <FontAwesome name="download" /> Torrent
-                </a>
-              <a className="magnet" href={magnet}>
-                <FontAwesome name="magnet" /> Magnet
-                </a>
-            </span>
-          }
-          </center>
+        </center>
         </div>
         <video ref={(i) => this.videoRef = i} className="video-player" controls poster="assets/logo-poster-dark.png">
           {

@@ -1,10 +1,8 @@
 <?php
 header('Content-Type: application/json; charset=utf-8;');
 require_once 'db_context.php';
-require_once 'torrent_utils.php';
 include_once 'string_utils.php';
 include_once 'secure_indexer.php';
-$torrents = TorrentUtils::getTorrents();
 $context = new db_context();
 $context->connect();
 $rows = $context->query("select episodes.id,".
@@ -31,31 +29,15 @@ $context->disconnect();
 $data = [];
 $arc_id = -1;
 foreach($rows as $row) {
-    $arc_magnet = '';
-    $arc_torrent = '';
-    $episode_magnet = '';
-    $episode_torrent = '';
     if($arc_id != scr_value($row, 'arc_id')) {
         $arc_id = scr_value($row, 'arc_id');
-        $torrent = TorrentUtils::findTorrent($torrents, scr_value($row, 'arc_torrent_hash'));
-        if($torrent != null) {
-            $arc_magnet = $torrent['magnet'];
-            $arc_torrent = '/torrents/' . $torrent['torrent_name'];
-        }
         $data['arcs'][] = [
             'id' => scr_value($row, 'arc_id'),
             'title' => scr_value($row, 'arc_title'),
             'chapters' => scr_value($row, 'arc_chapters'),
             'resolution' => scr_value($row, 'arc_resolution'),
             "released" => scr_value($row, "arc_released") == 1,
-            'magnet' => $arc_magnet,
-            'torrent' => $arc_torrent,
         ];
-    }
-    $torrent = TorrentUtils::findTorrent($torrents, scr_value($row, 'torrent_hash'));
-    if($torrent != null) {
-        $episode_magnet = $torrent['magnet'];
-        $episode_torrent = '/torrents/' . $torrent['torrent_name'];
     }
     $data['episodes'][] = [
         'id' => scr_value($row, 'id'),
@@ -69,8 +51,6 @@ foreach($rows as $row) {
         'status' => scr_value($row, 'status'),
         'part' => scr_value($row, 'part'),
         'arcId' => scr_value($row, 'arc_id'),
-        'magnet' => $episode_magnet,
-        'torrent' => $episode_torrent,
     ];
 }
 function usortchapters($a, $b) {
