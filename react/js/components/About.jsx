@@ -73,7 +73,7 @@ export default class About extends React.Component {
               <ul className="vl">
                 <li>Q: Are you going to edit or are you currently editing <i>blank episode</i>?</li>
                 <li>A: Please look at the arcs in the main page, the ones marked incomplete are still in progress and notcurrently finished. However for any arcs not started we cannot make any promises they will be completed.</li>
-                <li>Q. Some chapters in between are missing, where are they?</li>
+                <li>Q: Some chapters in between are missing, where are they?</li>
                 <li>A: We don't work in sequential order, we prioritize arcs that need it most or ones we think would be fun to edit.</li>
                 <li>Q: What editing software do you use?</li>
                 <li>A: Vegas Pro 14.0.</li>

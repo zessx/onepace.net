@@ -36,5 +36,5 @@ ReactDOM.render(
       <Route name="about" path="/about" component={About} />
     </Route>
   </Router>,
-  document.getElementById("reactentry")
+   document.getElementById("reactentry")
 );
