@@ -20,7 +20,7 @@ export default class Torrents extends React.Component {
           <div className="card">
             <h2 className="h2">Torrents</h2>
             <hr />
-            <table className="releases">
+            <table className="releases vl">
               <tbody>
                 {
                   this.state.releases.map((i) => {
