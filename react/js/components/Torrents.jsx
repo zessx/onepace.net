@@ -8,8 +8,8 @@ export default class Torrents extends React.Component {
     "releases": [],
   }
   componentDidMount() {
+    document.title = "One Pace | Torrents";
     NetworkHandler.request("/getreleases.php", {}, (responseJson) => {
-      document.title = "One Pace | Torrents";
       let releases = responseJson.releases;
       this.setState({ "releases": releases });
     }, null);
