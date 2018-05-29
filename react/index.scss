@@ -113,12 +113,13 @@ img.logo {
         margin: 10px;
     }
     select {
-        border: 0;
+        border: 1px;
         font-size: 16px;
         padding: 3px;
+        margin: 10px;
         color: #ffffff;
         font-family: Arial;
-        background-color: #282828;
+        background-color: #232323;
         border-radius: 4px 4px 0px 0px;
     }
     select.episodes {
@@ -126,7 +127,7 @@ img.logo {
     }
 }
 .magnet, .torrent, .animetosho {
-    color: #337ab7;
+    color: #ffffff;
     text-decoration: none;
     margin-left: 16px;
 
@@ -184,4 +185,21 @@ table.releases {
 
 .h2 {
     margin: 0;
+}
+.prev-ep {
+    background-color: #293848;
+    color: #ffffff;
+    border-radius: 10px;
+    padding-bottom: 2px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.next-ep {
+    background-color: #293848;
+    color: #ffffff;
+    border-radius: 10px;
+    padding-bottom: 2px;
+    margin: 5px;
+    cursor: pointer;
 }

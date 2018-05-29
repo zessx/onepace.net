@@ -127,8 +127,11 @@ export default class Watch extends React.Component {
               })
             }
           </select>
-          <span className="nav prev" onClick={() => this.nav("prev")}>&lt; Previous</span>
-          <span className="nav next" onClick={() => this.nav("next")}>Next &gt;</span>
+          <span className="episodes">{episodes}</span>
+          <span className="chapters">{chapters}</span>
+          
+          <span className="nav prev" className="prev-ep" onClick={() => this.nav("prev")}>&nbsp; &laquo; &nbsp;</span>
+          <span className="nav next" className="next-ep" onClick={() => this.nav("next")}>&nbsp; &raquo; &nbsp;</span>
           {torrent != null &&
             <span>
               <a className="torrent" href={torrent}>
@@ -144,8 +147,7 @@ export default class Watch extends React.Component {
               <FontAwesome name="link" /> Anime Tosho
               </a>
           }
-          <span className="episodes">{episodes}</span>
-          <span className="chapters">{chapters}</span>
+          
         </div>
         <video ref={(i) => this.videoRef = i} className="video-player" controls poster="assets/logo-poster.png">
           {
