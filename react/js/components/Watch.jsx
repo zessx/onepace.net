@@ -91,7 +91,7 @@ export default class Watch extends React.Component {
     const animetoshoq = selectedArc != null && selectedEpisode == null ? "One Pace " + selectedArc.title : selectedEpisode != null ? selectedEpisode.crc32 : null;
     return (
       <div className="card">
-        <div className="watch-top">
+        <div className="watch-top"><center>
           <select
             className="arcs"
             value={selectedArc == null ? 0 : selectedArc.id}
@@ -129,7 +129,7 @@ export default class Watch extends React.Component {
           </select>
           <span className="episodes">{episodes}</span>
           <span className="chapters">{chapters}</span>
-          
+
           <span className="nav prev" className="prev-ep" onClick={() => this.nav("prev")}>&nbsp; &laquo; &nbsp;</span>
           <span className="nav next" className="next-ep" onClick={() => this.nav("next")}>&nbsp; &raquo; &nbsp;</span>
           {torrent != null &&
@@ -142,12 +142,7 @@ export default class Watch extends React.Component {
                 </a>
             </span>
           }
-          {animetoshoq != null &&
-            <a target="_blank" rel="noopener noreferrer" className="animetosho" href={"https://animetosho.org/search?q=" + animetoshoq}>
-              <FontAwesome name="link" /> Anime Tosho
-              </a>
-          }
-          
+          </center>
         </div>
         <video ref={(i) => this.videoRef = i} className="video-player" controls poster="assets/logo-poster.png">
           {
