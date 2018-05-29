@@ -9,16 +9,10 @@ export default class Watch extends React.Component {
     "arcs": [],
     "episodes": [],
     "selectedArc": null,
-    "selectedEpisode": null,
-    darkMode :false
+    "selectedEpisode": null
   };
   componentDidMount() {
-    document.title = "One Pace | Watch";
-    var darkMode = localStorage.getItem("darkMode");
-    if(darkMode == null){
-      darkMode = false;
-    }
-    this.setState({darkMode});
+    console.log(this.props);
     NetworkHandler.request("/get_streams.php", {}, (response) => {
       const {
         arcs,
@@ -39,7 +33,7 @@ export default class Watch extends React.Component {
         [selectedEpisode] = episodes.filter((i) => i.arcId == selectedArc.id);
       }
       if (selectedEpisode != null) {
-        browserHistory.push('/#/watch?episode=' + selectedEpisode.id);
+        browserHistory.push('/#/?episode=' + selectedEpisode.id);
       }
       this.setState({
         "selectedArc": selectedArc,
@@ -56,7 +50,7 @@ export default class Watch extends React.Component {
       [selectedArc] = this.state.arcs.filter((i) => i.id === arcId);
       [selectedEpisode] = this.state.episodes.filter((i) => i.arcId == arcId);
       localStorage.setItem("watchSelectedEpisodeId", selectedEpisode.id);
-      browserHistory.push('/#/watch?episode=' + selectedEpisode.id);
+      browserHistory.push('/#/?episode=' + selectedEpisode.id);
     }
     this.setState({
       "selectedArc": selectedArc,
@@ -72,7 +66,7 @@ export default class Watch extends React.Component {
       "selectedEpisode": selectedEpisode,
       "selectedArc": selectedArc,
     });
-    browserHistory.push('/#/watch?episode=' + episodeId);
+    browserHistory.push('/#/?episode=' + episodeId);
     this.videoRef.load();
   }
   nav = (dir) => {
@@ -90,85 +84,54 @@ export default class Watch extends React.Component {
   }
   render() {
     const { selectedArc, selectedEpisode, arcs } = this.state;
-    var darkMode = this.state.darkMode;
-    const episodes = selectedEpisode != null && selectedEpisode.episodes != null && selectedEpisode.episodes.length > 0 ? "Episodes: " + selectedEpisode.episodes : "";
-    const chapters = selectedEpisode != null && selectedEpisode.chapters != null && selectedEpisode.chapters.length > 0 ? "Chapters: " + selectedEpisode.chapters : "";
-    const torrent = selectedArc != null && selectedArc.torrent.length ? selectedArc.torrent : selectedEpisode != null && selectedEpisode.torrent.length ? selectedEpisode.torrent : null;
-    const magnet = selectedArc != null && selectedArc.magnet.length ? selectedArc.magnet : selectedEpisode != null && selectedEpisode.magnet.length ? selectedEpisode.magnet : null;
     const animetoshoq = selectedArc != null && selectedEpisode == null ? "One Pace " + selectedArc.title : selectedEpisode != null ? selectedEpisode.crc32 : null;
     return (
-      <div className={darkMode?"darkmode":""} style={{height:"100%"}}>
-        <Layout>
-          <div className="watch-container">
-            <iframe style={{"display": "none"}} name="magnetframe"></iframe>
-            <div className="top">
-              <select
-                className="arcs"
-                value={selectedArc == null ? 0 : selectedArc.id}
-                onChange={(e) => this.changeArc(e.target.value)}
-              >
-                {
-                  (arcs.length == 0 && <option>Loading...</option>) ||
-                  arcs.map((arc, i) => {
-                    let title = "[One Pace]";
-                    title += arc.chapters != null && arc.chapters.length > 0 ? "[" + arc.chapters + "]" : "";
-                    title += arc.title != null && arc.title.length > 0 ? " " + arc.title : " Untitled";
-                    title += arc.resolution != null && arc.resolution.length > 0 ? " [" + arc.resolution + "]" : "";
-                    title += arc.released ? "" : " (Unreleased)";
-                    return <option disabled={!arc.released} key={"arc" + i} value={arc.id}>{title}</option>;
-                  })
-                }
-              </select>
-              <select
-                className="episodes"
-                value={selectedEpisode == null ? 0 : selectedEpisode.id}
-                onChange={(e) => this.changeEpisode(e.target.value)}>
-                {
-                  (this.state.episodes.length == 0 && <option>Loading...</option>) ||
-                  this.state.episodes.filter((i) => i.arcId == selectedArc.id).map((episode, i) => {
-                    let title = "[One Pace]";
-                    title += episode.chapters != null && episode.chapters.length > 0 ? "[" + episode.chapters + "]" : "";
-                    title += episode.part != null ? " " + selectedArc.title + " " + ("00" + episode.part.toString()).slice(-2) : episode.title.length > 0 ? " " + episode.title : "";
-                    title += " [" + episode.resolution + "]";
-                    title += episode.crc32 != null && episode.crc32.length > 0 ? "[" + episode.crc32 + "]" : "";
-                    const status = episode.status.length > 0 ? " (" + episode.status + ")" : !episode.isReleased ? " (Unreleased)" : "";
-                    title += status;
-                    return <option disabled={!episode.isReleased} key={"episode" + i} value={episode.id}>{title}</option>;
-                  })
-                }
-              </select>
-              <span className="nav prev" onClick={() => this.nav("prev")}>&lt; Previous</span>
-              <span className="nav next" onClick={() => this.nav("next")}>Next &gt;</span>
-              {torrent != null &&
-                <span>
-                  <a className="torrent" href={torrent}>
-                    <FontAwesome name="download" /> Torrent
-                  </a>
-                  <a className="magnet" href={magnet}>
-                    <FontAwesome name="magnet" /> Magnet
-                  </a>
-                </span>
-              }
-              {animetoshoq != null &&
-                <a target="_blank" rel="noopener noreferrer" className="animetosho" href={"https://animetosho.org/search?q=" + animetoshoq}>
-                  <FontAwesome name="link" /> Anime Tosho
-                </a>
-              }
-              <span className="episodes">{episodes}</span>
-              <span className="chapters">{chapters}</span>
-              <span className="button" style={{padding:"10px"}} onClick={() => {
-                darkMode = !darkMode;
-                localStorage.setItem("darkMode", darkMode);
-                this.setState({darkMode});
-              }}>Toggle dark mode</span>
-            </div>
-            <video ref={(i) => this.videoRef = i} className="video-player" controls poster="assets/logo-poster.png">
-              {
-                selectedEpisode != null && <source type="video/mp4" src={"http://onepace.net/streams/" + selectedEpisode.crc32 + ".mp4"} />
-              }
-            </video>
-          </div>
-        </Layout>
+      <div className="card">
+        <div className="watch-top"><center>
+          <select
+            className="arcs"
+            value={selectedArc == null ? 0 : selectedArc.id}
+            onChange={(e) => this.changeArc(e.target.value)}
+          >
+            {
+              (arcs.length == 0 && <option>Loading...</option>) ||
+              arcs.map((arc, i) => {
+                let title = "[One Pace]";
+                title += arc.chapters != null && arc.chapters.length > 0 ? "[" + arc.chapters + "]" : "";
+                title += arc.title != null && arc.title.length > 0 ? " " + arc.title : " Untitled";
+                title += arc.resolution != null && arc.resolution.length > 0 ? " [" + arc.resolution + "]" : "";
+                title += arc.released ? "" : " (Unreleased)";
+                return <option disabled={!arc.released} key={"arc" + i} value={arc.id}>{title}</option>;
+              })
+            }
+          </select>
+          <select
+            className="episodes"
+            value={selectedEpisode == null ? 0 : selectedEpisode.id}
+            onChange={(e) => this.changeEpisode(e.target.value)}>
+            {
+              (this.state.episodes.length == 0 && <option>Loading...</option>) ||
+              this.state.episodes.filter((i) => i.arcId == selectedArc.id).map((episode, i) => {
+                let title = "[One Pace]";
+                title += episode.chapters != null && episode.chapters.length > 0 ? "[" + episode.chapters + "]" : "";
+                title += episode.part != null ? " " + selectedArc.title + " " + ("00" + episode.part.toString()).slice(-2) : episode.title.length > 0 ? " " + episode.title : "";
+                title += " [" + episode.resolution + "]";
+                title += episode.crc32 != null && episode.crc32.length > 0 ? "[" + episode.crc32 + "]" : "";
+                const status = episode.status.length > 0 ? " (" + episode.status + ")" : !episode.isReleased ? " (Unreleased)" : "";
+                title += status;
+                return <option disabled={!episode.isReleased} key={"episode" + i} value={episode.id}>{title}</option>;
+              })
+            }
+          </select>
+          <span className="nav prev" className="prev-ep" onClick={() => this.nav("prev")}>&nbsp; &laquo; &nbsp;</span>
+          <span className="nav next" className="next-ep" onClick={() => this.nav("next")}>&nbsp; &raquo; &nbsp;</span>
+        </center>
+        </div>
+        <video ref={(i) => this.videoRef = i} className="video-player" controls poster="assets/logo-poster-dark.png">
+          {
+            selectedEpisode != null && <source type="video/mp4" src={"http://onepace.net/streams/" + selectedEpisode.crc32 + ".mp4"} />
+          }
+        </video>
       </div>
     );
   }
