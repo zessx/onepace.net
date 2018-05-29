@@ -9,6 +9,7 @@ export default class Torrents extends React.Component {
   }
   componentDidMount() {
     NetworkHandler.request("/getreleases.php", {}, (responseJson) => {
+      document.title = "One Pace | Torrents";
       let releases = responseJson.releases;
       this.setState({ "releases": releases });
     }, null);
@@ -18,8 +19,7 @@ export default class Torrents extends React.Component {
       <div>
         <Layout>
           <div className="card">
-            <h2 className="h2">Torrents</h2>
-            <hr />
+            <h2>Torrents</h2>
             <table className="releases vl">
               <tbody>
                 {

@@ -39,23 +39,23 @@ export default class About extends React.Component {
                   </li>
                   <li>Datenshi<span style={{
                      "marginLeft": "34px",
-                     }} className="help" title="Makes our custom infoboxes and title cards and occasionally edits out non-canon characters from scenes or shots.">Timer, graphics</span>
+                     }} className="help" title="Makes our custom infoboxes and title cards and occasionally edits out non-canon characters from scenes or shots.">Timer, Graphics</span>
                   </li>
                   <li>Grug<span style={{
                      "marginLeft": "59px",
-                     }}>QCer</span>
+                     }}>Quality Checker</span>
                   </li>
                   <li>Pepperjack<span style={{
                      "marginLeft": "18px",
-                     }}>QCer</span>
+                     }}>Quality Checker</span>
                   </li>
                   <li>KaitouYahiko<span style={{
                      "marginLeft": "7px",
-                     }}>Karaoke Effects, graphics</span>
+                     }}>Karaoke Effects, Graphics</span>
                   </li>
                   <li>Rael<span style={{
                      "marginLeft": "61px",
-                     }}>QCer</span>
+                     }}>Quality Checker</span>
                   </li>
                   <li>Lance<span style={{
                      "marginLeft": "52px",
