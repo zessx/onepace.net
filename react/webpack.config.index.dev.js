@@ -38,14 +38,6 @@ module.exports = {
         })
       },
       {
-        test: /\.css$/,
-        include: [ path.join(__dirname + "/node_modules/react-html5video/dist", 'styles.css') ],
-        use: extractSass.extract({
-          use: ['css-loader', 'sass-loader'],
-          fallback: 'style-loader'
-        })
-      },
-      {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         include: [path.join(__dirname, 'js'), path.join(__dirname, 'node_modules/reflux-core')],
