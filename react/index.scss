@@ -107,6 +107,7 @@ img.logo {
    }
 }
 .watch-top {
+    margin: auto;
     span.episodes {
         margin: 10px;
    }
@@ -209,4 +210,14 @@ table.releases {
     left: 50%;
     margin-left: -3px;
     top: 0;
+}
+
+.releases th {
+    text-align: left;
+    padding-left: 8px;
+}
+.releases th .glyphicon {
+    font-size: 10px;
+    position: relative;
+    top: 0px;
 }
