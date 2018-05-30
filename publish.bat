@@ -1,4 +1,6 @@
+@echo off
 cd react
-webpack --config webpack.config.index.prod.js
+start /wait cmd /C webpack --config webpack.config.index.prod.js
 cd ..\
 publisher\WebPublisher.exe
+pause

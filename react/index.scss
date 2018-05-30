@@ -212,3 +212,13 @@ table.releases {
     margin-left: -3px;
     top: 0;
 }
+
+.releases th {
+    text-align: left;
+    padding-left: 8px;
+}
+.releases th .glyphicon {
+    font-size: 10px;
+    position: relative;
+    top: 0px;
+}
