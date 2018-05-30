@@ -221,3 +221,16 @@ table.releases {
     position: relative;
     top: 0px;
 }
+
+.members table {
+    width: 100%;
+}
+.members table td {
+    padding: 1px 10px 1px 45px;
+}
+.members table tr:first-of-type > td {
+    padding: 10px 10px 1px 45px;
+}
+.members table tr:last-of-type > td {
+    padding: 1px 10px 10px 45px;
+}

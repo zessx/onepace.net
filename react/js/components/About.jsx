@@ -19,54 +19,56 @@ export default class About extends React.Component {
                <hr />
             </div>
             <div className="members">
-               <h2>One Pace Team</h2>
-               <ul className="vl">
-                  <li>Sewil<span style={{
-                     "marginLeft": "56px",
-                     }}>Editor</span>
-                  </li>
-                  <li>Galaxy 9000<span style={{
-                     "marginLeft": "13px",
-                     }}>Editor</span>
-                  </li>
-                  <li>Feeso<span style={{
-                     "marginLeft": "53px",
-                     }}>Editor</span>
-                  </li>
-                  <li>Halee<span style={{
-                     "marginLeft": "53px",
-                     }} className="help" title="Finds the soundtracks that plays in the anime, and manages the One Piece Track List (http://onepiecetracklist.com), a megalist of the timestamps for the released soundtracks that have ever occured in the One Piece Anime.">Soundtracker</span>
-                  </li>
-                  <li>Datenshi<span style={{
-                     "marginLeft": "33px",
-                     }} className="help" title="Makes our custom infoboxes and title cards and occasionally edits out non-canon characters from scenes or shots.">Timer, Graphics</span>
-                  </li>
-                  <li>Grug<span style={{
-                     "marginLeft": "56px",
-                     }}>Quality Checker</span>
-                  </li>
-                  <li>Pepperjack<span style={{
-                     "marginLeft": "18px",
-                     }}>Quality Checker</span>
-                  </li>
-                  <li>Kaitou Yahiko<span style={{
-                     "marginLeft": "7px",
-                     }}>Karaoke Effects, Graphics</span>
-                  </li>
-                  <li>Rael<span style={{
-                     "marginLeft": "61px",
-                     }}>Editor</span>
-                  </li>
-                  <li>Lance<span style={{
-                     "marginLeft": "52px",
-                     }}>Timer</span>
-                  </li>
-                  <li>Jojoejoe3<span style={{
-                    "marginLeft": "28px",
-                  }}>Webdeveloper</span>
-                  </li>
-               </ul>
-               <hr />
+              <h2>One Pace Team</h2>
+              <table className="vl">
+                <tbody>
+                  <tr>
+                    <td width="10%">Sewil</td>
+                    <td>Editor / Web/server / Project manager</td>
+                  </tr>
+                  <tr>
+                    <td>Galaxy 9000</td>
+                    <td>Editor / Co-project/community manager</td>
+                  </tr>
+                  <tr>
+                    <td>Feeso</td>
+                    <td>Editor</td>
+                  </tr>
+                  <tr>
+                    <td>Halee</td>
+                    <td>Soundtracker / Timer</td>
+                  </tr>
+                  <tr>
+                    <td>Datenshi</td>
+                    <td>Timer / Graphical designer</td>
+                  </tr>
+                  <tr>
+                    <td>Grug</td>
+                    <td>QCer</td>
+                  </tr>
+                  <tr>
+                    <td>Pepperjack</td>
+                    <td>QCer</td>
+                  </tr>
+                  <tr>
+                    <td>Kaitou Yahiko</td>
+                    <td>Aegisub Karaoke/Attacks designer / Graphical designer</td>
+                  </tr>
+                  <tr>
+                    <td>Rael</td>
+                    <td>Editor</td>
+                  </tr>
+                  <tr>
+                    <td>Lance</td>
+                    <td>Timer</td>
+                  </tr>
+                  <tr>
+                    <td>Jojoejoe3</td>
+                    <td>Web designer/manager</td>
+                  </tr>
+                </tbody>
+              </table>
+              <hr />
             </div>
             <div className="FAQ">
               <h2>FAQ</h2>
