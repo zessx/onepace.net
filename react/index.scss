@@ -13,7 +13,7 @@ body {
     background-color: #313131;
     width: 100%;
     display: inline-block;
-    margin-bottom: -1000px;
+    position: absolute;
 }
 .topnav img {
     float: left;
@@ -52,7 +52,6 @@ li a:hover {
     padding: 3px;
 }
 .main {
-    float: left;
     width: 75%;
 }
 .side {
@@ -221,4 +220,17 @@ table.releases {
     font-size: 10px;
     position: relative;
     top: 0px;
+}
+
+.members table {
+    width: 100%;
+}
+.members table td {
+    padding: 1px 10px 1px 45px;
+}
+.members table tr:first-of-type > td {
+    padding: 10px 10px 1px 45px;
+}
+.members table tr:last-of-type > td {
+    padding: 1px 10px 10px 45px;
 }

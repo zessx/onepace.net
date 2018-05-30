@@ -19,60 +19,62 @@ export default class About extends React.Component {
                <hr />
             </div>
             <div className="members">
-               <h2>One Pace Team</h2>
-               <ul className="vl">
-                  <li>Sewil<span style={{
-                     "marginLeft": "58px",
-                     }}>Editor</span>
-                  </li>
-                  <li>Galaxy 9000<span style={{
-                     "marginLeft": "13px",
-                     }}>Editor</span>
-                  </li>
-                  <li>Feeso<span style={{
-                     "marginLeft": "53px",
-                     }}>Editor</span>
-                  </li>
-                  <li>Halee<span style={{
-                     "marginLeft": "53px",
-                     }} className="help" title="Finds the soundtracks that plays in the anime, and manages the One Piece Track List (http://onepiecetracklist.com), a megalist of the timestamps for the released soundtracks that have ever occured in the One Piece Anime.">Soundtracker</span>
-                  </li>
-                  <li>Datenshi<span style={{
-                     "marginLeft": "34px",
-                     }} className="help" title="Makes our custom infoboxes and title cards and occasionally edits out non-canon characters from scenes or shots.">Timer, Graphics</span>
-                  </li>
-                  <li>Grug<span style={{
-                     "marginLeft": "59px",
-                     }}>Quality Checker</span>
-                  </li>
-                  <li>Pepperjack<span style={{
-                     "marginLeft": "18px",
-                     }}>Quality Checker</span>
-                  </li>
-                  <li>KaitouYahiko<span style={{
-                     "marginLeft": "7px",
-                     }}>Karaoke Effects, Graphics</span>
-                  </li>
-                  <li>Rael<span style={{
-                     "marginLeft": "61px",
-                     }}>Quality Checker</span>
-                  </li>
-                  <li>Lance<span style={{
-                     "marginLeft": "52px",
-                     }}>Timer</span>
-                  </li>
-                  <li>Jojoejoe3<span style={{
-                    "marginLeft": "28px",
-                  }}>Website</span>
-                  </li>
-               </ul>
-               <hr />
+              <h2>One Pace Team</h2>
+              <table className="vl">
+                <tbody>
+                  <tr>
+                    <td width="10%">Sewil</td>
+                    <td>Editor / Web/server / Project manager</td>
+                  </tr>
+                  <tr>
+                    <td>Galaxy 9000</td>
+                    <td>Editor / Co-project/community manager</td>
+                  </tr>
+                  <tr>
+                    <td>Feeso</td>
+                    <td>Editor</td>
+                  </tr>
+                  <tr>
+                    <td>Halee</td>
+                    <td>Soundtracker / Timer</td>
+                  </tr>
+                  <tr>
+                    <td>Datenshi</td>
+                    <td>Timer / Graphical designer</td>
+                  </tr>
+                  <tr>
+                    <td>Grug</td>
+                    <td>QCer</td>
+                  </tr>
+                  <tr>
+                    <td>Pepperjack</td>
+                    <td>QCer</td>
+                  </tr>
+                  <tr>
+                    <td>Kaitou Yahiko</td>
+                    <td>Aegisub Karaoke/Attacks designer / Graphical designer</td>
+                  </tr>
+                  <tr>
+                    <td>Rael</td>
+                    <td>Editor</td>
+                  </tr>
+                  <tr>
+                    <td>Lance</td>
+                    <td>Timer</td>
+                  </tr>
+                  <tr>
+                    <td>Jojoejoe3</td>
+                    <td>Web designer/manager</td>
+                  </tr>
+                </tbody>
+              </table>
+              <hr />
             </div>
             <div className="FAQ">
               <h2>FAQ</h2>
               <ul className="vl">
                 <li>Q: Are you going to edit or are you currently editing <i>blank episode</i>?</li>
-                <li>A: Please look at the arcs in the main page, the ones marked incomplete are still in progress and notcurrently finished. However for any arcs not started we cannot make any promises they will be completed.</li>
+                <li>A: Please look at the arcs in the main page, the ones marked incomplete are still in progress and not currently finished. However for any arcs not started we cannot make any promises they will be completed.</li>
                 <li>Q: Some chapters in between are missing, where are they?</li>
                 <li>A: We don't work in sequential order, we prioritize arcs that need it most or ones we think would be fun to edit.</li>
                 <li>Q: What editing software do you use?</li>
