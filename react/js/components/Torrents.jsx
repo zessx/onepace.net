@@ -21,6 +21,12 @@ export default class Torrents extends React.Component {
           <div className="card">
             <h2>Torrents</h2>
             <table className="releases vl">
+              <thead>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Magnet</th>
+                <th>AnimeTosho</th>
+              </thead>
               <tbody>
                 {
                   this.state.releases.map((i) => {
