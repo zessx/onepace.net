@@ -30,7 +30,10 @@ export default class Torrents extends React.Component {
     }, null);
   }
   sortReleases = (releases, sortField, sortAscending) => {
-    releases = releases.sort((a, b) => sortAscending ? (b[sortField] + "").localeCompare(a[sortField]) : (a[sortField] + "").localeCompare(b[sortField]));
+    releases = releases.sort((a, b) => sortAscending ?
+      (b[sortField] + "").localeCompare(a[sortField], undefined, {numeric: true, sensitivity: 'base'}) :
+      (a[sortField] + "").localeCompare(b[sortField], undefined, {numeric: true, sensitivity: 'base'})
+    );
     return releases;
   }
   sort = (sortField, sortAscending) => {
