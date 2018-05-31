@@ -61,4 +61,18 @@ class db_context {
         }
         $stmt->close();
     }
+    function get_result($stmt) {
+        if(!$stmt->execute()) {
+            log_error($stmt->error);
+        }
+        if(!$result = $stmt->get_result()) {
+            log_error($stmt->error);
+        }
+        $stmt->close();
+        $rows = [];
+        while ($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 }
