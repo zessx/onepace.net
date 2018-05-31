@@ -1,6 +1,4 @@
 import Config from "webpack-config";
-require("es6-promise").polyfill();
-require("isomorphic-fetch");
 
 export default class NetworkHandler {
   static async request(route, data, onSuccess, onError) {

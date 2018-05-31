@@ -1,7 +1,7 @@
 import React from "react";
 import "../../index.scss";
 import "babel-polyfill";
-import Side from './Side';
+import Side from "./Side";
 
 export default class Layout extends React.Component {
   render() {

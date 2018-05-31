@@ -1,8 +1,8 @@
 import React from "react";
 import NetworkHandler from "../NetworkHandler";
 import Moment from "moment";
-import Layout from './Layout';
-import { Glyphicon } from 'react-bootstrap';
+import Layout from "./Layout";
+import { Glyphicon } from "react-bootstrap";
 
 export default class Torrents extends React.Component {
   constructor(props) {
@@ -31,8 +31,8 @@ export default class Torrents extends React.Component {
   }
   sortReleases = (releases, sortField, sortAscending) => {
     releases = releases.sort((a, b) => sortAscending ?
-      (b[sortField] + "").localeCompare(a[sortField], undefined, {numeric: true, sensitivity: 'base'}) :
-      (a[sortField] + "").localeCompare(b[sortField], undefined, {numeric: true, sensitivity: 'base'})
+      (b[sortField] + "").localeCompare(a[sortField], undefined, {numeric: true, sensitivity: "base"}) :
+      (a[sortField] + "").localeCompare(b[sortField], undefined, {numeric: true, sensitivity: "base"})
     );
     return releases;
   }
@@ -53,8 +53,8 @@ export default class Torrents extends React.Component {
             <table className="releases vl">
               <thead>
                 <tr>
-                  <th onClick={e=>this.sort("name", sortField == "name" && !sortAscending)}>Name {sortField == "name" && sortArrow}</th>
-                  <th onClick={e=>this.sort("createddate", sortField == "createddate" && !sortAscending)}>Date {sortField == "createddate" && sortArrow}</th>
+                  <th onClick={()=>this.sort("name", sortField == "name" && !sortAscending)}>Name {sortField == "name" && sortArrow}</th>
+                  <th onClick={()=>this.sort("createddate", sortField == "createddate" && !sortAscending)}>Date {sortField == "createddate" && sortArrow}</th>
                   <th>Magnet</th>
                   <th>AnimeTosho</th>
                 </tr>

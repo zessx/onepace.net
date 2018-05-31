@@ -1,8 +1,6 @@
 import React from "react";
 import NetworkHandler from "../NetworkHandler";
-import Layout from "./Layout";
-import FontAwesome from "react-fontawesome";
-import { browserHistory } from 'react-router';
+import { browserHistory } from "react-router";
 
 export default class Watch extends React.Component {
   state = {
@@ -32,7 +30,7 @@ export default class Watch extends React.Component {
         [selectedEpisode] = episodes.filter((i) => i.arcId == selectedArc.id);
       }
       if (selectedEpisode != null) {
-        browserHistory.push('/#/?episode=' + selectedEpisode.id);
+        browserHistory.push("/#/?episode=" + selectedEpisode.id);
       }
       this.setState({
         "selectedArc": selectedArc,
@@ -49,7 +47,7 @@ export default class Watch extends React.Component {
       [selectedArc] = this.state.arcs.filter((i) => i.id === arcId);
       [selectedEpisode] = this.state.episodes.filter((i) => i.arcId == arcId);
       localStorage.setItem("watchSelectedEpisodeId", selectedEpisode.id);
-      browserHistory.push('/#/?episode=' + selectedEpisode.id);
+      browserHistory.push("/#/?episode=" + selectedEpisode.id);
     }
     this.setState({
       "selectedArc": selectedArc,
@@ -65,7 +63,7 @@ export default class Watch extends React.Component {
       "selectedEpisode": selectedEpisode,
       "selectedArc": selectedArc,
     });
-    browserHistory.push('/#/?episode=' + episodeId);
+    browserHistory.push("/#/?episode=" + episodeId);
     this.videoRef.load();
   }
   nav = (dir) => {
@@ -83,7 +81,6 @@ export default class Watch extends React.Component {
   }
   render() {
     const { selectedArc, selectedEpisode, arcs } = this.state;
-    const animetoshoq = selectedArc != null && selectedEpisode == null ? "One Pace " + selectedArc.title : selectedEpisode != null ? selectedEpisode.crc32 : null;
     return (
       <div className="card">
         <div className="watch-top"><center>
@@ -122,8 +119,8 @@ export default class Watch extends React.Component {
               })
             }
           </select>
-          <span className="nav prev" className="prev-ep" onClick={() => this.nav("prev")}>&nbsp; &laquo; &nbsp;</span>
-          <span className="nav next" className="next-ep" onClick={() => this.nav("next")}>&nbsp; &raquo; &nbsp;</span>
+          <span className="prev-ep" onClick={() => this.nav("prev")}>&nbsp; &laquo; &nbsp;</span>
+          <span className="next-ep" onClick={() => this.nav("next")}>&nbsp; &raquo; &nbsp;</span>
         </center>
         </div>
         <video ref={(i) => this.videoRef = i} className="video-player" controls poster="assets/logo-poster-dark.png">

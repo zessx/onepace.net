@@ -12,8 +12,12 @@ import Layout from "./Layout";
 import Watch from "./Watch";
 import About from "./About";
 import Torrents from "./Torrents";
+import PropTypes from "prop-types";
 
 export default class Index extends React.Component {
+	propTypes = {
+		location: PropTypes.object
+	};
   componentDidMount() {
     document.title = "One Pace | Home";
   }
