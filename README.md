@@ -1,9 +1,25 @@
+# Table of Contents
+- [Setup](#setup)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+    - [Database](#database)
+    - [PHP](#php)
+    - [Webpack](#webpack)
+  - [Environmnent](#environment)
+  - [Publishing](#publishing)
+- [API](#api)
+  - [Headers](#headers)
+  - [Data Types](#data-types)
+  - [/get_streams](#get_streams)
+  - [/getreleases](#getreleases)
+
 # Setup
 ## Requirements
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Node.js](https://nodejs.org/en/)
 - [PHP For Windows](https://windows.php.net/download/)
 - [MariaDB](https://downloads.mariadb.org/)
+- Windows
 
 ## Installation
 ### Database
@@ -27,25 +43,15 @@
 1. Open cmd.exe
 2. Type `npm i -g webpack@3.3.0`
 
-## Set up test environment
+## Environment
 1. Open Visual Studio Code
 2. Press File -> Open Folder and select this directory (onepace)
+3. Open up the integrated terminal (View -> Integrated Terminal)
+4. Type `cd react && npm i`
+5. When the installation is done, type `cd .. && start.bat`
 
-### PHP
-1. Open up the integrated terminal (View -> Integrated Terminal)
-2. Type `php -S localhost:9000`
-3. Open up a browser and type http://localhost:9000
-
-### Webpack
-1. Open up another integrated terminal. Don't close the PHP one
-2. Type `cd react`
-3. If it's the first time you do this, type `npm i`
-4. Type `webpack --config webpack.config.index.dev.js`
-
-## Publish
-1. In the webpack integrated terminal, press Ctrl+C and Y to cancel it
-2. Type `webpack --config webpack.config.index.prod.js`
-3. In onepace/index.html, increment the ?v= numbers for the .css file and the .js file.
+## Publishing
+In the integrated terminal, type `publish.bat` (You must have FTP access to perform this action)
 
 # API
 ## Headers
