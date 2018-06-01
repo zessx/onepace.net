@@ -218,6 +218,10 @@ table.releases {
 	position: relative;
 	top: 0px;
 }
+.releases th.date {
+	min-width: 95px;
+	width: 5%;
+}
 
 .members table {
 	width: 100%;

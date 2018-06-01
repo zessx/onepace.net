@@ -54,7 +54,7 @@ export default class Torrents extends React.Component {
 							<thead>
 								<tr>
 									<th onClick={() => this.sort("name", sortField == "name" && !sortAscending)}>Name {sortField == "name" && sortArrow}</th>
-									<th width="10%" onClick={() => this.sort("createddate", sortField == "createddate" && !sortAscending)}>Date {sortField == "createddate" && sortArrow}</th>
+									<th className="date" onClick={() => this.sort("createddate", sortField == "createddate" && !sortAscending)}>Date {sortField == "createddate" && sortArrow}</th>
 									<th>Magnet</th>
 									<th>AnimeTosho</th>
 								</tr>
