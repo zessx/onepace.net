@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {
-  Router,
-  Route,
-  hashHistory,
-  IndexRoute,
+	Router,
+	Route,
+	hashHistory,
+	IndexRoute,
 } from "react-router";
 import "../../index.scss";
 import "babel-polyfill";
@@ -18,25 +18,25 @@ export default class Index extends React.Component {
 	propTypes = {
 		location: PropTypes.object
 	};
-  componentDidMount() {
-    document.title = "One Pace | Home";
-  }
-  render() {
-    return (
+	componentDidMount() {
+		document.title = "One Pace | Home";
+	}
+	render() {
+		return (
 			<Layout>
 				<Watch location={this.props.location} />
 			</Layout>
-    );
-  }
+		);
+	}
 }
 
 ReactDOM.render(
-  <Router history={hashHistory}>
-    <Route path="/(?episode=:episode)">
-      <IndexRoute component={Index} />
-      <Route name="torrents" path="/torrents" component={Torrents} />
-      <Route name="about" path="/about" component={About} />
-    </Route>
-  </Router>,
-   document.getElementById("reactentry")
+	<Router history={hashHistory}>
+		<Route path="/(?episode=:episode)">
+			<IndexRoute component={Index} />
+			<Route name="torrents" path="/torrents" component={Torrents} />
+			<Route name="about" path="/about" component={About} />
+		</Route>
+	</Router>,
+	document.getElementById("reactentry")
 );
