@@ -50,7 +50,7 @@
 5. When the installation is done, type `cd .. && start.bat`
 
 ## Publishing
-In the integrated terminal, type `publish.bat` (You must have FTP access to perform this action)
+In the integrated terminal, type `publish.bat` (You must have FTP access and installed [WebPublisher](https://github.com/sewil/web-publisher) (Windows only) to perform this action)
 
 # API
 ## Headers
