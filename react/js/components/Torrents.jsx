@@ -54,7 +54,7 @@ export default class Torrents extends React.Component {
               <thead>
                 <tr>
                   <th onClick={()=>this.sort("name", sortField == "name" && !sortAscending)}>Name {sortField == "name" && sortArrow}</th>
-                  <th onClick={()=>this.sort("createddate", sortField == "createddate" && !sortAscending)}>Date {sortField == "createddate" && sortArrow}</th>
+                  <th width="10%" onClick={()=>this.sort("createddate", sortField == "createddate" && !sortAscending)}>Date {sortField == "createddate" && sortArrow}</th>
                   <th>Magnet</th>
                   <th>AnimeTosho</th>
                 </tr>
@@ -65,7 +65,7 @@ export default class Torrents extends React.Component {
                     const createddate = Moment.unix(i.createddate).format("YYYY-MM-DD");
                     return (
                       <tr key={index}>
-                        <td className="name" width="80%"><a href={i.torrent}>{i.name}</a></td>
+                        <td className="name"><a href={i.torrent}>{i.name}</a></td>
                         <td>{createddate}</td>
                         <td><a href={i.magnet}>Magnet</a></td>
                         <td><a href={"https://animetosho.org/search?q=" + i.crc32} target="_blank">AT</a></td>
