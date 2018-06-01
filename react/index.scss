@@ -11,9 +11,9 @@ body {
 }
 .topnav {
     background-color: #313131;
-    width: 100%;
     display: inline-block;
-    position: absolute;
+		position: absolute;
+		width: 100%;
 }
 .topnav img {
     float: left;
@@ -57,18 +57,15 @@ li a:hover {
 .side {
     background-color: #232323;
     border-left: 4px solid #395d9e;
-    float: left;
-    width: 16%;
-    padding: 57px 15px;
-    height: 100%;
+		padding: 55px 15px 0 15px;
+		width: 300px;
+		min-height: 100%;
 }
 .card {
-    float: left;
     background-color: #232323;
     padding: 0 15px;
-    margin: 80px 0 0 20px;
+    margin: 15px;
     padding: 15px;
-    width: 82%;
     border-radius: 4px;
 }
 @media screen and (max-width: 800px) {
@@ -233,4 +230,13 @@ table.releases {
 }
 .members table tr:last-of-type > td {
     padding: 1px 10px 10px 45px;
+}
+
+.layout-container {
+	display: flex;
+}
+.layout-content {
+	flex: 1;
+	margin-top: 10px;
+	padding-top: 55px;
 }
