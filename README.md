@@ -19,7 +19,6 @@
 - [Node.js](https://nodejs.org/en/)
 - [PHP For Windows](https://windows.php.net/download/)
 - [MariaDB](https://downloads.mariadb.org/)
-- Windows
 
 ## Installation
 ### Database
