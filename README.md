@@ -17,7 +17,7 @@
 ## Requirements
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Node.js](https://nodejs.org/en/)
-- [PHP For Windows](https://windows.php.net/download/)
+- [PHP](https://secure.php.net/downloads.php)
 - [MariaDB](https://downloads.mariadb.org/)
 
 ## Installation
