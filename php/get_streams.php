@@ -38,16 +38,17 @@ foreach($rows as $row) {
             'resolution' => scr_value($row, 'arc_resolution'),
             "released" => scr_value($row, "arc_released") == 1,
         ];
-    }
+		}
+		$is_released = isset($row["released_date"]) && strtotime($row["released_date"]) <= time();
     $data['episodes'][] = [
         'id' => scr_value($row, 'id'),
-        'crc32' => scr_value($row, 'crc32'),
+        'crc32' => $is_released ? scr_value($row, 'crc32') : "",
         'resolution' => scr_value($row, 'resolution'),
         'title' => scr_value($row, 'title'),
         'chapters' => scr_value($row, 'chapters'),
         'episodes' => scr_value($row, 'episodes'),
         'stream_id' => scr_value($row, 'stream_id'),
-        'isReleased' => isset($row['released_date']) && strtotime($row['released_date']) <= time(),
+				"isReleased" => $is_released,
         'status' => scr_value($row, 'status'),
         'part' => scr_value($row, 'part'),
         'arcId' => scr_value($row, 'arc_id'),
