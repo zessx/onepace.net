@@ -12,7 +12,7 @@ $rows = $context->query(
     ." right join arcs on arcs.id = episodes.arc_id "
     ." where"
     ." arcs.hidden = false"
-    ." and episodes.released_date is not null and episodes.released_date <= CURDATE()"
+    ." and episodes.released_date is not null and episodes.released_date <= now()"
     ." group by arc_torrent_hash, torrent_hash"
 .";");
 $context->disconnect();
