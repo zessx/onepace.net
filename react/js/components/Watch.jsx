@@ -83,6 +83,7 @@ export default class Watch extends React.Component {
 	}
 	render() {
 		const { selectedArc, selectedEpisode, arcs } = this.state;
+		const episodes = selectedEpisode != null && selectedEpisode.episodes != null && selectedEpisode.episodes.length > 0 ? selectedEpisode.episodes : selectedArc != null && selectedArc.episodes != null && selectedArc.episodes.length > 0 ? selectedArc.episodes : "";
 		return (
 			<div className="card">
 				<div className="watch-top"><center>
@@ -123,6 +124,7 @@ export default class Watch extends React.Component {
 					</select>
 					<span className="prev-ep" onClick={() => this.nav("prev")}>&nbsp; &laquo; &nbsp;</span>
 					<span className="next-ep" onClick={() => this.nav("next")}>&nbsp; &raquo; &nbsp;</span>
+					{episodes.length > 0 && <span>Episodes: {episodes}</span>}
 				</center>
 				</div>
 				<video ref={(i) => this.videoRef = i} className="video-player" controls poster="assets/logo-poster-dark.png">

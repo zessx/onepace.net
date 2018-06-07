@@ -18,6 +18,7 @@ $rows = $context->query("select episodes.id,".
 "arcs.id as arc_id,".
 "arcs.title as arc_title,".
 "arcs.chapters as arc_chapters,".
+"arcs.episodes as arc_episodes,".
 "arcs.completed as arc_completed,".
 "arcs.resolution as arc_resolution,".
 "arcs.torrent_hash as arc_torrent_hash,".
@@ -36,7 +37,8 @@ foreach($rows as $row) {
             'title' => scr_value($row, 'arc_title'),
             'chapters' => scr_value($row, 'arc_chapters'),
             'resolution' => scr_value($row, 'arc_resolution'),
-            "released" => scr_value($row, "arc_released") == 1,
+						"released" => scr_value($row, "arc_released") == 1,
+						"episodes" => scr_value($row, "arc_episodes")
         ];
 		}
 		$is_released = isset($row["released_date"]) && strtotime($row["released_date"]) <= time();
@@ -46,12 +48,12 @@ foreach($rows as $row) {
         'resolution' => scr_value($row, 'resolution'),
         'title' => scr_value($row, 'title'),
         'chapters' => scr_value($row, 'chapters'),
-        'episodes' => scr_value($row, 'episodes'),
+				"episodes" => scr_value($row, "episodes"),
         'stream_id' => scr_value($row, 'stream_id'),
 				"isReleased" => $is_released,
         'status' => scr_value($row, 'status'),
         'part' => scr_value($row, 'part'),
-        'arcId' => scr_value($row, 'arc_id'),
+        'arcId' => scr_value($row, 'arc_id')
     ];
 }
 function usortchapters($a, $b) {
