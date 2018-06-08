@@ -74,6 +74,7 @@ In the integrated terminal, type `publish.bat` (You must have FTP access and ins
         "chapters": s,
         "resolution": s,
         "released": b,
+        "episodes": s,
         "magnet": s,
         "torrent": s
       }
@@ -87,10 +88,11 @@ In the integrated terminal, type `publish.bat` (You must have FTP access and ins
         "title": s,
         "chapters": s,
         "episodes": s,
+        "stream_id": s,
+        "isReleased": b,
         "status": s,
         "part": i?,
-        "arcId": i?,
-        "magnet": s
+        "arcId": i?
       }
     ]
 }
