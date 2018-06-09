@@ -1,8 +1,25 @@
 import React from "react";
 import "../../index.scss";
 import Side from "./Side";
+import SideMinimised from "./SideMinimised";
+import LocalStorageUtils from "../LocalStorageUtils";
 
 export default class Layout extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			sideMinimised: LocalStorageUtils.valueToBool(localStorage.getItem("sidebarToggled"))
+		}
+		this.toggleSide = this.toggleSide.bind(this);
+	}
+
+	toggleSide = (e) => {
+		e.preventDefault();
+		localStorage.setItem("sidebarToggled", !this.state.sideMinimised)
+		this.setState({ sideMinimised: !this.state.sideMinimised });
+	}
+
 	render() {
 		return (
 			<div>
@@ -12,7 +29,7 @@ export default class Layout extends React.Component {
 					<a className="link" href="/#/About">About</a>
 				</div>
 				<div className="layout-container">
-					<Side />
+					{this.state.sideMinimised ? <SideMinimised toggle={this.toggleSide} /> : <Side toggle={this.toggleSide} />}
 					<div className="layout-content">
 						{this.props.children}
 					</div>
