@@ -3,3 +3,10 @@ export default class LocalStorageUtils {
 		return value === "true";
 	}
 }
+
+export const LocalStorageKeys = {
+	SidebarToggled: "sidebarToggled",
+	SortField: "sortField",
+	SortAscending: "sortAscending",
+	WatchSelectedEpisodeId: "watchSelectedEpisodeId"
+};

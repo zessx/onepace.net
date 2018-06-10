@@ -2,21 +2,21 @@ import React from "react";
 import "../../index.scss";
 import Side from "./Side";
 import SideMinimised from "./SideMinimised";
-import LocalStorageUtils from "../LocalStorageUtils";
+import LocalStorageUtils, { LocalStorageKeys } from "../LocalStorageUtils";
 
 export default class Layout extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			sideMinimised: LocalStorageUtils.valueToBool(localStorage.getItem("sidebarToggled"))
+			sideMinimised: LocalStorageUtils.valueToBool(localStorage.getItem(LocalStorageKeys.SidebarToggled))
 		}
 		this.toggleSide = this.toggleSide.bind(this);
 	}
 
 	toggleSide = (e) => {
 		e.preventDefault();
-		localStorage.setItem("sidebarToggled", !this.state.sideMinimised)
+		localStorage.setItem(LocalStorageKeys.SidebarToggled, !this.state.sideMinimised)
 		this.setState({ sideMinimised: !this.state.sideMinimised });
 	}
 
