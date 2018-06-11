@@ -1,7 +1,7 @@
 import React from "react";
 import NetworkHandler from "../NetworkHandler";
 import { browserHistory } from "react-router";
-import { LocalStorageKeys } from "../LocalStorageUtils";
+import LocalStorageUtils from "../LocalStorageUtils";
 
 export default class Watch extends React.Component {
 	state = {
@@ -20,7 +20,7 @@ export default class Watch extends React.Component {
 			let selectedArc = null;
 			let selectedEpisode = null;
 			if (selectedEpisodeId == null || selectedEpisodeId <= 0) {
-				selectedEpisodeId = localStorage.getItem(LocalStorageKeys.WatchSelectedEpisodeId);
+				selectedEpisodeId = LocalStorageUtils.getWatchSelectedEpisodeId();
 			}
 			if (selectedEpisodeId != null && selectedEpisodeId > 0) {
 				[selectedEpisode] = episodes.filter((i) => i.id == selectedEpisodeId);
@@ -49,7 +49,7 @@ export default class Watch extends React.Component {
 		if (this.state.arcs.length > 0) {
 			[selectedArc] = this.state.arcs.filter((i) => i.id === arcId);
 			[selectedEpisode] = this.state.episodes.filter((i) => i.arcId == arcId);
-			localStorage.setItem(LocalStorageKeys.WatchSelectedEpisodeId, selectedEpisode.id);
+			LocalStorageUtils.setWatchSelectedEpisodeId(selectedEpisode.id);
 			browserHistory.push("/#/?episode=" + selectedEpisode.id);
 		}
 		this.setState({
@@ -61,7 +61,7 @@ export default class Watch extends React.Component {
 	changeEpisode = (episodeId) => {
 		const [selectedEpisode] = this.state.episodes.filter((i) => i.id === episodeId);
 		const [selectedArc] = this.state.arcs.filter((i) => i.id === selectedEpisode.arcId);
-		localStorage.setItem(LocalStorageKeys.WatchSelectedEpisodeId, selectedEpisode.id);
+		LocalStorageUtils.setWatchSelectedEpisodeId(selectedEpisode.id);
 		this.setState({
 			"selectedEpisode": selectedEpisode,
 			"selectedArc": selectedArc,
