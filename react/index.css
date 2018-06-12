@@ -2,7 +2,9 @@ body {
 	font-family: Calibri;
 	font-size: 15px;
 	color: #ffffff;
-	background-color: #293848;
+	background: linear-gradient(rgba(41, 56, 72, 0.45), rgba(41, 56, 72, 0.45)), url('/assets/one_piece_background_special_01_by_backgrounds4you-d9lp3zb.png');
+	background-size: cover;
+	background-repeat: no-repeat;
 	padding: 0px;
 	margin: 0px;
 }
@@ -55,7 +57,7 @@ li a:hover {
 	width: 75%;
 }
 .side {
-	background-color: #232323;
+	background-color: rgba(35,35,35,0.8);
 	border-left: 4px solid #395d9e;
 	padding: 55px 15px 0 15px;
 	width: 300px;
@@ -74,7 +76,7 @@ li a:hover {
 	cursor: pointer;
 }
 .card {
-	background-color: #232323;
+	background-color: rgba(35,35,35,0.8);
 	padding: 0 15px;
 	margin: 15px;
 	padding: 15px;
