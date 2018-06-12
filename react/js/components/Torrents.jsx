@@ -3,15 +3,16 @@ import NetworkHandler from "../NetworkHandler";
 import Moment from "moment";
 import Layout from "./Layout";
 import { Glyphicon } from "react-bootstrap";
+import LocalStorageUtils from "../LocalStorageUtils";
 
 export default class Torrents extends React.Component {
 	constructor(props) {
 		super(props);
-		let sortField = localStorage.getItem("sortField");
+		let sortField = LocalStorageUtils.getSortField();
 		if (sortField == null) {
 			sortField = "createddate";
 		}
-		let sortAscending = localStorage.getItem("sortAscending");
+		let sortAscending = LocalStorageUtils.getSortAscending();
 		if (sortAscending == null) {
 			sortAscending = true;
 		}
@@ -38,8 +39,8 @@ export default class Torrents extends React.Component {
 	}
 	sort = (sortField, sortAscending) => {
 		const releases = this.sortReleases(this.state.releases, sortField, sortAscending);
-		localStorage.setItem("sortField", sortField);
-		localStorage.setItem("sortAscending", sortAscending);
+		LocalStorageUtils.setSortField(sortField);
+		LocalStorageUtils.setSortAscending(sortAscending);
 		this.setState({ releases, sortField, sortAscending });
 	}
 	render() {

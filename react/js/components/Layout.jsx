@@ -9,14 +9,14 @@ export default class Layout extends React.Component {
 		super(props);
 
 		this.state = {
-			sideMinimised: LocalStorageUtils.valueToBool(localStorage.getItem("sidebarToggled"))
+			sideMinimised: LocalStorageUtils.getSidebarToggled()
 		}
 		this.toggleSide = this.toggleSide.bind(this);
 	}
 
 	toggleSide = (e) => {
 		e.preventDefault();
-		localStorage.setItem("sidebarToggled", !this.state.sideMinimised)
+		LocalStorageUtils.setSidebarToggled(!this.state.sideMinimised);
 		this.setState({ sideMinimised: !this.state.sideMinimised });
 	}
 
