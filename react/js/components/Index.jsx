@@ -6,7 +6,7 @@ import {
 	hashHistory,
 	IndexRoute,
 } from "react-router";
-import "../../index.scss";
+import "../../index.css";
 import "babel-polyfill";
 import Layout from "./Layout";
 import Watch from "./Watch";

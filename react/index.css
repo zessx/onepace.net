@@ -108,42 +108,43 @@ img.logo {
 }
 .post {
 	margin-bottom: 50px;
-	.footer {
-		font-style: italic;
-		.author {
-			margin-right: 10px;
-		}
-	}
+	
+}
+.post > .footer {
+	font-style: italic;
+}
+.post > .footer > .author {
+	margin-right: 10px;
 }
 .watch-top {
 	margin: auto;
-	span.episodes {
-		margin: 10px;
-	}
-	span.chapters {
-		margin: 10px;
-   }
-	select {
-		border: 1px;
-		font-size: 16px;
-		color: #ffffff;
-		padding-bottom: 5px;
-		font-family: Calibri;
-		background-color: #232323;
-		border-radius: 4px 4px 0px 0px;
-	}
-	select.episodes {
-		margin: 0px 3px 0px 2px;
-	}
 }
+.watch-top select.episodes {
+	margin: 0px 3px 0px 2px;
+}
+.watch-top select {
+	border: 1px;
+	font-size: 16px;
+	color: #ffffff;
+	padding-bottom: 5px;
+	font-family: Calibri;
+	background-color: #232323;
+	border-radius: 4px 4px 0px 0px;
+}
+.watch-top span.episodes {
+	margin: 10px;
+}
+.watch-top span.chapters {
+	margin: 10px;
+ }
 .magnet, .torrent, .animetosho {
 	color: #ffffff;
 	text-decoration: none;
 	margin-left: 16px;
-	.fa {
-		position: relative;
-		top: 1px;
-	}
+}
+.magnet .fa, .torrent .fa, .animetosho .fa {
+	position: relative;
+	top: 1px;
 }
 .animetosho .fa {
 	font-weight: bold;
@@ -165,28 +166,28 @@ img.logo {
 .button {
 	cursor:pointer;
 }
-.button:hover{
+.button:hover {
 	text-decoration: underline;
 }
 table.releases {
 	width: 100%;
-	tr:hover {
-		background-color: #dddddd;
-		color: black;
-	}
-	td {
-		margin: 0;
-		padding: 0 10px 0 10px;
-		a {
-			color: white;
-			text-decoration: none;
-			padding: 2px;
-			cursor: pointer;
-	   }
-		a:hover {
-			color: black;
-		}
-	}
+}
+table.releases td {
+	margin: 0;
+	padding: 0 10px 0 10px;
+}
+table.releases td > a {
+	color: white;
+	text-decoration: none;
+	padding: 2px;
+	cursor: pointer;
+}
+table.releases td > a:hover {
+	color: black;
+}
+table.releases tr:hover {
+	background-color: #dddddd;
+	color: black;
 }
 .help {
 	cursor: help;

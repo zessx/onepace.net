@@ -30,12 +30,9 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.scss$/,
-				include: [path.join(__dirname, "index.scss")],
-				use: extractSass.extract({
-					use: ["css-loader", "sass-loader"],
-					fallback: "style-loader"
-				})
+				test: /\.css$/,
+				include: [path.join(__dirname, "index.css")],
+				use: extractSass.extract({ loader: "css-loader", options: { minimize: true } })
 			},
 			{
 				test: /\.jsx?$/,
@@ -44,10 +41,6 @@ module.exports = {
 				options: {
 					presets: ["react", "es2015", "stage-1", "stage-2"]
 				}
-			},
-			{
-				test: /\.svg$/,
-				loader: "react-svg-loader"
 			}
 		]
 	},

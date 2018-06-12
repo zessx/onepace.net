@@ -1,5 +1,4 @@
 import React from "react";
-import "../../index.scss";
 import Side from "./Side";
 import SideMinimised from "./SideMinimised";
 import LocalStorageUtils from "../LocalStorageUtils";
@@ -10,7 +9,7 @@ export default class Layout extends React.Component {
 
 		this.state = {
 			sideMinimised: LocalStorageUtils.getSidebarToggled()
-		}
+		};
 		this.toggleSide = this.toggleSide.bind(this);
 	}
 
