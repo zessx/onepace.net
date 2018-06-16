@@ -60,7 +60,10 @@ class db_context {
             log_error($stmt->error);
         }
         $stmt->close();
-    }
+		}
+		function natcmpchapters($a, $b) {
+			return strnatcmp($a['chapters'], $b['chapters']);
+		}
     function get_result($stmt) {
         if(!$stmt->execute()) {
             log_error($stmt->error);
@@ -74,5 +77,45 @@ class db_context {
             $rows[] = $row;
         }
         return $rows;
-    }
+		}
+		function list_progress_episodes() {
+			$stmt = $this->prepare(
+				"select episodes.*"
+				.", arcs.id as arc_id, arcs.title as arc_title, arcs.chapters as arc_chapters, arcs.episodes as arc_episodes, arcs.completed as arc_completed"
+				.", arcs.resolution as arc_resolution, arcs.torrent_hash as arc_torrent_hash, arcs.released as arc_released"
+				." from episodes right join arcs on arcs.id = episodes.arc_id where arcs.hidden = false;"
+			);
+			$rows = $this->get_result($stmt);
+			$data = [];
+			$arc_id = -1;
+			foreach($rows as $row) {
+				if($arc_id != $row['arc_id']) {
+					$arc_id = $row['arc_id'];
+					$data['arcs'][] = [
+						'id' => $row['arc_id'],
+						'title' => $row['arc_title'],
+						'chapters' => $row['arc_chapters']
+					];
+				}
+				$data['episodes'][] = [
+					'id' => $row['id'],
+					"arc_id" => $row['arc_id'],
+					'part' => $row['part'],
+					'title' => $row['title'],
+					'chapters' => $row['chapters'],
+					"released_date" => $row['released_date'],
+				];
+			}
+			usort($data['arcs'], "natcmpchapters");
+			usort($data['episodes'], 'natcmpchapters');
+			for($i = 0; $i < sizeof($data['arcs']); $i++) { // This does something
+				$arc = $data['arcs'][$i];
+				if($arc['chapters'] == null) {
+					unset($data['arcs'][$i]);
+					$data['arcs'][] = $arc;
+					$data['arcs'] = array_values($data['arcs']);
+				}
+			}
+			echo json_encode($data);
+		}
 }
