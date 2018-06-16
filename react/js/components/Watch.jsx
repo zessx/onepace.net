@@ -86,7 +86,7 @@ export default class Watch extends React.Component {
 		const { selectedArc, selectedEpisode, arcs } = this.state;
 		const episodes = selectedEpisode != null && selectedEpisode.episodes != null && selectedEpisode.episodes.length > 0 ? selectedEpisode.episodes : selectedArc != null && selectedArc.episodes != null && selectedArc.episodes.length > 0 ? selectedArc.episodes : "";
 		return (
-			<div className="card">
+			<div className="watch card">
 				<div className="watch-top"><center>
 					<select
 						className="arcs"
@@ -129,7 +129,7 @@ export default class Watch extends React.Component {
 				</center>
 				</div>
 				<div className="video-player-wrapper">
-					<video ref={(i) => this.videoRef = i} className="video-player" controls poster="assets/logo-poster-dark.png">
+					<video ref={(i) => this.videoRef = i} className="video-player" controls poster="assets/logo-poster.png">
 						{
 							selectedEpisode != null && <source type="video/mp4" src={"http://onepace.net/streams/" + selectedEpisode.crc32 + ".mp4"} />
 						}
