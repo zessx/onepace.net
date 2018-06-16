@@ -1,22 +1,6 @@
--- --------------------------------------------------------
--- Värd:                         pallas.feralhosting.com
--- Server version:               10.1.26-MariaDB-0+deb9u1 - Debian 9.1
--- Server OS:                    debian-linux-gnu
--- HeidiSQL Version:             9.4.0.5125
--- --------------------------------------------------------
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
-
--- Dumping database structure for onepace
 CREATE DATABASE IF NOT EXISTS `onepace` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `onepace`;
 
--- Dumping structure for tabell onepace.arcs
 CREATE TABLE IF NOT EXISTS `arcs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(45) NOT NULL,
@@ -424,12 +408,15 @@ CREATE TABLE IF NOT EXISTS `sagas` (
 
 -- Dumpar data för tabell onepace.sagas: ~2 rows (approximately)
 DELETE FROM `sagas`;
-/*!40000 ALTER TABLE `sagas` DISABLE KEYS */;
 INSERT INTO `sagas` (`id`, `title`, `chapters`, `episodes`) VALUES
 	(0, 'Baroque Works', '101-217', '62-130'),
 	(1, 'East Blue', '1-100', '1-61');
-/*!40000 ALTER TABLE `sagas` ENABLE KEYS */;
-
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+    
+create table if not exists `users` (
+    `id` int(10) unsigned not null auto_increment,
+    `name` varchar(45) not null,
+    `password` varchar(40) not null,
+    `token` varchar(40) not null,
+    primary key (`id`),
+    unique key `id_UNIQUE` (`id`)
+);
