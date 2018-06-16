@@ -61,9 +61,6 @@ class db_context {
         }
         $stmt->close();
 		}
-		function natcmpchapters($a, $b) {
-			return strnatcmp($a['chapters'], $b['chapters']);
-		}
     function get_result($stmt) {
         if(!$stmt->execute()) {
             log_error($stmt->error);
@@ -106,6 +103,9 @@ class db_context {
 					"released_date" => $row['released_date'],
 				];
 			}
+			function natcmpchapters($a, $b) {
+				return strnatcmp($a['chapters'], $b['chapters']);
+			}
 			usort($data['arcs'], "natcmpchapters");
 			usort($data['episodes'], 'natcmpchapters');
 			for($i = 0; $i < sizeof($data['arcs']); $i++) { // This does something
@@ -116,6 +116,6 @@ class db_context {
 					$data['arcs'] = array_values($data['arcs']);
 				}
 			}
-			echo json_encode($data);
+			return $data;
 		}
 }

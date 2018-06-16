@@ -12,6 +12,7 @@ import Layout from "./Layout";
 import Watch from "./Watch";
 import About from "./About";
 import Torrents from "./Torrents";
+import Progress from "./Progress/Progress";
 
 export default class Index extends React.Component {
 	componentDidMount() {
@@ -32,6 +33,7 @@ ReactDOM.render(
 			<IndexRoute component={Index} />
 			<Route name="torrents" path="/torrents" component={Torrents} />
 			<Route name="about" path="/about" component={About} />
+			<Route name="progress" path="/progress" component={Progress} />
 		</Route>
 	</Router>,
 	document.getElementById("reactentry")

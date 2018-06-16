@@ -2,14 +2,10 @@
 header('Content-Type: application/json; charset=utf-8;');
 require_once 'db_context.php';
 require_once 'config.php';
-require_once 'Authenticator.php';
+include_once 'logger.php';
 $context = new db_context();
-if(!Authenticator::authenticate($context, $_POST['token'])) {
-	http_response_code(400);
-} else {
-	$context->connect();
-	$episodes = $context->list_progress_episodes();
-	$context->disconnect();
-	echo json_encode($episodes);
-}
+$context->connect();
+$episodes = $context->list_progress_episodes();
+$context->disconnect();
+echo json_encode($episodes);
 ?>

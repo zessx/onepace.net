@@ -26,6 +26,7 @@ export default class Layout extends React.Component {
 					<a href="/#/"><img className="logo" src="assets/Logo.png" /></a>
 					<a className="link" href="/#/Torrents">Torrents</a>
 					<a className="link" href="/#/About">About</a>
+					<a className="link" href="/#/Progress">Progress</a>
 				</div>
 				<div className="layout-container">
 					{this.state.sideMinimised ? <SideMinimised toggle={this.toggleSide} /> : <Side toggle={this.toggleSide} />}
