@@ -19,8 +19,8 @@ export default class Progress extends React.Component {
 		return (
 			<div>
 				<Layout>
-					<div className="progress-main-content">
-						<div className="progress-board">
+					<div className="progress-container">
+						<div className="list-container">
 							{this.state.arcs.map((i) => <List title={i.title} cards={this.state.episodes.filter(j => j.arc_id == i.id)} key={i.id} />)}
 						</div>
 					</div>

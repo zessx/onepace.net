@@ -269,46 +269,64 @@ table.releases tr:hover {
 	padding-top: 55px;
 }
 
-/* Board */
-.progress-main-content {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	margin-right: 0;
-	transition: margin .1s ease-in;
-}
-.progress-board {
+.progress-container {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	white-space: nowrap;
-	margin-bottom: 10px;
-	overflow-x: auto;
-	overflow-y: hidden;
-	padding-bottom: 10px;
-	position: fixed;
-	width: 100%;
+	color: #444444;
 }
-
-/* List */
-.progress-list-wrapper {
-	width: 270px;
-	margin: 0 5px;
-	height: 100%;
-	box-sizing: border-box;
-	display: inline-block;
-	vertical-align: top;
-	white-space: nowrap;
-}
-.progress-list-content {
-	background: #e2e4e6;
-	color: black;
-	border-radius: 3px;
-	box-sizing: border-box;
+.progress-container .list-container {
 	display: flex;
-	flex-direction: column;
-	max-height: 100%;
+}
+.progress-container .list {
+	flex: 1;
+	margin: 10px;
+	width: 270px;
+}
+.progress-container .list .header {
+	background-color: #ffffff;
+	padding: 10px;
+	color: #333333;
+	font-size: 18px;
+	font-weight: bold;
+	border-radius: 3px 3px 0 0;
+}
+.progress-container .list-content {
+	background: #E2E4E6;
+	border-radius: 3px;
+}
+.progress-container .progress-card {
+	background-color: #ffffff;
+	margin: 10px;
+	border-radius: 3px;
+	border-bottom: 1px solid #ccc;
+	padding: 5px 10px 5px 10px;
+}
+/* When in doubt, add containers */
+.progress-container .add-card-button-container  {
+	padding-bottom: 1px;
+}
+.progress-container .add-card-button {
+	border-bottom: 1px solid #ccc;
+	padding: 5px;
+	margin: 10px;
+	border-radius: 3px;
+	background-color: #ffffff;
+	cursor: pointer;
+}
+.progress-container .add-card-button:hover {
+	background-color: #edeff0;
+}
+.progress-container .add-card-button .the-text {
+	font-size: 17px;
+	font-weight: 700;
+	display: inline-block;
+	margin-left: 5px;
+}
+.progress-container .add-card-button .glyphicon {
+	margin-left: 6px;
+	font-size: 14px;
 	position: relative;
-	white-space: normal;
+	top: 1px;
 }
