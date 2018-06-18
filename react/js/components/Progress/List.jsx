@@ -9,6 +9,7 @@ export default class List extends React.Component {
 				<div className="list-content">
 					<div className="header">{this.props.title}</div>
 					<div className="cards">
+						<Card img={this.props.image} />
 						{this.props.cards.map(i => {
 							let title = "";
 							title += i.chapters == null || i.chapters.length == 0 ? "" : "[" + i.chapters + "] ";
