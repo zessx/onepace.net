@@ -30,7 +30,7 @@ export default class Layout extends React.Component {
 				</div>
 				<div className="layout-container">
 					{this.state.sideMinimised ? <SideMinimised toggle={this.toggleSide} /> : <Side toggle={this.toggleSide} />}
-					<div className="layout-content">
+					<div className={"layout-content " + this.props.layoutContentClassName}>
 						{this.props.children}
 					</div>
 				</div>

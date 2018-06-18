@@ -18,8 +18,8 @@ export default class Progress extends React.Component {
 	render() {
 		return (
 			<div>
-				<Layout>
-					<div className="progress-container">
+				<Layout layoutContentClassName="flex-scroll-x">
+					<div className="card progress-container">
 						<div className="list-container">
 							{this.state.arcs.map((i) => <List title={i.title} cards={this.state.episodes.filter(j => j.arc_id == i.id)} key={i.id} />)}
 						</div>

@@ -275,6 +275,10 @@ table.releases tr:hover {
 	-ms-user-select: none;
 	user-select: none;
 	color: #444444;
+	display: flex;
+	overflow-x: auto;
+	overflow-y: hidden;
+	height: 90%;
 }
 .progress-container .list-container {
 	display: flex;
@@ -283,6 +287,7 @@ table.releases tr:hover {
 	flex: 1;
 	margin: 10px;
 	width: 270px;
+	height: 85%;
 }
 .progress-container .list .header {
 	background-color: #ffffff;
@@ -304,8 +309,12 @@ table.releases tr:hover {
 	padding: 5px 10px 5px 10px;
 }
 /* When in doubt, add containers */
-.progress-container .add-card-button-container  {
+.progress-container .add-card-button-container {
 	padding-bottom: 1px;
+}
+.progress-container .cards {
+	overflow-y: auto;
+	max-height: 100%;
 }
 .progress-container .add-card-button {
 	border-bottom: 1px solid #ccc;
@@ -329,4 +338,9 @@ table.releases tr:hover {
 	font-size: 14px;
 	position: relative;
 	top: 1px;
+}
+
+.flex-scroll-x {
+	display: flex;
+	overflow-x: auto;
 }
