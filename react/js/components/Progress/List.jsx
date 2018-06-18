@@ -18,9 +18,7 @@ export default class List extends React.Component {
 						})}
 					</div>
 					<div className="add-card-button-container">
-						<div className="add-card-button" onClick={()=>{
-							
-						}}>
+						<div className="add-card-button" onClick={() => this.props.onAddCardButtonClick()}>
 							<Glyphicon glyph="plus" />
 							<div className="the-text">Add another card</div>
 						</div>

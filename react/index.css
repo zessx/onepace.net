@@ -355,3 +355,10 @@ table.releases tr:hover {
 	width: 100%;
 	border-radius: 3px;
 }
+
+.floating-form {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: rgba(0,0,0, 0.6);
+}
