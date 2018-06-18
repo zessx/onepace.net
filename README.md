@@ -4,7 +4,7 @@
   - [Installation](#installation)
     - [Database](#database)
     - [PHP](#php)
-    - [Webpack](#webpack)
+    - [Setting up](#setting-up)
   - [Environmnent](#environment)
   - [Publishing](#publishing)
 - [API](#api)
@@ -38,19 +38,10 @@
 4. Find `;   extension=mysqli`
 5. Remove the semi-colon and save
 
-### Webpack
-1. Open cmd.exe
-2. Type `npm i -g webpack@3.3.0`
-
-## Environment
-1. Open Visual Studio Code
-2. Press File -> Open Folder and select this directory (onepace)
-3. Open up the integrated terminal (View -> Integrated Terminal)
-4. Type `cd react && npm i`
-5. When the installation is done, type `cd .. && start.bat`
-
-## Publishing
-In the integrated terminal, type `publish.bat` (You must have FTP access and installed [WebPublisher](https://github.com/sewil/web-publisher) (Windows only) to perform this action)
+### Setting up
+1. Install the required webpack version: Run `install-webpack.bat`.
+2. Install the required node modules: Run `install-nodemodules.bat`.
+3. Finally, start the test environment: Run `start.bat`.
 
 # API
 ## Headers
