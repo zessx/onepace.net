@@ -8,7 +8,7 @@ class Authenticator {
 		$stmt->bind_param("s", $token);
 		$rows = $context->get_result($stmt);
 		$context->disconnect();
-		return $rows > 0;
+		return sizeof($rows) > 0;
 	}
 }
 ?>

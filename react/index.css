@@ -356,9 +356,20 @@ table.releases tr:hover {
 	border-radius: 3px;
 }
 
-.floating-form {
+.progress-form-overlay {
 	width: 100%;
 	height: 100%;
 	position: absolute;
 	background-color: rgba(0,0,0, 0.6);
+	z-index: 100;
+}
+.progress-form-container {
+	color: #000;
+	padding: 10px;
+	max-width: 50%;
+	max-height: 80%;
+	margin: auto auto;
+	background-color: #e8e8e8;
+	border-radius: 3px;
+	margin-top: 24px;
 }
