@@ -1,26 +1,26 @@
 import React from "react";
 import Form from "./Form";
-import Moment from "moment";
 
-export default class CreateEpisodeForm extends React.Component {
+export default class UpdateEpisodeForm extends React.Component {
 	constructor(props) {
 		super(props);
+		const episode = this.props.episode;
 		this.state = {
-			title: "",
-			chapters: "",
-			episodes: "",
-			torrent_hash: "",
-			crc32: "",
-			resolution: "",
-			part: -1,
-			released_date: Moment().utc().format("YYYY-MM-DD HH:mm:ss")
+			id: episode.id,
+			title: episode.title,
+			chapters: episode.chapters,
+			episodes: episode.episodes,
+			torrent_hash: episode.torrent_hash,
+			crc32: episode.crc32,
+			resolution: episode.resolution,
+			part: episode.part,
+			released_date: episode.released_date
 		};
 	}
 	render() {
 		return (
 			<div>
 				<Form onSubmit={() => this.props.onSubmit(this.state)}>
-					<p>{this.props.arc.title}</p>
 					<label>Title: <input type="text" value={this.state.title} onChange={e => this.setState({title: e.target.value})} /></label>
 					<label>Part: <input type="number" value={this.state.part} onChange={e => this.setState({part: e.target.value})} /></label>
 					<label>Torrent hash: <input type="text" value={this.state.torrent_hash} onChange={e => this.setState({torrent_hash: e.target.value})} /></label>

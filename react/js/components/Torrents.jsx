@@ -25,7 +25,7 @@ export default class Torrents extends React.Component {
 	}
 	componentDidMount() {
 		document.title = "One Pace | Torrents";
-		NetworkHandler.request("/getreleases.php", {}, (responseJson) => {
+		NetworkHandler.post("/getreleases.php", {}, (responseJson) => {
 			let releases = this.sortReleases(responseJson.releases, this.state.sortField, this.state.sortAscending);
 			this.setState({ "releases": releases });
 		}, null);

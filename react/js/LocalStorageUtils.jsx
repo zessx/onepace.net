@@ -25,7 +25,7 @@ export default class LocalStorageUtils {
 		localStorage.setItem("watchSelectedEpisodeId", value);
 	}
 	static getToken() {
-		localStorage.getItem("token");
+		return localStorage.getItem("token");
 	}
 	static setToken(value) {
 		localStorage.setItem("token", value);
