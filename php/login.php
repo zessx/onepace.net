@@ -2,12 +2,12 @@
 header('Content-Type: application/json; charset=utf-8;');
 require_once 'db_context.php';
 require_once 'config.php';
-$name = $_GET['name'];
+$name = strtolower($_GET['name']);
 $pass = $_GET['password'];
 $pass_hashed = sha1($pass . SALT);
 $context = new db_context();
 $context->connect();
-$statement = $context->prepare("select * from users where name = ? and password = ?;");
+$statement = $context->prepare("select * from users where lower(name) = ? and password = ?;");
 $statement->bind_param('ss', $name, $pass_hashed);
 $rows = $context->get_result($statement);
 $context->disconnect();

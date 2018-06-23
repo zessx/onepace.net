@@ -11,6 +11,9 @@ body {
 * {
 	box-sizing: border-box;
 }
+input{
+	color:black;
+}
 .topnav {
 	background-color: #313131;
 	display: inline-block;
@@ -272,6 +275,36 @@ table.releases tr:hover {
 	padding-top: 55px;
 }
 
+.submit-button {
+	color: white;
+	font-size: 16px;
+	cursor: pointer;
+	padding: 7px;
+	margin: 5px 0;
+	text-align: center;
+	background-color: #5176af;
+	border-radius: 0px;
+}
+.submit-button:hover {
+	background-color: #6186bf;
+}
+.submit-button.disabled {
+	background-color: #5f6e84;
+	color: #c5c5c5;
+	cursor: default;
+	user-select: none;
+	-moz-user-select: none;
+	-ms-touch-select: none;
+	-ms-user-select: none;
+	-webkit-user-select: none;
+}
+/* Login */
+.login-side-container {
+	color: white;
+}
+.login-container {
+	margin-top: 5px;
+}
 /*List*/
 .progress-container {
 	-webkit-user-select: none;
@@ -318,8 +351,9 @@ table.releases tr:hover {
 	border-radius: 3px;
 	border-bottom: 1px solid #ccc;
 }
-.progress-card:hover{
-	background-color: #444444;
+.progress-card.title:hover{
+	background-color: #e6e6e6;
+	cursor: pointer;
 }
 /* Card icon*/
 .progress-card .glyphicon {
@@ -380,7 +414,7 @@ table.releases tr:hover {
 	max-height: 100%;
 }
 /*Form overlay*/
-.progress-form-overlay {
+.form-overlay {
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -388,7 +422,7 @@ table.releases tr:hover {
 	z-index: 100;
 }
 /*Form container*/
-.progress-form-container {
+.form-container {
 	color: #000;
 	padding: 10px;
 	max-width: 50%;
@@ -397,4 +431,13 @@ table.releases tr:hover {
 	background-color: #e8e8e8;
 	border-radius: 3px;
 	margin-top: 24px;
+}
+.subform-container {
+	margin: 10px;
+}
+.subform-container .submit-button {
+	display: inline-block;
+}
+.left-margin {
+	margin-left: 5px;
 }

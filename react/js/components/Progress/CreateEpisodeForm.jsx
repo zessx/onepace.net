@@ -19,8 +19,7 @@ export default class CreateEpisodeForm extends React.Component {
 	render() {
 		return (
 			<div>
-				<Form>
-					<p>{this.props.arc.title}</p>
+				<Form onClose={this.props.onClose}>
 					<label>Title: <input type="text" value={this.state.title} onChange={e => this.setState({title: e.target.value})} /></label>
 					<label>Part: <input type="number" value={this.state.part} onChange={e => this.setState({part: e.target.value})} /></label>
 					<label>Torrent hash: <input type="text" value={this.state.torrent_hash} onChange={e => this.setState({torrent_hash: e.target.value})} /></label>
@@ -29,7 +28,7 @@ export default class CreateEpisodeForm extends React.Component {
 					<label>Resolution: <input type="text" value={this.state.resolution} onChange={e => this.setState({resolution: e.target.value})} /></label>
 					<label>Released date: <input type="text" value={this.state.released_date} onChange={e => this.setState({released_date: e.target.value})} /></label>
 					<label>Episodes: <input type="text" value={this.state.episodes} onChange={e => this.setState({episodes: e.target.value})} /></label>
-					<div onClick={this.props.onSubmit}>Submit</div>
+					<div className="submit-button" onClick={this.props.onSubmit}>Submit</div>
 				</Form>
 			</div>
 		);

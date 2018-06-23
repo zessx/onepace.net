@@ -5,16 +5,22 @@ require_once 'config.php';
 require_once 'Authenticator.php';
 include_once 'secure_indexer.php';
 $context = new db_context();
-if(!Authenticator::authenticate($context, $_GET['token'], 2)){
+if(!Authenticator::authenticate($context, $_GET['token'], 2, $user)) {
 	http_response_code(400);
 } else {
+	$released_date = $_GET['released_date'];
 	$context->connect();
-	$stmt = $context->prepare("update episodes set crc32=?, chapters=?, episodes=?, resolution=?, released_date=?, title=?, part=?, torrent_hash=? where id=?;");
-	$stmt->bind_param('ssssssdsd',
-		scr_value($_GET, 'crc32'), scr_value($_GET, 'chapters'), scr_value($_GET, 'episodes'), scr_value($_GET, 'resolution'),
-		scr_value($_GET, 'released_date'), scr_value($_GET, 'title'), scr_value($_GET, 'part'), scr_value($_GET, 'torrent_hash'), scr_value($_GET, 'id')
-	);
-	$context->execute($stmt);
+	$context->update_episode($_GET['id'], [
+		"crc32" => $_GET['crc32'],
+		"chapters" => $_GET['chapters'],
+		"episodes" => $_GET['episodes'],
+		"resolution" => $_GET['resolution'],
+		"title" => $_GET['title'],
+		"part" => $_GET['part'],
+		"torrent_hash" => $_GET['torrent_hash'],
+		"hidden" => $_GET['hidden'],
+		"released_date" => $released_date == '' ? null : $released_date
+	]);
 	$episodes = $context->list_progress_episodes();
 	$context->disconnect();
 	echo json_encode($episodes);

@@ -85,16 +85,6 @@ export default class About extends React.Component {
 							</ul>
 							<hr />
 						</div>
-
-						<div className="links">
-							<h2>Links</h2>
-							<ul className="vl">
-								<li><a target="_blank" rel="noopener noreferrer" href="https://discordapp.com/invite/uzmumFv">Discord</a></li>
-								<li><a target="_blank" rel="noopener noreferrer" href="http://forums.arlongpark.net/showthread.php?t=38681">Arlong Park Forums Thread</a></li>
-								<li><a target="_blank" rel="noopener noreferrer" href="https://onedrive.live.com/view.aspx?resid=2A9137DBF1112637!37021&amp;ithint=file%2cxlsx&amp;app=Excel&amp;authkey=!ACgbEWtkXaBEMC0">One Pace Excel Chart</a></li>
-								<li><a target="_blank" rel="noopener noreferrer" href="http://onepiecetracklist.com">One Piece Track List</a></li>
-							</ul>
-						</div>
 					</div>
 				</Layout>
 			</div>

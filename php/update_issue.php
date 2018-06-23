@@ -3,8 +3,9 @@ header('Content-Type: application/json; charset=utf-8;');
 require_once 'db_context.php';
 require_once 'config.php';
 require_once 'Authenticator.php';
+include_once 'logger.php';
 $context = new db_context();
-if(!Authenticator::authenticate($context, $_GET['token'], 1)){
+if(!Authenticator::authenticate($context, $_GET['token'], 1, $user)) {
 	http_response_code(400);
 } else {
 	$context->connect();
