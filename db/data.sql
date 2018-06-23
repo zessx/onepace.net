@@ -1,25 +1,7 @@
-CREATE DATABASE IF NOT EXISTS `onepace` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `onepace`;
-
-CREATE TABLE IF NOT EXISTS `arcs` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(45) NOT NULL,
-  `chapters` varchar(45) NOT NULL DEFAULT '',
-  `episodes` varchar(45) NOT NULL DEFAULT '',
-  `nyaa_id` varchar(6) DEFAULT NULL,
-  `torrent_hash` varchar(40) DEFAULT '',
-  `resolution` varchar(10) DEFAULT NULL,
-  `completed` tinyint(1) NOT NULL,
-  `hidden` tinyint(1) NOT NULL,
-  `released` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `nyaa_id_UNIQUE` (`nyaa_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
-
--- Dumpar data för tabell onepace.arcs: ~28 rows (approximately)
-DELETE FROM `arcs`;
-/*!40000 ALTER TABLE `arcs` DISABLE KEYS */;
+use `onepace`;
+INSERT INTO `sagas` (`id`, `title`, `chapters`, `episodes`) VALUES
+	(0, 'Baroque Works', '101-217', '62-130'),
+	(1, 'East Blue', '1-100', '1-61');
 INSERT INTO `arcs` (`id`, `title`, `chapters`, `episodes`, `nyaa_id`, `torrent_hash`, `resolution`, `completed`, `hidden`, `released`) VALUES
 	(1, 'Impel Down', '525-548', '', NULL, 'c9743cf73e28a3e641335eade0ab9538e1c8bb1b', '720p', 1, 0, 1),
 	(2, 'Zou', '801-822', '', NULL, '5c027631a28242814a6cf1fe24f455b70bca14bc', '720p', 1, 0, 1),
@@ -49,30 +31,6 @@ INSERT INTO `arcs` (`id`, `title`, `chapters`, `episodes`, `nyaa_id`, `torrent_h
 	(46, 'Baratie', '42-68', '', NULL, '', '480p', 0, 0, 0),
 	(47, 'Arlong Park', '69-95', '', NULL, '', '480p', 0, 0, 0),
 	(48, 'Jaya', '218-236', '', NULL, '', '480p', 0, 0, 0);
-/*!40000 ALTER TABLE `arcs` ENABLE KEYS */;
-
--- Dumping structure for tabell onepace.episodes
-CREATE TABLE IF NOT EXISTS `episodes` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `crc32` varchar(8) DEFAULT NULL,
-  `arc_id` int(10) unsigned DEFAULT NULL,
-  `resolution` varchar(10) DEFAULT NULL,
-  `chapters` varchar(45) DEFAULT NULL,
-  `episodes` varchar(45) DEFAULT NULL,
-  `torrent_hash` varchar(40) DEFAULT NULL,
-  `released_date` datetime DEFAULT NULL,
-  `title` varchar(45) NOT NULL DEFAULT '',
-  `status` varchar(50) NOT NULL DEFAULT '',
-  `part` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  KEY `arc_id_fk_idx` (`arc_id`),
-  CONSTRAINT `arc_id_fk` FOREIGN KEY (`arc_id`) REFERENCES `arcs` (`id`) ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=335 DEFAULT CHARSET=utf8;
-
--- Dumpar data för tabell onepace.episodes: ~447 rows (approximately)
-DELETE FROM `episodes`;
-/*!40000 ALTER TABLE `episodes` DISABLE KEYS */;
 INSERT INTO `episodes` (`id`, `crc32`, `arc_id`, `resolution`, `chapters`, `episodes`, `torrent_hash`, `released_date`, `title`, `status`, `part`) VALUES
 	(1, '021A8886', 4, '720p', '698-699', '624-626, 628', '', '2013-03-01 00:00:00', '', '', 22),
 	(2, '04186119', 3, '720p', '754-755', '691-693', '9191339751bd5b5188f02471160e70eb41ec16f5', '2017-12-01 00:00:00', '', '', 28),
@@ -395,28 +353,3 @@ INSERT INTO `episodes` (`id`, `crc32`, `arc_id`, `resolution`, `chapters`, `epis
 	(332, '', 40, '720p', '383-384', '', '', NULL, '', '', 5),
 	(333, '', 40, '720p', '385-387', '', '', NULL, '', '', 6),
 	(334, '', 40, '720p', '388-390', '', '', NULL, '', '', 7);
-/*!40000 ALTER TABLE `episodes` ENABLE KEYS */;
-
--- Dumping structure for tabell onepace.sagas
-CREATE TABLE IF NOT EXISTS `sagas` (
-  `id` int(10) unsigned NOT NULL,
-  `title` varchar(50) NOT NULL,
-  `chapters` varchar(50) NOT NULL,
-  `episodes` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Dumpar data för tabell onepace.sagas: ~2 rows (approximately)
-DELETE FROM `sagas`;
-INSERT INTO `sagas` (`id`, `title`, `chapters`, `episodes`) VALUES
-	(0, 'Baroque Works', '101-217', '62-130'),
-	(1, 'East Blue', '1-100', '1-61');
-    
-create table if not exists `users` (
-    `id` int(10) unsigned not null auto_increment,
-    `name` varchar(45) not null,
-    `password` varchar(40) not null,
-    `token` varchar(40) not null,
-    primary key (`id`),
-    unique key `id_UNIQUE` (`id`)
-);

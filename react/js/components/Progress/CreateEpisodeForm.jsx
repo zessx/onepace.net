@@ -19,7 +19,7 @@ export default class CreateEpisodeForm extends React.Component {
 	render() {
 		return (
 			<div>
-				<Form onSubmit={() => this.props.onSubmit(this.state)}>
+				<Form>
 					<p>{this.props.arc.title}</p>
 					<label>Title: <input type="text" value={this.state.title} onChange={e => this.setState({title: e.target.value})} /></label>
 					<label>Part: <input type="number" value={this.state.part} onChange={e => this.setState({part: e.target.value})} /></label>
@@ -29,6 +29,7 @@ export default class CreateEpisodeForm extends React.Component {
 					<label>Resolution: <input type="text" value={this.state.resolution} onChange={e => this.setState({resolution: e.target.value})} /></label>
 					<label>Released date: <input type="text" value={this.state.released_date} onChange={e => this.setState({released_date: e.target.value})} /></label>
 					<label>Episodes: <input type="text" value={this.state.episodes} onChange={e => this.setState({episodes: e.target.value})} /></label>
+					<div onClick={this.props.onSubmit}>Submit</div>
 				</Form>
 			</div>
 		);

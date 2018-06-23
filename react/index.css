@@ -272,6 +272,7 @@ table.releases tr:hover {
 	padding-top: 55px;
 }
 
+/*List*/
 .progress-container {
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -283,6 +284,10 @@ table.releases tr:hover {
 	overflow-y: hidden;
 	height: 90%;
 }
+.flex-scroll-x {
+	display: flex;
+	overflow-x: auto;
+}
 .progress-container .list-container {
 	display: flex;
 }
@@ -292,6 +297,7 @@ table.releases tr:hover {
 	width: 270px;
 	height: 85%;
 }
+/*List header*/
 .progress-container .list .header {
 	background-color: #ffffff;
 	padding: 10px;
@@ -300,31 +306,40 @@ table.releases tr:hover {
 	font-weight: bold;
 	border-radius: 3px 3px 0 0;
 }
+/*List content*/
 .progress-container .list-content {
 	background: #E2E4E6;
 	border-radius: 3px;
 }
+/*  Card */
 .progress-container .progress-card {
 	background-color: #ffffff;
 	margin: 10px;
 	border-radius: 3px;
 	border-bottom: 1px solid #ccc;
 }
-/* When in doubt, add containers */
+.progress-card:hover{
+	background-color: #444444;
+}
+/* Card icon*/
+.progress-card .glyphicon {
+	display: none;
+	color: #666;
+}
+.progress-card:hover .glyphicon {
+	float: right;
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+	right: 13px;
+	top: 9px;
+}
+.progress-card .glyphicon:hover {
+	color: #101010;
+}
+/* Card add button*/
 .progress-container .add-card-button-container {
 	padding-bottom: 1px;
-}
-.progress-container .cards {
-	overflow-y: auto;
-	max-height: 100%;
-}
-.progress-container .add-card-button {
-	border-bottom: 1px solid #ccc;
-	padding: 5px;
-	margin: 10px;
-	border-radius: 3px;
-	background-color: #ffffff;
-	cursor: pointer;
 }
 .progress-container .add-card-button:hover {
 	background-color: #edeff0;
@@ -341,21 +356,30 @@ table.releases tr:hover {
 	position: relative;
 	top: 1px;
 }
-
-.flex-scroll-x {
-	display: flex;
-	overflow-x: auto;
+.progress-container .add-card-button {
+	border-bottom: 1px solid #ccc;
+	padding: 5px;
+	margin: 10px;
+	border-radius: 3px;
+	background-color: #ffffff;
+	cursor: pointer;
 }
-
+/*Card text*/
 .progress-container .progress-card .text {
 	margin: 5px 10px;
 	display: inline-block;
 }
+/*Card image*/
 .progress-container .cards .list-image {
 	width: 100%;
 	border-radius: 3px;
 }
-
+/* Card list*/
+.progress-container .cards {
+	overflow-y: auto;
+	max-height: 100%;
+}
+/*Form overlay*/
 .progress-form-overlay {
 	width: 100%;
 	height: 100%;
@@ -363,6 +387,7 @@ table.releases tr:hover {
 	background-color: rgba(0,0,0, 0.6);
 	z-index: 100;
 }
+/*Form container*/
 .progress-form-container {
 	color: #000;
 	padding: 10px;
@@ -372,20 +397,4 @@ table.releases tr:hover {
 	background-color: #e8e8e8;
 	border-radius: 3px;
 	margin-top: 24px;
-}
-
-.progress-card .glyphicon {
-	display: none;
-	color: #666;
-}
-.progress-card:hover .glyphicon {
-	float: right;
-	display: inline-block;
-	position: relative;
-	cursor: pointer;
-	right: 13px;
-	top: 9px;
-}
-.progress-card .glyphicon:hover {
-	color: #101010;
 }

@@ -80,11 +80,17 @@ class db_context {
 				"select episodes.*"
 				.", arcs.id as arc_id, arcs.title as arc_title, arcs.chapters as arc_chapters, arcs.episodes as arc_episodes, arcs.completed as arc_completed"
 				.", arcs.resolution as arc_resolution, arcs.torrent_hash as arc_torrent_hash, arcs.released as arc_released"
-				." from episodes right join arcs on arcs.id = episodes.arc_id where arcs.hidden = false;"
+				.", issues.id as issue_id, issues.description as issue_description, issues.status as issue_status"
+				." from episodes"
+				." left join issues on issues.episode_id = episodes.id"
+				." right join arcs on arcs.id = episodes.arc_id"
+				." where arcs.hidden = false and (episodes.released_date is null or episodes.released_date > now())"
+				.";"
 			);
 			$rows = $this->get_result($stmt);
 			$data = [];
 			$arc_id = -1;
+			$episode_id = -1;
 			foreach($rows as $row) {
 				if($arc_id != $row['arc_id']) {
 					$arc_id = $row['arc_id'];
@@ -94,13 +100,21 @@ class db_context {
 						'chapters' => $row['arc_chapters']
 					];
 				}
-				$data['episodes'][] = [
-					'id' => $row['id'],
-					"arc_id" => $row['arc_id'],
-					'part' => $row['part'],
-					'title' => $row['title'],
-					'chapters' => $row['chapters'],
-					"released_date" => $row['released_date'],
+				if($episode_id != $row["id"]){
+					$episode_id = $row["id"];
+					$data['episodes'][] = [
+						'id' => $row['id'],
+						"arc_id" => $row['arc_id'],
+						'part' => $row['part'],
+						'title' => $row['title'],
+						'chapters' => $row['chapters'],
+						"released_date" => $row['released_date'],
+					];
+				}
+				$data["issues"][] = [
+					"id" => $row["issue_id"],
+					"description" => $row["issue_description"],
+					"status" => $row["issue_status"]
 				];
 			}
 			function natcmpchapters($a, $b) {
@@ -108,7 +122,7 @@ class db_context {
 			}
 			usort($data['arcs'], "natcmpchapters");
 			usort($data['episodes'], 'natcmpchapters');
-			for($i = 0; $i < sizeof($data['arcs']); $i++) { // This does something
+			for($i = 0; $i < sizeof($data['arcs']); $i++) {
 				$arc = $data['arcs'][$i];
 				if($arc['chapters'] == null) {
 					unset($data['arcs'][$i]);

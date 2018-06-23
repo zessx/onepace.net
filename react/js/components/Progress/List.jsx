@@ -14,7 +14,7 @@ export default class List extends React.Component {
 							let title = "";
 							title += i.chapters == null || i.chapters.length == 0 ? "" : "[" + i.chapters + "] ";
 							title += i.part == null ? i.title : this.props.title + " " + i.part.toString().padStart(2, "0");
-							return <Card key={i.id} title={title} onEditCardButtonClick={()=>this.props.onEditCardButtonClick(i)} />;
+							return <Card onClick={()=>this.props.onClickCard(i)} key={i.id} title={title} onEditCardButtonClick={()=>this.props.onEditCardButtonClick(i)} />;
 						})}
 					</div>
 					<div className="add-card-button-container">

@@ -104,3 +104,117 @@
     ]
 }
 ```
+## /list_progress_episodes
+```
+{
+	"arcs":[
+		{
+			"id":i,
+			"title":s,
+			"chapters":s
+		},
+		...
+	],
+	"episodes":[
+		{
+			"id":i,
+			"arc_id":i,
+			"part":i,
+			"title":s,
+			"chapters":s,
+			"released_date":s
+		},
+		...
+	],
+	"issues":[
+		{
+			"id":i,
+			"episode_id":i,
+			"description":s,
+			"status":i,
+			"createdby":s,
+			"createddate":ut
+		}
+	]
+}
+```
+## /create_episode
+### Request (GET)
+```
+{
+	"token":s,
+	"arc_id":i,
+	"title":s,
+	"part":i,
+	"released_date":s,
+	"torrent_hash":s,
+	"episodes":s,
+	"chapters":s,
+	"resolution":s
+}
+```
+### Response
+See /list_progress_episodes
+## /update_episode
+### Request (GET)
+```
+{
+	"token":s,
+	"id":i,
+	"arc_id":i,
+	"title":s,
+	"part":i,
+	"released_date":s,
+	"torrent_hash":s,
+	"episodes":s,
+	"chapters":s,
+	"resolution":s
+}
+```
+### Response
+See /list_progress_episodes
+## /delete_episode
+### Request (GET)
+```
+{
+	"token":s,
+	"id":i
+}
+```
+### Response
+See /list_progress_episodes
+## /create_issue
+### Request (GET)
+```
+{
+	"token":s,
+	"id":i
+}
+```
+### Response
+```
+{
+	"arcs":[
+		{
+			"id":i,
+			"title":s,
+			"chapters":s
+		},
+		...
+	],
+	"episodes":[
+		{
+			"id":i,
+			"arc_id":i,
+			"part":i,
+			"title":s,
+			"chapters":s,
+			"released_date":s
+		},
+		...
+	]
+}
+```
+## /update_issue
+## /close_issue
+## /open_issue
