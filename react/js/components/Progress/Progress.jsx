@@ -14,7 +14,6 @@ export default class Progress extends React.Component {
 		this.state = {
 			"arcs": [],
 			"episodes": [],
-			"issues":[],
 			"showCreateEpisodeFormForArc": null,
 			"showUpdateEpisodeForm": null,
 			"showViewEpisodeForm": null,
@@ -62,36 +61,12 @@ export default class Progress extends React.Component {
 			...episode,
 			"token": token
 		}, (responseJson) => {
-			this.setState({showUpdateEpisodeForm: null, arcs: responseJson.arcs, issues: responseJson.issues, episodes: responseJson.episodes});
+			this.setState({showUpdateEpisodeForm: null, arcs: responseJson.arcs, episodes: responseJson.episodes});
 		}, () => {
 		});
 	}
 	onClickCard = (episode) => {
 		this.setState({showViewEpisodeForm: episode});
-	}
-	onCreateIssue = (description)=>{
-		NetworkHandler.get("/create_issue.php",{
-			"token": this.state.user.token,
-			"description": description
-		}, (responseJson)=>{
-			this.setState({showCreateIssueForm:null, arcs: responseJson.arcs, issues:responseJson.issues, episodes: responseJson.episodes});
-		});
-	}
-	onUpdateIssue = (issue)=>{
-		NetworkHandler.get("/update_issue.php",{
-			"token": this.state.user.token,
-			...issue
-		}, (responseJson)=>{
-			this.setState({showUpdateIssueForm:null, arcs: responseJson.arcs, issues:responseJson.issues, episodes: responseJson.episodes});
-		});
-	}
-	onDeleteIssue = (issue) => {
-		NetworkHandler.get("/delete_issue.php",{
-			"id": issue.id,
-			"token": this.state.user.token
-		}, (responseJson)=>{
-			this.setState({showViewEpisodeForm:null, arcs: responseJson.arcs, issues:responseJson.issues, episodes: responseJson.episodes});
-		});
 	}
 	logOut = () => {
 		LocalStorageUtils.setUser(null);
@@ -116,10 +91,6 @@ export default class Progress extends React.Component {
 				{isQCer && this.state.showViewEpisodeForm != null && <ViewEpisodeForm
 					user={this.state.user}
 					episode={this.state.showViewEpisodeForm}
-					issues={this.state.issues.filter(i=>i.episode_id==this.state.showViewEpisodeForm.id)}
-					onCreateIssue={description=>isQCer&&this.onCreateIssue(description)}
-					onUpdateIssue={issue=>isQCer&&this.onUpdateIssue(issue)}
-					onDeleteIssue={issue=>isQCer&&this.onDeleteIssue(issue)}
 					onDelete={()=>isAdmin&&this.onDeleteEpisode()} />}
 				<Layout layoutContentClassName="flex-scroll-x">
 					{!isLoggedIn&&<div className="apply-text">

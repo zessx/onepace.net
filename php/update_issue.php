@@ -8,11 +8,17 @@ if(!Authenticator::authenticate($context, $_GET['token'], 1)){
 	http_response_code(400);
 } else {
 	$context->connect();
-	$stmt = $context->prepare("update issues set description=?, status=? where id=?;");
-	$stmt->bind_param('sdd', $_GET['description'], $_GET['status'], $_GET['id']);
-	$context->execute($stmt);
-	$episodes = $context->list_progress_episodes();
+	$issue = $context->read_issue($_GET["id"]);
+	if($issue == null) {
+		http_response_code(400);
+		exit();
+	}
+	$context->update_issue($_GET["id"], [
+		"description" => $_GET["description"],
+		"status" => $_GET["status"]
+	]);
+	$issues = $context->list_issues($issue["episode_id"]);
 	$context->disconnect();
-	echo json_encode($episodes);
+	echo json_encode($issues);
 }
 ?>

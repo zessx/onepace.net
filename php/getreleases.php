@@ -7,7 +7,7 @@ include_once 'secure_indexer.php';
 $torrents = TorrentUtils::getTorrents();
 $context = new db_context();
 $context->connect();
-$rows = $context->query(
+$stmt = $context->prepare(
     "select episodes.crc32, episodes.torrent_hash, episodes.released_date, arcs.torrent_hash as arc_torrent_hash from episodes"
     ." right join arcs on arcs.id = episodes.arc_id "
     ." where"
@@ -15,6 +15,7 @@ $rows = $context->query(
     ." and episodes.released_date is not null and episodes.released_date <= now()"
     ." group by arc_torrent_hash, torrent_hash"
 .";");
+$rows = $context->get_result($stmt);
 $context->disconnect();
 $data = [];
 $torrent_hashes = [];
