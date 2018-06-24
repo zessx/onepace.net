@@ -356,7 +356,7 @@ table.releases tr:hover {
 	border-bottom: 1px solid #ccc;
 }
 .progress-card.title:hover{
-	background-color: #e6e6e6;
+	background-color: #ececec;
 	cursor: pointer;
 }
 /* Card icon*/
@@ -448,4 +448,11 @@ table.releases tr:hover {
 .issues{
 	max-height: 50%;
 	overflow-y: auto;
+}
+.card .status {
+	color: #9c9c9c;
+	font-size: 11px;
+	text-align: right;
+	margin: -5px 7px 4px 7px;
+	font-style: italic;
 }

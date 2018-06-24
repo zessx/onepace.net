@@ -47,7 +47,7 @@ export default class Watch extends React.Component {
 		let selectedArc = null;
 		let selectedEpisode = null;
 		if (this.state.arcs.length > 0) {
-			[selectedArc] = this.state.arcs.filter((i) => i.id === arcId);
+			[selectedArc] = this.state.arcs.filter((i) => i.id == arcId);
 			[selectedEpisode] = this.state.episodes.filter((i) => i.arcId == arcId);
 			LocalStorageUtils.setWatchSelectedEpisodeId(selectedEpisode.id);
 			browserHistory.push("/#/?episode=" + selectedEpisode.id);
@@ -59,8 +59,8 @@ export default class Watch extends React.Component {
 		this.videoRef.load();
 	}
 	changeEpisode = (episodeId) => {
-		const [selectedEpisode] = this.state.episodes.filter((i) => i.id === episodeId);
-		const [selectedArc] = this.state.arcs.filter((i) => i.id === selectedEpisode.arcId);
+		const [selectedEpisode] = this.state.episodes.filter((i) => i.id == episodeId);
+		const [selectedArc] = this.state.arcs.filter((i) => i.id == selectedEpisode.arcId);
 		LocalStorageUtils.setWatchSelectedEpisodeId(selectedEpisode.id);
 		this.setState({
 			"selectedEpisode": selectedEpisode,

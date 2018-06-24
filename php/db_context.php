@@ -175,6 +175,7 @@ class db_context {
 				"resolution" => $row["resolution"],
 				"torrent_hash" => $row["torrent_hash"],
 				"hidden" => $row['hidden'],
+				"status" => $row['status'],
 				"released_date" => $row['released_date'] == null ? '' : $row['released_date']
 			];
 		}

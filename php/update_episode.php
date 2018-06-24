@@ -19,7 +19,8 @@ if(!Authenticator::authenticate($context, $_GET['token'], 2, $user)) {
 		"part" => $_GET['part'],
 		"torrent_hash" => $_GET['torrent_hash'],
 		"hidden" => $_GET['hidden'],
-		"released_date" => $released_date == '' ? null : $released_date
+		"released_date" => $released_date == '' ? null : $released_date,
+		"status" => $_GET['status']
 	]);
 	$episodes = $context->list_progress_episodes();
 	$context->disconnect();

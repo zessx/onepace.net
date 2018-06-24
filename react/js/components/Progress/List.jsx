@@ -20,6 +20,7 @@ export default class List extends React.Component {
 								onView={()=>this.props.onClickCard(i)}
 								key={i.id}
 								title={title}
+								status={i.status}
 								onEditCardButtonClick={()=>this.props.onEditCardButtonClick(i)}
 							/>;
 						})}
