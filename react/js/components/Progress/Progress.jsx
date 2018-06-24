@@ -6,6 +6,7 @@ import CreateEpisodeForm from "./CreateEpisodeForm";
 import LocalStorageUtils from "../../LocalStorageUtils";
 import ViewEpisodeForm from "./ViewEpisodeForm";
 import ChangePasswordForm from "./ChangePasswordForm";
+import CreateUserForm from "./CreateUserForm";
 
 export default class Progress extends React.Component {
 	constructor(props){
@@ -91,6 +92,18 @@ export default class Progress extends React.Component {
 			"oldpassword": formdata.oldpassword,
 			"newpassword": formdata.newpassword,
 			"token": this.state.user.token
+		},() => {
+			this.setState({showChangePasswordForm: false});
+		});
+	}
+	createUser = (formdata) => {
+		NetworkHandler.get("/create_user.php",{
+			"name": formdata.name,
+			"password": formdata.password,
+			"token": this.state.user.token,
+			"role": formdata.role
+		}, () => {
+			this.setState({showCreateUserForm: false});
 		});
 	}
 	render() {
@@ -103,6 +116,13 @@ export default class Progress extends React.Component {
 					<ChangePasswordForm
 						onSubmit={formdata=>this.changePassword(formdata)}
 						onClose={()=>this.setState({showChangePasswordForm:false})}
+					/>
+				}
+				{
+					isAdmin && this.state.showCreateUserForm &&
+					<CreateUserForm
+						onSubmit={this.createUser}
+						onClose={()=>this.setState({showCreateUserForm:false})}
 					/>
 				}
 				{
@@ -131,6 +151,7 @@ export default class Progress extends React.Component {
 								Logged in as {this.state.user.name}.
 								<div className="submit-button" onClick={this.logOut}>Log out</div>
 								<div className="submit-button" onClick={()=>this.setState({showChangePasswordForm:true})}>Change password</div>
+								{ isAdmin && <div className="submit-button" onClick={()=>this.setState({showCreateUserForm:true})}>Create user</div> }
 							</div>
 							||
 							<div className="login-side-container">
