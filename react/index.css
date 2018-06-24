@@ -449,10 +449,38 @@ table.releases tr:hover {
 	max-height: 50%;
 	overflow-y: auto;
 }
+.issue-container {
+	background-color: #fff;
+	margin: 10px;
+	padding: 10px;
+	color: black;
+}
+.issue-container .header .name {
+	font-size: 14px;
+}
+.issue-container .header .time {
+	font-size: 12px;
+	font-style: italic;
+}
 .card .status {
 	color: #9c9c9c;
 	font-size: 11px;
 	text-align: right;
 	margin: -5px 7px 4px 7px;
 	font-style: italic;
+}
+.issue-container .check-button {
+	float: right;
+	font-size: 21px;
+}
+.issue-container .check-button.glyphicon-check {
+	color: #21af21;
+	position: relative;
+	right: 1px;
+}
+.issue-container .check-button.glyphicon-unchecked {
+	color: #d60808;
+}
+.issue-container .check-button.editable {
+	cursor: pointer;
 }

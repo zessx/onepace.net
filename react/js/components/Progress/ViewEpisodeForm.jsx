@@ -2,6 +2,7 @@ import React from "react";
 import Form from "./Form";
 import NetworkHandler from "../../NetworkHandler";
 import Moment from "moment";
+import { Glyphicon } from "react-bootstrap";
 
 export default class ViewEpisodeForm extends React.Component {
 	constructor(props) {
@@ -48,9 +49,11 @@ export default class ViewEpisodeForm extends React.Component {
 		this.setState({issues});
 	}
 	render() {
-		const isLoggedIn = this.props.user != null;
-		const isQCer = isLoggedIn && this.props.user.role >= 1;
-		const isAdmin = isLoggedIn && this.props.user.role >= 2;
+		const {user} = this.props;
+		const isLoggedIn = user != null;
+		const isQCer = isLoggedIn && user.role >= 1;
+		const isEditor = isLoggedIn && user.role >= 2;
+		const isAdmin = isLoggedIn && user.role >= 4;
 		return (
 			<div>
 				<Form onClose={this.props.onClose}>
@@ -88,14 +91,14 @@ export default class ViewEpisodeForm extends React.Component {
 						</div>
 					}
 					<div className="issues">
-						{this.state.issues.map((i, index) => 
-							<div key={i.id} className="subform-container">
-								<input type="checkbox" disabled={!isQCer} value="test" checked={i.status == 1} onChange={e => this.updateIssue({...i, status: e.target.checked ? 1 : 0})} />
-								<input className="left-margin" type="text" disabled={!isQCer} value={i.description} onChange={e=>this.changeIssue(index, {...i, description: e.target.value})} />
-								<span className="left-margin">Created by {i.createdby} {Moment.unix(i.createddate).format("YYYY-MM-DD HH:mm:ss")}</span>
-								{ isQCer && <div className="submit-button left-margin" onClick={()=>this.updateIssue(i)}>Update</div> }
-								{ isQCer && <div className="submit-button left-margin" onClick={()=>this.deleteIssue(i)}>Delete</div> }
-								{i.status == 1 && <span className="left-margin">Marked complete by {i.completedby} {Moment.unix(i.completeddate).format("YYYY-MM-DD HH:mm:ss")}</span>}
+						{this.state.issues.map(i => 
+							<div key={i.id} className="subform-container issue-container">
+								<p className="header">
+									<span className="name">{i.createdby}</span> <span className="time">{Moment.unix(i.createddate).format("YYYY-MM-DD HH:mm:ss")}</span>
+									<Glyphicon className={"check-button" + (isEditor ? " editable" : "")} glyph={i.status == 1 ? "check" : "unchecked"} onClick={() => isEditor && this.updateIssue({...i, status: i.status == 1 ? 0 : 1})} />
+								</p>
+								<p className="text">{i.description}</p>
+								{ isEditor && <div className="submit-button" onClick={()=>this.deleteIssue(i)}>Delete</div> }
 							</div>
 						)}
 					</div>

@@ -108,7 +108,7 @@ export default class Progress extends React.Component {
 	}
 	render() {
 		const isLoggedIn = this.state.user != null;
-		const isAdmin = isLoggedIn && this.state.user.role >= 2;
+		const isAdmin = isLoggedIn && this.state.user.role >= 4;
 		return (
 			<div>
 				{

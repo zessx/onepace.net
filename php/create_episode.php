@@ -6,7 +6,7 @@ require_once 'Authenticator.php';
 include_once 'secure_indexer.php';
 include_once 'logger.php';
 $context = new db_context();
-if(!Authenticator::authenticate($context, $_GET['token'], 2, $user)){
+if(!Authenticator::authenticate($context, $_GET['token'], 4, $user)){
 	http_response_code(400);
 } else {
 	$context->connect();
