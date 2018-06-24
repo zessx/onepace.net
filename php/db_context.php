@@ -19,42 +19,6 @@ class db_context {
 	function disconnect() {
 		mysqli_close($this->connection);
 	}
-	function prepare($sql) {
-		$connection = $this->connection;
-		$stmt = $connection->prepare($sql);
-		if($stmt === false) {
-			log_error('Wrong SQL: ' . $sql . ' Error: ' . $connection->errno . ' ' . $connection->error, E_USER_ERROR);
-		}
-		return $stmt;
-	}
-	function get_result($stmt) {
-		if(!$stmt->execute()) {
-			log_error($stmt->error);
-		}
-		if(!$result = $stmt->get_result()) {
-			log_error($stmt->error);
-		}
-		$stmt->close();
-		$rows = [];
-		while ($row = $result->fetch_assoc()) {
-			$rows[] = $row;
-		}
-		return $rows;
-	}
-	function execute($stmt) {
-		if(!$stmt->execute()) {
-			log_error($stmt->error);
-		}
-		$stmt->close();
-	}
-	function get_single($stmt) {
-		$rows = $this->get_result($stmt);
-		if(sizeof($rows) > 0){
-			return $rows[0];
-		} else {
-			return null;
-		}
-	}
 	function get_param_type($value) {
 		if(is_int($value)) {
 			return "i";
@@ -76,6 +40,61 @@ class db_context {
 			$types .= $this->get_param_type($value);
 		}
 		$stmt->bind_param($types, ...$param_keys);
+	}
+	function get_result($stmt) {
+		if(!$stmt->execute()) {
+			log_error($stmt->error);
+		}
+		if(!$result = $stmt->get_result()) {
+			log_error($stmt->error);
+		}
+		$stmt->close();
+		$rows = [];
+		while ($row = $result->fetch_assoc()) {
+			$rows[] = $row;
+		}
+		return $rows;
+	}
+	function get_single($stmt) {
+		$rows = $this->get_result($stmt);
+		if(sizeof($rows) > 0){
+			return $rows[0];
+		} else {
+			return null;
+		}
+	}
+	function execute($stmt) {
+		if(!$stmt->execute()) {
+			log_error($stmt->error);
+		}
+		$stmt->close();
+	}
+	function prepare($sql) {
+		$connection = $this->connection;
+		$stmt = $connection->prepare($sql);
+		if($stmt === false) {
+			log_error('Wrong SQL: ' . $sql . ' Error: ' . $connection->errno . ' ' . $connection->error, E_USER_ERROR);
+		}
+		return $stmt;
+	}
+	function prepare_and_bind($sql, $params = null) {
+		$stmt = $this->prepare($sql);
+		if($params != null) {
+			$this->bind_param($stmt, $params);
+		}
+		return $stmt;
+	}
+	function prepare_and_get_result($sql, $params = null) {
+		$stmt = $this->prepare_and_bind($sql, $params);
+		return $this->get_result($stmt);
+	}
+	function prepare_and_get_single($sql, $params = null) {
+		$stmt = $this->prepare_and_bind($sql, $params);
+		return $this->get_single($stmt);
+	}
+	function prepare_and_execute($sql, $params = null) {
+		$stmt = $this->prepare_and_bind($sql, $params);
+		$this->execute($stmt);
 	}
 	/* Operations */
 	function create($table, $params) {
@@ -102,15 +121,11 @@ class db_context {
 			$sql .= "?";
 		}
 		$sql .= ");";
-		$stmt = $this->prepare($sql);
-		$this->bind_param($stmt, $params);
-		$this->execute($stmt);
+		$this->prepare_and_execute($sql, $params);
 		return true;
 	}
 	function read($table, $id) {
-		$stmt = $this->prepare("select * from ".$table." where id = ?");
-		$this->bind_param($stmt, ["id" => $id]);
-		return $this->get_single($stmt);
+		return $this->prepare_and_get_single("select * from ".$table." where id = ?", ["id" => $id]);
 	}
 	function update($table, $id, $params) {
 		if(sizeof($params) == 0) {
@@ -126,16 +141,12 @@ class db_context {
 			$sql .= "`".$key."` = ?";
 		}
 		$sql .= " where id = ?;";
-		$stmt = $this->prepare($sql);
 		$params["id"] = $id;
-		$this->bind_param($stmt, $params);
-		$this->execute($stmt);
+		$this->prepare_and_execute($sql, $params);
 		return true;
 	}
 	function delete($table, $id) {
-		$stmt = $this->prepare("delete from ".$table." where id = ?;");
-		$this->bind_param($stmt, ["id" => $id]);
-		$this->execute($stmt);
+		$this->prepare_and_execute("delete from ".$table." where id = ?;", ["id" => $id]);
 		return true;
 	}
 
@@ -144,15 +155,20 @@ class db_context {
 		return $this->update("episodes", $id, $params);
 	}
 	function list_progress_episodes() {
-		$stmt = $this->prepare(
-			"select episodes.*"
-			.", arcs.id as arc_id, arcs.title as arc_title, arcs.chapters as arc_chapters, arcs.episodes as arc_episodes, arcs.completed as arc_completed"
-			.", arcs.resolution as arc_resolution, arcs.torrent_hash as arc_torrent_hash, arcs.released as arc_released"
-			." from episodes right join arcs on arcs.id = episodes.arc_id"
-			." where arcs.hidden = false and episodes.hidden = false and (episodes.released_date is null or episodes.released_date > now())"
-			.";"
+		$rows = $this->prepare_and_get_result(
+			"select
+				(select count(*) from issues where episode_id = episodes.id and status = 1) as issues_completed,
+				(select count(*) from issues where episode_id = episodes.id) as issues_total,
+				episodes.*, arcs.id as arc_id, arcs.title as arc_title, arcs.chapters as arc_chapters,
+				arcs.episodes as arc_episodes, arcs.completed as arc_completed, arcs.resolution as arc_resolution,
+				arcs.torrent_hash as arc_torrent_hash, arcs.released as arc_released
+			from episodes
+			right join arcs on arcs.id = episodes.arc_id
+			left join issues on issues.episode_id = episodes.id
+			where arcs.hidden = false and episodes.hidden = false and (episodes.released_date is null or episodes.released_date > now())
+			group by episodes.id
+			;"
 		);
-		$rows = $this->get_result($stmt);
 		$data = [];
 		$arc_id = -1;
 		foreach($rows as $row) {
@@ -176,7 +192,9 @@ class db_context {
 				"torrent_hash" => $row["torrent_hash"],
 				"hidden" => $row['hidden'],
 				"status" => $row['status'],
-				"released_date" => $row['released_date'] == null ? '' : $row['released_date']
+				"released_date" => $row['released_date'] == null ? '' : $row['released_date'],
+				"issues_completed" => $row['issues_completed'],
+				"issues_total" => $row['issues_total']
 			];
 		}
 		function natcmpchapters($a, $b) {
@@ -212,14 +230,12 @@ class db_context {
 		return $this->delete("issues", $id);
 	}
 	function list_issues($episode_id) {
-		$stmt = $this->prepare(
+		$rows = $this->prepare_and_get_result(
 			"select issues.*, episodes.id as episode_id from issues"
 			." left join episodes on episodes.id = issues.episode_id"
 			." where episodes.id = ? and (episodes.released_date is null or episodes.released_date > now())"
-			.";"
+			.";", ["episode_id" => $episode_id]
 		);
-		$stmt->bind_param("d", $episode_id);
-		$rows = $this->get_result($stmt);
 		$data = ["issues" => []];
 		foreach($rows as $row) {
 			$data["issues"][] = [
