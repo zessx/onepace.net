@@ -5,7 +5,7 @@ include_once 'string_utils.php';
 include_once 'secure_indexer.php';
 $context = new db_context();
 $context->connect();
-$rows = $context->query("select episodes.id,".
+$stmt = $context->prepare("select episodes.id,".
 "episodes.crc32,".
 "episodes.resolution,".
 "episodes.title,".
@@ -26,6 +26,7 @@ $rows = $context->query("select episodes.id,".
 "from episodes ".
 "right join arcs on arcs.id = episodes.arc_id ".
 "where arcs.hidden = false;");
+$rows = $context->get_result($stmt);
 $context->disconnect();
 $data = [];
 $arc_id = -1;

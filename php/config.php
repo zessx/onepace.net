@@ -8,3 +8,4 @@ define('DB_SOCKET', $_SERVER['DOCUMENT_ROOT'] . '/../../../private/mysql/socket'
 define('LOG_PATH', $_SERVER['DOCUMENT_ROOT'] . '/../../../phplogs');
 define('DB_CHARSET', 'utf8');
 define('DEBUG', true);
+define('SALT', '12345');
