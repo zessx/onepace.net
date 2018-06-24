@@ -227,7 +227,9 @@ class db_context {
 				"description" => $row["description"],
 				"status" => $row["status"],
 				"createdby" => $row["createdby"],
-				"createddate" => $row["createddate"]
+				"createddate" => $row["createddate"],
+				"completedby" => $row["completedby"],
+				"completeddate" => $row["completeddate"]
 			];
 		}
 		return $data;

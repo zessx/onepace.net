@@ -14,10 +14,15 @@ if(!Authenticator::authenticate($context, $_GET['token'], 1, $user)) {
 		http_response_code(400);
 		exit();
 	}
-	$context->update_issue($_GET["id"], [
+	$params = [
 		"description" => $_GET["description"],
 		"status" => $_GET["status"]
-	]);
+	];
+	if($issue["status"] == 0 && $_GET['status'] == 1) {
+		$params["completedby"] = $user['name'];
+		$params["completeddate"] = time();
+	}
+	$context->update_issue($_GET["id"], $params);
 	$issues = $context->list_issues($issue["episode_id"]);
 	$context->disconnect();
 	echo json_encode($issues);

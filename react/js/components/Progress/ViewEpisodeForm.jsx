@@ -1,6 +1,7 @@
 import React from "react";
 import Form from "./Form";
 import NetworkHandler from "../../NetworkHandler";
+import Moment from "moment";
 
 export default class ViewEpisodeForm extends React.Component {
 	constructor(props) {
@@ -62,7 +63,10 @@ export default class ViewEpisodeForm extends React.Component {
 						Resolution: <input type="text" disabled={!isAdmin} value={this.state.episode.resolution} onChange={e => this.setState({episode:{...this.state.episode,resolution: e.target.value}})} />
 						Released date: <input type="text" disabled={!isAdmin} value={this.state.episode.released_date} onChange={e => this.setState({episode:{...this.state.episode,released_date: e.target.value}})} />
 						Episodes: <input type="text" disabled={!isAdmin} value={this.state.episode.episodes} onChange={e => this.setState({episode:{...this.state.episode,episodes: e.target.value}})} />
-						Hidden: <input type="checkbox" disabled={!isAdmin} checked={this.state.episode.hidden == 1} onChange={e => this.setState({episode:{...this.state.episode,hidden: e.target.checked ? 1 : 0}})} />
+						{
+							isAdmin &&
+							<span>Hidden: <input type="checkbox" disabled={!isAdmin} checked={this.state.episode.hidden == 1} onChange={e => this.setState({episode:{...this.state.episode,hidden: e.target.checked ? 1 : 0}})} /></span>
+						}
 						<br />
 						{
 							isAdmin &&
@@ -79,16 +83,18 @@ export default class ViewEpisodeForm extends React.Component {
 						isQCer &&
 						<div className="subform-container">
 							<input type="text" value={this.state.issue_create_description} onChange={e => this.setState({issue_create_description: e.target.value})} />
-							<div className="submit-button left-margin" onClick={()=>this.createIssue(this.state.issue_create_description)}>Create issue</div>
+							<div className={"submit-button left-margin" + (this.state.issue_create_description.length == 0 ? " disabled" : "")} onClick={()=>this.createIssue(this.state.issue_create_description)}>Create issue</div>
 						</div>
 					}
 					<div className="issues">
 						{this.state.issues.map((i, index) => 
 							<div key={i.id} className="subform-container">
-								<input type="checkbox" disabled={!isQCer} value="test" checked={i.status == 2} onChange={e => this.updateIssue({...i, status: e.target.checked ? 2 : 1})} />
+								<input type="checkbox" disabled={!isQCer} value="test" checked={i.status == 1} onChange={e => this.updateIssue({...i, status: e.target.checked ? 1 : 0})} />
 								<input className="left-margin" type="text" disabled={!isQCer} value={i.description} onChange={e=>this.changeIssue(index, {...i, description: e.target.value})} />
+								<span className="left-margin">Created by {i.createdby} {Moment.unix(i.createddate).format("YYYY-MM-DD HH:mm:ss")}</span>
 								{ isQCer && <div className="submit-button left-margin" onClick={()=>this.updateIssue(i)}>Update</div> }
 								{ isQCer && <div className="submit-button left-margin" onClick={()=>this.deleteIssue(i)}>Delete</div> }
+								{i.status == 1 && <span className="left-margin">Marked complete by {i.completedby} {Moment.unix(i.completeddate).format("YYYY-MM-DD HH:mm:ss")}</span>}
 							</div>
 						)}
 					</div>

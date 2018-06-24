@@ -28,7 +28,7 @@ export default class CreateEpisodeForm extends React.Component {
 					<label>Resolution: <input type="text" value={this.state.resolution} onChange={e => this.setState({resolution: e.target.value})} /></label>
 					<label>Released date: <input type="text" value={this.state.released_date} onChange={e => this.setState({released_date: e.target.value})} /></label>
 					<label>Episodes: <input type="text" value={this.state.episodes} onChange={e => this.setState({episodes: e.target.value})} /></label>
-					<div className="submit-button" onClick={this.props.onSubmit}>Submit</div>
+					<div className="submit-button" onClick={()=>this.props.onSubmit(this.state)}>Submit</div>
 				</Form>
 			</div>
 		);

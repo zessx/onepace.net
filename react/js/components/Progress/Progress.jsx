@@ -58,6 +58,16 @@ export default class Progress extends React.Component {
 		}, () => {
 		});
 	}
+	onDeleteEpisode = () => {
+		const token = this.state.user.token;
+		NetworkHandler.get("/delete_episode.php", {
+			"id": this.state.showViewEpisodeForm.id,
+			"token": token
+		}, (responseJson) => {
+			this.setState({showViewEpisodeForm: null, arcs: responseJson.arcs, episodes: responseJson.episodes});
+		}, () => {
+		});
+	}
 	onClickCard = (episode) => {
 		this.setState({showViewEpisodeForm: episode});
 	}
@@ -127,8 +137,12 @@ export default class Progress extends React.Component {
 								Looking to apply as a QCer?
 								Contact Galaxy 9000 in our <a href="https://discordapp.com/invite/uzmumFv" rel="noopener noreferrer" target="_blank">Discord</a> to get access!
 								<div className="login-container">
-									Name: <input type="text" value={this.state.name} onChange={e => this.setState({name: e.target.value})} />
-									Password: <input type="password" value={this.state.password} onChange={e => this.setState({password: e.target.value})} />
+									Name:
+									<br />
+									<input type="text" value={this.state.name} onChange={e => this.setState({name: e.target.value})} />
+									Password:
+									<br />
+									<input type="password" value={this.state.password} onChange={e => this.setState({password: e.target.value})} />
 									<div className={"submit-button" + ((this.state.password.length==0||this.state.name.length==0) ? " disabled" : "")} onClick={this.logIn}>Log in</div>
 								</div>
 							</div>
