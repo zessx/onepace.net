@@ -15,12 +15,13 @@ export default class List extends React.Component {
 						{this.props.cards.map(i => {
 							let title = i.chapters == null || i.chapters.length == 0 ? "" : "[" + i.chapters + "] ";
 							title += i.part == null ? i.title : this.props.title + " " + i.part.toString().padStart(2, "0");
+							let status = (i.issues_total > 0 ? i.issues_completed + "/" + i.issues_total + ", " : "") + i.status;
 							return <Card
 								user={this.props.user}
 								onView={()=>this.props.onClickCard(i)}
 								key={i.id}
 								title={title}
-								status={i.status}
+								status={status}
 								onEditCardButtonClick={()=>this.props.onEditCardButtonClick(i)}
 							/>;
 						})}
