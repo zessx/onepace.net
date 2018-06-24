@@ -5,7 +5,7 @@ require_once 'config.php';
 require_once 'Authenticator.php';
 include_once 'logger.php';
 $context = new db_context();
-if(!Authenticator::authenticate($context, $_GET['token'], 1, $user)) {
+if(!Authenticator::authenticate($context, $_GET['token'], 2, $user)) {
 	http_response_code(400);
 } else {
 	$context->connect();
@@ -15,7 +15,6 @@ if(!Authenticator::authenticate($context, $_GET['token'], 1, $user)) {
 		exit();
 	}
 	$params = [
-		"description" => $_GET["description"],
 		"status" => $_GET["status"]
 	];
 	if($issue["status"] == 0 && $_GET['status'] == 1) {

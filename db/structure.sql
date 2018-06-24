@@ -46,7 +46,7 @@ create table `sagas` (
 
 create table `users` (
 	`id` int(10) unsigned not null auto_increment,
-	`role` int(10) unsigned not null default 0, -- 0=User 1=QCer 2=Admin
+	`role` int(10) unsigned not null default 0, -- 0=User 1=QCer 2=Editor 4=Admin
 	`name` varchar(45) not null,
 	`password` varchar(40) not null,
 	`token` varchar(40) not null,

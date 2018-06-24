@@ -449,6 +449,20 @@ table.releases tr:hover {
 	max-height: 50%;
 	overflow-y: auto;
 }
+.issue-container {
+	background-color: #36393E;
+	margin: 10px;
+	padding: 10px;
+	color: white;
+}
+.issue-container .header .name {
+	font-weight: bold;
+	font-size: 18px;
+}
+.issue-container .header .time {
+	color: #73807e;
+	font-size: 12px;
+}
 .card .status {
 	color: #9c9c9c;
 	font-size: 11px;

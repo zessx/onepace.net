@@ -5,7 +5,7 @@ import { Glyphicon } from "react-bootstrap";
 export default class List extends React.Component {
 	render() {
 		const isLoggedIn = this.props.user != null;
-		const isAdmin = isLoggedIn && this.props.user.role >= 2;
+		const isAdmin = isLoggedIn && this.props.user.role >= 4;
 		return (
 			<div className="list">
 				<div className="list-content">

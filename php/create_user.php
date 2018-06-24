@@ -5,7 +5,7 @@ require_once 'config.php';
 require_once 'Authenticator.php';
 include_once 'logger.php';
 $context = new db_context();
-if(!Authenticator::authenticate($context, $_GET['token'], 2, $user)) {
+if(!Authenticator::authenticate($context, $_GET['token'], 4, $user)) {
 	http_response_code(400);
 } else {
 	$token = sha1(time() . SALT);

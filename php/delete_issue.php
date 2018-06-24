@@ -4,7 +4,7 @@ require_once 'db_context.php';
 require_once 'config.php';
 require_once 'Authenticator.php';
 $context = new db_context();
-if(!Authenticator::authenticate($context, $_GET['token'], 1, $user)) {
+if(!Authenticator::authenticate($context, $_GET['token'], 2, $user)) {
 	http_response_code(400);
 } else {
 	$context->connect();
