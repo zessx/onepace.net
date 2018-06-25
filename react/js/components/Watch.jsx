@@ -117,8 +117,6 @@ export default class Watch extends React.Component {
 								title += episode.part != null ? " " + selectedArc.title + " " + ("00" + episode.part.toString()).slice(-2) : episode.title.length > 0 ? " " + episode.title : "";
 								title += " [" + episode.resolution + "]";
 								title += episode.crc32 != null && episode.crc32.length > 0 ? "[" + episode.crc32 + "]" : "";
-								const status = episode.status.length > 0 ? " (" + episode.status + ")" : !episode.isReleased ? " (Unreleased)" : "";
-								title += status;
 								return <option disabled={!episode.isReleased} key={"episode" + i} value={episode.id}>{title}</option>;
 							})
 						}
