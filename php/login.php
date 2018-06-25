@@ -4,7 +4,7 @@ require_once 'db_context.php';
 require_once 'config.php';
 $name = strtolower($_GET['name']);
 $pass = $_GET['password'];
-$pass_hashed = sha1($pass . SALT);
+$pass_hashed = sha1($pass . $name . SALT);
 $context = new db_context();
 $context->connect();
 $statement = $context->prepare("select * from users where lower(name) = ? and password = ?;");

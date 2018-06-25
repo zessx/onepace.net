@@ -216,6 +216,11 @@ class db_context {
 		return $data;
 	}
 
+	/* Users */
+	function create_user($params) {
+		return $this->create("users", $params);
+	}
+
 	/* Issues */
 	function create_issue($params) {
 		return $this->create("issues", $params);

@@ -9,11 +9,14 @@ if(!Authenticator::authenticate($context, $_GET['token'], 4, $user)) {
 	http_response_code(400);
 } else {
 	$token = sha1(time() . SALT);
-	$password = sha1($_GET['password'] . SALT);
+	$password = sha1($_GET['password'] . strtolower($_GET['name']) . SALT);
 	$context->connect();
-	$stmt = $context->prepare("insert into users (`name`, `role`, `password`, `token`) values(?, ?, ?, ?);");
-	$stmt->bind_param('siss', $_GET["name"], $_GET['role'], $password, $token);
-	$context->execute($stmt);
+	$context->create_user([
+		"name" => $_GET["name"],
+		"role" => $_GET["role"],
+		"password" => $password,
+		"token" => $token
+	]);
 	$context->disconnect();
 	echo '{}';
 }

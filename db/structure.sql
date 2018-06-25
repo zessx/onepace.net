@@ -51,7 +51,8 @@ create table `users` (
 	`password` varchar(40) not null,
 	`token` varchar(40) not null,
 	primary key (`id`),
-	unique key `id_unique` (`id`)
+	unique key `id_unique` (`id`),
+	unique key `name_unique` (`name`)
 );
 
 create table `issues` (
