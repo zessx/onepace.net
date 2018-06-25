@@ -25,6 +25,7 @@ export default class ViewEpisodeForm extends React.Component {
 			"episode_id": this.state.episode.id
 		}, responseJson => {
 			this.setState({issues:responseJson.issues});
+			this.props.onIssueCreated(this.state.episode);
 		}, e => {
 			alert("Error: " + e.message);
 		});
@@ -32,6 +33,7 @@ export default class ViewEpisodeForm extends React.Component {
 	deleteIssue = issue => {
 		NetworkHandler.get("/delete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson)=>{
 			this.setState({issues:responseJson.issues});
+			this.props.onIssueDeleted(this.state.episode);
 		});
 	}
 	changeIssue = (index, value) => {

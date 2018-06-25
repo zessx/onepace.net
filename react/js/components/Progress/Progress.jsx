@@ -141,6 +141,20 @@ export default class Progress extends React.Component {
 						onDelete={()=>isAdmin&&this.onDeleteEpisode()}
 						onClose={()=>this.setState({showViewEpisodeForm:null})}
 						onUpdateEpisode={formdata=>this.onUpdateEpisode(formdata)}
+						onIssueDeleted={episode => {
+							let episodes = this.state.episodes.slice();
+							const index = episodes.findIndex(i => i.id == episode.id);
+							if(index == -1) return;
+							episodes[index].issues_total--;
+							this.setState({episodes});
+						}}
+						onIssueCreated={episode => {
+							let episodes = this.state.episodes.slice();
+							const index = episodes.findIndex(i => i.id == episode.id);
+							if(index == -1) return;
+							episodes[index].issues_total++;
+							this.setState({episodes});
+						}}
 					/>
 				}
 				<Layout layoutContentClassName="flex-scroll-x">

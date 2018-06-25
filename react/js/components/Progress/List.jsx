@@ -15,7 +15,7 @@ export default class List extends React.Component {
 						{this.props.cards.map(i => {
 							let title = i.chapters == null || i.chapters.length == 0 ? "" : "[" + i.chapters + "] ";
 							title += i.part == null ? i.title : this.props.title + " " + i.part.toString().padStart(2, "0");
-							let status = i.status + (i.issues_total > 0 ? ", " + i.issues_total + " issues" : "");
+							let status = i.status + (i.issues_total > 0 ? (i.status.length > 0 ? ", " : "") + i.issues_total + " issue" + (i.issues_total == 1 ? "" : "s") : "");
 							return <Card
 								user={this.props.user}
 								onView={()=>this.props.onClickCard(i)}
