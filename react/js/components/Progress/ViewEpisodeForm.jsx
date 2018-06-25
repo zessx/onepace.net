@@ -77,8 +77,8 @@ export default class ViewEpisodeForm extends React.Component {
 					{
 						isQCer &&
 						<div className="subform-container">
-							<input type="text" value={this.state.issue_create_description} onChange={e => this.setState({issue_create_description: e.target.value})} />
-							<div className={"submit-button left-margin" + (this.state.issue_create_description.length == 0 ? " disabled" : "")} onClick={()=>this.createIssue(this.state.issue_create_description)}>Create issue</div>
+							<textarea className="create-issue-input" type="text" value={this.state.issue_create_description} onChange={e => this.setState({issue_create_description: e.target.value})} />
+							<div className={"submit-button" + (this.state.issue_create_description.length == 0 ? " disabled" : "")} onClick={()=>this.createIssue(this.state.issue_create_description)}>Create issue</div>
 						</div>
 					}
 					<div className="issues">
