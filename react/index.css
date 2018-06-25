@@ -469,18 +469,3 @@ table.releases tr:hover {
 	margin: -5px 7px 4px 7px;
 	font-style: italic;
 }
-.issue-container .check-button {
-	float: right;
-	font-size: 21px;
-}
-.issue-container .check-button.glyphicon-check {
-	color: #21af21;
-	position: relative;
-	right: 1px;
-}
-.issue-container .check-button.glyphicon-unchecked {
-	color: #d60808;
-}
-.issue-container .check-button.editable {
-	cursor: pointer;
-}

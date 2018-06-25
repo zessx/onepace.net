@@ -2,7 +2,6 @@ import React from "react";
 import Form from "./Form";
 import NetworkHandler from "../../NetworkHandler";
 import Moment from "moment";
-import { Glyphicon } from "react-bootstrap";
 
 export default class ViewEpisodeForm extends React.Component {
 	constructor(props) {
@@ -28,14 +27,6 @@ export default class ViewEpisodeForm extends React.Component {
 			this.setState({issues:responseJson.issues});
 		}, e => {
 			alert("Error: " + e.message);
-		});
-	}
-	updateIssue = issue => {
-		NetworkHandler.get("/update_issue.php",{
-			"token": this.state.user.token,
-			...issue
-		}, responseJson => {
-			this.setState({issues:responseJson.issues});
 		});
 	}
 	deleteIssue = issue => {
@@ -95,7 +86,6 @@ export default class ViewEpisodeForm extends React.Component {
 							<div key={i.id} className="subform-container issue-container">
 								<p className="header">
 									<span className="name">{i.createdby}</span> <span className="time">{Moment.unix(i.createddate).format("YYYY-MM-DD HH:mm:ss")}</span>
-									<Glyphicon className={"check-button" + (isEditor ? " editable" : "")} glyph={i.status == 1 ? "check" : "unchecked"} onClick={() => isEditor && this.updateIssue({...i, status: i.status == 1 ? 0 : 1})} />
 								</p>
 								<p className="text">{i.description}</p>
 								{ isEditor && <div className="submit-button" onClick={()=>this.deleteIssue(i)}>Delete</div> }

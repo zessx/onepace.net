@@ -157,7 +157,6 @@ class db_context {
 	function list_progress_episodes() {
 		$rows = $this->prepare_and_get_result(
 			"select
-				(select count(*) from issues where episode_id = episodes.id and status = 1) as issues_completed,
 				(select count(*) from issues where episode_id = episodes.id) as issues_total,
 				episodes.*, arcs.id as arc_id, arcs.title as arc_title, arcs.chapters as arc_chapters,
 				arcs.episodes as arc_episodes, arcs.completed as arc_completed, arcs.resolution as arc_resolution,
@@ -193,7 +192,6 @@ class db_context {
 				"hidden" => $row['hidden'],
 				"status" => $row['status'],
 				"released_date" => $row['released_date'] == null ? '' : $row['released_date'],
-				"issues_completed" => $row['issues_completed'],
 				"issues_total" => $row['issues_total']
 			];
 		}
@@ -228,9 +226,6 @@ class db_context {
 	function read_issue($id) {
 		return $this->read("issues", $id);
 	}
-	function update_issue($id, $params) {
-		return $this->update("issues", $id, $params);
-	}
 	function delete_issue($id) {
 		return $this->delete("issues", $id);
 	}
@@ -238,7 +233,7 @@ class db_context {
 		$rows = $this->prepare_and_get_result(
 			"select issues.*, episodes.id as episode_id from issues"
 			." left join episodes on episodes.id = issues.episode_id"
-			." where episodes.id = ? and (episodes.released_date is null or episodes.released_date > now())"
+			." where episodes.id = ? and episodes.hidden = false and (episodes.released_date is null or episodes.released_date > now())"
 			.";", ["episode_id" => $episode_id]
 		);
 		$data = ["issues" => []];
@@ -247,11 +242,8 @@ class db_context {
 				"id" => $row["id"],
 				"episode_id" => $row["episode_id"],
 				"description" => $row["description"],
-				"status" => $row["status"],
 				"createdby" => $row["createdby"],
-				"createddate" => $row["createddate"],
-				"completedby" => $row["completedby"],
-				"completeddate" => $row["completeddate"]
+				"createddate" => $row["createddate"]
 			];
 		}
 		return $data;
