@@ -6,7 +6,7 @@ require_once 'Authenticator.php';
 include_once 'secure_indexer.php';
 include_once 'logger.php';
 $context = new db_context();
-if(!Authenticator::authenticate($context, $_GET['token'], 4, $user)){
+if(!Authenticator::authenticate($context, $_GET['token'], 4, $user)) {
 	http_response_code(400);
 } else {
 	$context->connect();
@@ -16,7 +16,7 @@ if(!Authenticator::authenticate($context, $_GET['token'], 4, $user)){
 		$_GET['released_date'], scr_value($_GET, 'title'), scr_value($_GET, 'part'), scr_value($_GET, 'torrent_hash')
 	);
 	$context->execute($stmt);
-	$episodes = $context->list_progress_episodes();
+	$episodes = $context->list_progress_episodes($user);
 	$context->disconnect();
 	echo json_encode($episodes);
 }

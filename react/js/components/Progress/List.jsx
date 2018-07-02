@@ -9,7 +9,7 @@ export default class List extends React.Component {
 		return (
 			<div className="list">
 				<div className="list-content">
-					<div className="header">{this.props.title}</div>
+					<div className={"header" + (this.props.arc.admin_only ? " admin-only" : "")}>{this.props.title}</div>
 					<div className="cards">
 						<Card img={this.props.image} />
 						{this.props.cards.map(i => {
@@ -20,6 +20,7 @@ export default class List extends React.Component {
 								user={this.props.user}
 								onView={()=>this.props.onClickCard(i)}
 								key={i.id}
+								admin_only={i.admin_only}
 								title={title}
 								status={status}
 								onEditCardButtonClick={()=>this.props.onEditCardButtonClick(i)}

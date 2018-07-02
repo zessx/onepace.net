@@ -19,7 +19,7 @@ if(!Authenticator::verify_password($context, $_GET['token'], $old_password)) {
 	$stmt = $context->prepare("update users set password=? where id=?;");
 	$stmt->bind_param('sd', $password, $user['id']);
 	$context->execute($stmt);
-	$episodes = $context->list_progress_episodes();
+	$episodes = $context->list_progress_episodes($user);
 	$context->disconnect();
 	echo json_encode($episodes);
 }

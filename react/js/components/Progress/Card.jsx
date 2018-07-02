@@ -6,7 +6,7 @@ export default class Card extends React.Component {
 			<div>
 				{
 					this.props.title &&
-					<div className="progress-card title" onClick={this.props.onView}>
+					<div className={"progress-card title" + (this.props.admin_only ? " admin-only" : "")} onClick={this.props.onView}>
 						<div className="text">{this.props.title}</div>
 						{ this.props.status && <div className="status">{this.props.status}</div> }
 					</div> ||

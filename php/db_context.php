@@ -154,30 +154,44 @@ class db_context {
 	function update_episode($id, $params) {
 		return $this->update("episodes", $id, $params);
 	}
-	function list_progress_episodes() {
+	function list_progress_episodes($user) {
 		$rows = $this->prepare_and_get_result(
 			"select
 				(select count(*) from issues where episode_id = episodes.id) as issues_total,
-				episodes.*, arcs.id as arc_id, arcs.title as arc_title, arcs.chapters as arc_chapters,
+				episodes.*, arcs.title as arc_title, arcs.chapters as arc_chapters,
 				arcs.episodes as arc_episodes, arcs.completed as arc_completed, arcs.resolution as arc_resolution,
-				arcs.torrent_hash as arc_torrent_hash, arcs.released as arc_released
+				arcs.torrent_hash as arc_torrent_hash, arcs.released as arc_released, arcs.hidden as arc_hidden
 			from episodes
 			right join arcs on arcs.id = episodes.arc_id
-			left join issues on issues.episode_id = episodes.id
-			where arcs.hidden = false and episodes.hidden = false and (episodes.released_date is null or episodes.released_date > now())
-			group by episodes.id
+			left join issues on issues.episode_id = episodes.id".
+			(
+				$user == null || $user["role"] <= 1
+					? " where arcs.hidden = false and episodes.hidden = false and (episodes.released_date is null or episodes.released_date > now())"
+					: ""
+			)
+			." group by episodes.id
+			order by abs(arc_chapters) desc, hidden, released_date, chapters
 			;"
 		);
 		$data = [];
 		$arc_id = -1;
 		foreach($rows as $row) {
 			if($arc_id != $row['arc_id']) {
+				$arc_admin_only = false;
+				if($user != null && $user['role'] >= 4) {
+					$arc_admin_only = $row['arc_hidden'];
+				}
 				$arc_id = $row['arc_id'];
 				$data['arcs'][] = [
 					'id' => $row['arc_id'],
 					'title' => $row['arc_title'],
+					'arc_admin_only' => $arc_admin_only,
 					'chapters' => $row['arc_chapters']
 				];
+			}
+			$admin_only = false;
+			if($user != null && $user['role'] >= 4) {
+				$admin_only = $row['hidden'] || ($row['released_date'] != null && strtotime($row['released_date']) <= time());
 			}
 			$data['episodes'][] = [
 				'id' => $row['id'],
@@ -191,25 +205,10 @@ class db_context {
 				"torrent_hash" => $row["torrent_hash"],
 				"hidden" => $row['hidden'],
 				"status" => $row['status'],
+				"admin_only" => $admin_only,
 				"released_date" => $row['released_date'] == null ? '' : $row['released_date'],
 				"issues_total" => $row['issues_total']
 			];
-		}
-		function natcmpchapters($a, $b) {
-			return strnatcmp($a['chapters'], $b['chapters']);
-		}
-		function natcmpchaptersreverse($a, $b) {
-			return strnatcmp($b['chapters'], $a['chapters']);
-		}
-		usort($data['arcs'], "natcmpchaptersreverse");
-		usort($data['episodes'], 'natcmpchapters');
-		for($i = 0; $i < sizeof($data['arcs']); $i++) {
-			$arc = $data['arcs'][$i];
-			if($arc['chapters'] == null) {
-				unset($data['arcs'][$i]);
-				$data['arcs'][] = $arc;
-				$data['arcs'] = array_values($data['arcs']);
-			}
 		}
 		return $data;
 	}

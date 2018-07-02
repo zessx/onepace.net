@@ -11,7 +11,7 @@ if(!Authenticator::authenticate($context, $_GET['token'], 4, $user)) {
 	$stmt = $context->prepare("delete from episodes where id = ?;");
 	$stmt->bind_param('d', $_GET['id']);
 	$context->execute($stmt);
-	$episodes = $context->list_progress_episodes();
+	$episodes = $context->list_progress_episodes($user);
 	$context->disconnect();
 	echo json_encode($episodes);
 }

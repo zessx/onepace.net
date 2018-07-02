@@ -22,7 +22,7 @@ if(!Authenticator::authenticate($context, $_GET['token'], 4, $user)) {
 		"released_date" => $released_date == '' ? null : $released_date,
 		"status" => $_GET['status']
 	]);
-	$episodes = $context->list_progress_episodes();
+	$episodes = $context->list_progress_episodes($user);
 	$context->disconnect();
 	echo json_encode($episodes);
 }

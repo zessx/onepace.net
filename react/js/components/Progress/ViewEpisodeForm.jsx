@@ -51,6 +51,7 @@ export default class ViewEpisodeForm extends React.Component {
 			<div>
 				<Form onClose={this.props.onClose}>
 					<div className="subform-container">
+						ID: <input type="text" disabled value={this.state.episode.id} />
 						Title: <input type="text" disabled={!isAdmin} value={this.state.episode.title} onChange={e => this.setState({episode:{...this.state.episode,title: e.target.value}})} />
 						Part: <input type="number" disabled={!isAdmin} value={this.state.episode.part} onChange={e => this.setState({episode:{...this.state.episode,part: e.target.value}})} />
 						Torrent hash: <input type="text" disabled={!isAdmin} value={this.state.episode.torrent_hash} onChange={e => this.setState({episode:{...this.state.episode,torrent_hash: e.target.value}})} />

@@ -26,7 +26,13 @@ export default class Progress extends React.Component {
 		};
 	}
 	componentDidMount() {
-		NetworkHandler.get("/list_progress_episodes.php", null, (responseJson) => {
+		let token = null;
+		if(this.state.user) {
+			token = this.state.user.token;
+		}
+		NetworkHandler.get("/list_progress_episodes.php", {
+			"token": token
+		}, (responseJson) => {
 			this.setState({
 				arcs: responseJson.arcs, episodes: responseJson.episodes
 			});
@@ -186,13 +192,14 @@ export default class Progress extends React.Component {
 							{
 								this.state.arcs.map(i =>
 									<List
+										arc={i}
 										user={this.state.user}
 										onAddCardButtonClick={() => isAdmin && this.onAddCardButtonClick(i)}
 										onClickCard={i=>this.onClickCard(i)}
 										image={"/assets/arc_" + i.id + ".png"}
 										title={i.title}
 										cards={this.state.episodes.filter(j => j.arc_id == i.id)}
-										key={i.id}
+										key={"arc"+i.id}
 									/>
 								)
 							}

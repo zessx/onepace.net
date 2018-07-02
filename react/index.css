@@ -472,3 +472,7 @@ table.releases tr:hover {
 .create-issue-input {
 	width: 100%;
 }
+.progress-card.admin-only,.list-content>.header.admin-only {
+	background-color: grey;
+	color: white;
+}
