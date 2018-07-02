@@ -24,8 +24,9 @@ export default class ViewEpisodeForm extends React.Component {
 			"description": description,
 			"episode_id": this.state.episode.id
 		}, responseJson => {
+			const issuesCreated = responseJson.issues.length - this.state.issues.length;
 			this.setState({issues:responseJson.issues});
-			this.props.onIssueCreated(this.state.episode);
+			this.props.onIssueCreated(this.state.episode, issuesCreated);
 		}, e => {
 			alert("Error: " + e.message);
 		});

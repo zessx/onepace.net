@@ -154,11 +154,11 @@ export default class Progress extends React.Component {
 							episodes[index].issues_total--;
 							this.setState({episodes});
 						}}
-						onIssueCreated={episode => {
+						onIssueCreated={(episode, issuesCreated) => {
 							let episodes = this.state.episodes.slice();
 							const index = episodes.findIndex(i => i.id == episode.id);
 							if(index == -1) return;
-							episodes[index].issues_total++;
+							episodes[index].issues_total += issuesCreated;
 							this.setState({episodes});
 						}}
 					/>

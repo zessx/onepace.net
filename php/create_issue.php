@@ -8,13 +8,20 @@ $context = new db_context();
 if(!Authenticator::authenticate($context, $_GET['token'], 1, $user)) {
 	http_response_code(400);
 } else {
+	$time = time();
 	$context->connect();
-	$context->create_issue([
-		"createddate" => time(),
-		"createdby" => $user["name"],
-		"episode_id" => $_GET["episode_id"],
-		"description" => $_GET["description"]
-	]);
+	$descriptions = preg_split('/\r\n|\r|\n/', $_GET['description']);
+	foreach($descriptions as $desc) {
+		$description = trim($desc);
+		if(strlen($description) > 0) {
+			$context->create_issue([
+				"createddate" => $time,
+				"createdby" => $user["name"],
+				"episode_id" => $_GET["episode_id"],
+				"description" => $description
+			]);
+		}
+	}
 	$issues = $context->list_issues($_GET["episode_id"]);
 	$context->disconnect();
 	echo json_encode($issues);
