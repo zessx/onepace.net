@@ -355,8 +355,8 @@ table.releases tr:hover {
 	border-radius: 3px;
 	border-bottom: 1px solid #ccc;
 }
-.progress-card.title:hover{
-	background-color: #ececec;
+.progress-card.title:hover {
+	background-color: #f3f3f3;
 	cursor: pointer;
 }
 /* Card icon*/
@@ -406,6 +406,9 @@ table.releases tr:hover {
 .progress-container .progress-card .text {
 	margin: 5px 10px;
 	display: inline-block;
+	font-size: 13px;
+	color: #696868;
+	font-style: italic;
 }
 /*Card image*/
 .progress-container .cards .list-image {
@@ -464,9 +467,9 @@ table.releases tr:hover {
 }
 .card .status {
 	color: #9c9c9c;
+	text-align: left;
 	font-size: 11px;
-	text-align: right;
-	margin: -5px 7px 4px 7px;
+	margin: -5px 10px 4px 10px;
 	font-style: italic;
 }
 .create-issue-input {

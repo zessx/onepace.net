@@ -8,7 +8,9 @@ export default class Card extends React.Component {
 					this.props.title &&
 					<div className={"progress-card title" + (this.props.admin_only ? " admin-only" : "")} onClick={this.props.onView}>
 						<div className="text">{this.props.title}</div>
-						{ this.props.status && <div className="status">{this.props.status}</div> }
+						{ this.props.status1 && this.props.status1.length > 0 && <div className="status">{this.props.status1}</div> }
+						{ this.props.status2 && this.props.status2.length > 0 && <div className="status">{this.props.status2}</div> }
+						{ this.props.status3 && this.props.status3.length > 0 && <div className="status">{this.props.status3}</div> }
 					</div> ||
 					this.props.img &&
 					<div className="progress-card">

@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card";
 import { Glyphicon } from "react-bootstrap";
+import Moment from "moment";
 
 export default class List extends React.Component {
 	render() {
@@ -13,16 +14,19 @@ export default class List extends React.Component {
 					<div className="cards">
 						<Card img={this.props.image} />
 						{this.props.cards.map(i => {
-							let title = i.chapters == null || i.chapters.length == 0 ? "" : "[" + i.chapters + "] ";
-							title += i.part == null ? i.title : this.props.title + " " + i.part.toString().padStart(2, "0");
-							let status = i.status + (i.issues_total > 0 ? (i.status.length > 0 ? ", " : "") + i.issues_total + " issue" + (i.issues_total == 1 ? "" : "s") : "");
+							const title = i.part == null ? i.title : this.props.title + " " + i.part.toString().padStart(2, "0");
+							const status1 = i.title != null ? i.title : "";
+							const status2 = i.chapters != null ? i.chapters : "";
+							const status3 = i.released_date.length > 0 ? Moment(i.released_date, "YYYY-MM-DD HH:mm:ss").format("MMMM D, YYYY") : "";
 							return <Card
 								user={this.props.user}
 								onView={()=>this.props.onClickCard(i)}
 								key={i.id}
 								admin_only={i.admin_only}
 								title={title}
-								status={status}
+								status1={status1}
+								status2={status2}
+								status3={status3}
 								onEditCardButtonClick={()=>this.props.onEditCardButtonClick(i)}
 							/>;
 						})}
