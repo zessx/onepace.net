@@ -479,9 +479,9 @@ table.releases tr:hover {
 }
 .issue-container {
 	background-color: #fff;
-	margin: 10px;
 	padding: 10px;
 	color: black;
+	margin-top: 10px;
 }
 .issue-container .header .name {
 	font-size: 14px;
@@ -524,4 +524,8 @@ table.releases tr:hover {
 	color: rgba(2, 130, 0, 0.67);
 	font-size: 24px;
 	float: right;
+}
+.form-container video {
+	width: 100%;
+	background-color: #35465a;
 }

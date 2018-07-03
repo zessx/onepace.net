@@ -95,23 +95,34 @@ export default class ViewEpisodeForm extends React.Component {
 							<div className="submit-button" onClick={this.props.onDelete}>Delete episode</div>
 						</div>
 					}
-					{
-						isQCer &&
-						<div className="subform-container">
-							<textarea className="create-issue-input" type="text" value={this.state.issue_create_description} onChange={e => this.setState({issue_create_description: e.target.value})} />
-							<div className={"submit-button" + (this.state.issue_create_description.length == 0 ? " disabled" : "")} onClick={()=>this.createIssue(this.state.issue_create_description)}>Create issue</div>
-						</div>
-					}
-					<div className="issues">
-						{this.state.issues.map(i => 
-							<div key={i.id} className={"subform-container issue-container" + (i.completed ? " completed" : "")}>
-								<Glyphicon glyph={i.completed ? "check" : "unchecked"} className={isEditor ? "editable" : ""} onClick={() => isEditor ? i.completed ? this.uncompleteIssue(i) : this.completeIssue(i) : null} />
-								<p className="header">
-									<span className="name">{i.createdby}</span> <span className="time">{Moment.unix(i.createddate).format("YYYY-MM-DD HH:mm:ss")}</span>
-								</p>
-								<p className="text">{i.description}</p>
+					<div style={{display:"flex"}}>
+						{
+							this.state.episode.crc32 != null && this.state.episode.crc32.length > 0 &&
+							<div className="subform-container" style={{flex:1}}>
+								<div>
+									<video autoPlay muted ref={(i) => this.videoRef = i} controls poster="assets/logo-poster.png">
+										{
+											<source type="video/mp4" src={"http://onepace.net/streams/" + this.state.episode.crc32 + ".mp4"} />
+										}
+									</video>
+								</div>
 							</div>
-						)}
+						}
+						<div className="subform-container" style={{flex:1}}>
+							{ isQCer && <textarea className="create-issue-input" type="text" value={this.state.issue_create_description} onChange={e => this.setState({issue_create_description: e.target.value})} /> }
+							{ isQCer && <div className={"submit-button" + (this.state.issue_create_description.length == 0 ? " disabled" : "")} onClick={()=>this.createIssue(this.state.issue_create_description)}>Create issue</div> }
+							<div className="issues">
+								{this.state.issues.map(i => 
+									<div key={i.id} className={"issue-container" + (i.completed ? " completed" : "")}>
+										<Glyphicon glyph={i.completed ? "check" : "unchecked"} className={isEditor ? "editable" : ""} onClick={() => isEditor ? i.completed ? this.uncompleteIssue(i) : this.completeIssue(i) : null} />
+										<p className="header">
+											<span className="name">{i.createdby}</span> <span className="time">{Moment.unix(i.createddate).format("YYYY-MM-DD HH:mm:ss")}</span>
+										</p>
+										<p className="text">{i.description}</p>
+									</div>
+								)}
+							</div>
+						</div>
 					</div>
 				</Form>
 			</div>

@@ -172,7 +172,7 @@ class db_context {
 			left join issues on issues.episode_id = episodes.id".
 			($user == null || $user['role'] <= 1 ? " where arcs.hidden = false and episodes.hidden = false" : "")
 			." group by episodes.id
-			order by arc_in_progress desc, in_progress desc, abs(arc_chapters) desc, chapters
+			order by arc_in_progress desc, in_progress desc, abs(arc_chapters) desc, abs(episodes.chapters)
 			;"
 		);
 		$data = [];
