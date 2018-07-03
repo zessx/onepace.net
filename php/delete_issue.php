@@ -13,7 +13,7 @@ if(!Authenticator::authenticate($context, $_GET['token'], 2, $user)) {
 		http_response_code(400);
 	} else {
 		$context->delete_issue($_GET['id']);
-		$issues = $context->list_issues($issue["episode_id"]);
+		$issues = $context->list_issues($user, $issue["episode_id"]);
 		$context->disconnect();
 		echo json_encode($issues);
 	}

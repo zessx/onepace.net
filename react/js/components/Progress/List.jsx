@@ -15,9 +15,10 @@ export default class List extends React.Component {
 						<Card img={this.props.image} />
 						{this.props.cards.map(i => {
 							const title = i.part == null ? i.title : this.props.title + " " + i.part.toString().padStart(2, "0");
-							const status1 = i.part != null && i.title != null ? i.title : "";
+							const status1 = i.part != null && i.title != null && i.title.length > 0 ? ("\"" + i.title + "\"") : "";
 							const status2 = i.chapters != null && i.chapters.length > 0 ? "Chapter " + i.chapters : "";
 							const status3 = i.released_date.length > 0 ? Moment(i.released_date, "YYYY-MM-DD HH:mm:ss").format("MMMM D, YYYY") : "";
+							const status4 = i.issues_total > 0 ? i.issues_total + " issue" + (i.issues_total == 1 ? "" : "s") : "";
 							const unreleased = i.in_progress;
 							return <Card
 								user={this.props.user}
@@ -29,6 +30,7 @@ export default class List extends React.Component {
 								status1={status1}
 								status2={status2}
 								status3={status3}
+								status4={status4}
 								onEditCardButtonClick={()=>this.props.onEditCardButtonClick(i)}
 							/>;
 						})}

@@ -11,6 +11,7 @@ export default class Card extends React.Component {
 						{ this.props.status1 && this.props.status1.length > 0 && <div className="status">{this.props.status1}</div> }
 						{ this.props.status2 && this.props.status2.length > 0 && <div className="status">{this.props.status2}</div> }
 						{ this.props.status3 && this.props.status3.length > 0 && <div className="status">{this.props.status3}</div> }
+						{ this.props.status4 && this.props.status4.length > 0 && <div className="status">{this.props.status4}</div> }
 					</div> ||
 					this.props.img &&
 					<div className="progress-card">

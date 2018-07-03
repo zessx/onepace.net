@@ -14,7 +14,8 @@ export default class ViewEpisodeForm extends React.Component {
 		};
 	}
 	componentDidMount() {
-		NetworkHandler.get("/list_issues.php", {"episode_id": this.state.episode.id}, responseJson => {
+		const token = this.state.user != null ? this.state.user.token : "";
+		NetworkHandler.get("/list_issues.php", {"token": token, "episode_id": this.state.episode.id}, responseJson => {
 			this.setState({issues: responseJson.issues});
 		});
 	}

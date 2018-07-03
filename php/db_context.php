@@ -243,11 +243,12 @@ class db_context {
 	function delete_issue($id) {
 		return $this->delete("issues", $id);
 	}
-	function list_issues($episode_id) {
+	function list_issues($user, $episode_id) {
 		$rows = $this->prepare_and_get_result(
-			"select issues.*, episodes.id as episode_id from issues"
-			." left join episodes on episodes.id = issues.episode_id"
-			." where episodes.id = ? and episodes.hidden = false and (episodes.released_date is null or episodes.released_date > now())"
+			"select issues.*, episodes.id as episode_id from issues
+			left join episodes on episodes.id = issues.episode_id
+			where episodes.id = ?".
+			($user == null || $user['role'] <= 1 ? " and episodes.hidden = false" : "")
 			.";", ["episode_id" => $episode_id]
 		);
 		$data = ["issues" => []];
