@@ -504,3 +504,24 @@ table.releases tr:hover {
 	background-color: grey;
 	color: white;
 }
+.complete-button {
+	background-color: #138a22;
+}
+.uncomplete-button {
+	background-color: #7d0d0d;
+}
+.issue-container.completed {
+	background-color: #b7b7b7;
+	color: #909090;
+}
+.issue-container .glyphicon-unchecked.editable {
+	cursor: pointer;
+}
+.issue-container .glyphicon-unchecked.editable:hover:before {
+	content: "\e067";
+}
+.glyphicon-check,.glyphicon-unchecked {
+	color: rgba(2, 130, 0, 0.67);
+	font-size: 24px;
+	float: right;
+}

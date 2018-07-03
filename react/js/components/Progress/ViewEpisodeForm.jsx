@@ -2,6 +2,7 @@ import React from "react";
 import Form from "./Form";
 import NetworkHandler from "../../NetworkHandler";
 import Moment from "moment";
+import { Glyphicon } from "react-bootstrap";
 
 export default class ViewEpisodeForm extends React.Component {
 	constructor(props) {
@@ -36,6 +37,21 @@ export default class ViewEpisodeForm extends React.Component {
 		NetworkHandler.get("/delete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson)=>{
 			this.setState({issues:responseJson.issues});
 			this.props.onIssueDeleted(this.state.episode);
+		});
+	}
+	completeIssue = issue => {
+		NetworkHandler.get("/complete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson)=>{
+			this.setState({ issues:responseJson.issues });
+			this.props.onIssueDeleted(this.state.episode, 1);
+		});
+	}
+	uncompleteIssue = issue => {
+		if(!confirm("Are you sure you want to unconfirm this issue?")) {
+			return;
+		}
+		NetworkHandler.get("/uncomplete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson) => {
+			this.setState({ issues:responseJson.issues });
+			this.props.onIssueCreated(this.state.episode, 1);
 		});
 	}
 	changeIssue = (index, value) => {
@@ -88,12 +104,12 @@ export default class ViewEpisodeForm extends React.Component {
 					}
 					<div className="issues">
 						{this.state.issues.map(i => 
-							<div key={i.id} className="subform-container issue-container">
+							<div key={i.id} className={"subform-container issue-container" + (i.completed ? " completed" : "")}>
+								<Glyphicon glyph={i.completed ? "check" : "unchecked"} className={isEditor ? "editable" : ""} onClick={() => isEditor ? i.completed ? this.uncompleteIssue(i) : this.completeIssue(i) : null} />
 								<p className="header">
 									<span className="name">{i.createdby}</span> <span className="time">{Moment.unix(i.createddate).format("YYYY-MM-DD HH:mm:ss")}</span>
 								</p>
 								<p className="text">{i.description}</p>
-								{ isEditor && <div className="submit-button" onClick={()=>this.deleteIssue(i)}>Delete</div> }
 							</div>
 						)}
 					</div>

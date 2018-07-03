@@ -156,7 +156,7 @@ export default class Progress extends React.Component {
 							let episodes = this.state.episodes.slice();
 							const index = episodes.findIndex(i => i.id == episode.id);
 							if(index == -1) return;
-							episodes[index].issues_total--;
+							episodes[index].issues_total = Math.max(0, episodes[index].issues_total - 1);
 							this.setState({episodes});
 						}}
 						onIssueCreated={(episode, issuesCreated) => {

@@ -161,7 +161,7 @@ class db_context {
 	function list_progress_episodes($user) {
 		$rows = $this->prepare_and_get_result(
 			"select
-				(select count(*) from issues where episode_id = episodes.id) as issues_total,
+				(select count(*) from issues where episode_id = episodes.id and issues.completed = false) as issues_total,
 				((episodes.hidden is null or episodes.hidden = false) and (released_date is null or released_date > now())) as in_progress,
 				(select count(*) from episodes where arcs.id = arc_id and hidden = false and (released_date is null or released_date > now())) > 0 as arc_in_progress,
 				episodes.*, arcs.title as arc_title, arcs.chapters as arc_chapters,
@@ -227,6 +227,9 @@ class db_context {
 	function read_issue($id) {
 		return $this->read("issues", $id);
 	}
+	function update_issue($id, $params) {
+		return $this->update("issues", $id, $params);
+	}
 	function delete_issue($id) {
 		return $this->delete("issues", $id);
 	}
@@ -236,7 +239,9 @@ class db_context {
 			left join episodes on episodes.id = issues.episode_id
 			where episodes.id = ?".
 			($user == null || $user['role'] <= 1 ? " and episodes.hidden = false" : "")
-			.";", ["episode_id" => $episode_id]
+			."
+			order by completed, createddate
+			;", ["episode_id" => $episode_id]
 		);
 		$data = ["issues" => []];
 		foreach($rows as $row) {
@@ -245,7 +250,8 @@ class db_context {
 				"episode_id" => $row["episode_id"],
 				"description" => $row["description"],
 				"createdby" => $row["createdby"],
-				"createddate" => $row["createddate"]
+				"createddate" => $row["createddate"],
+				"completed" => $row['completed'] == 1
 			];
 		}
 		return $data;

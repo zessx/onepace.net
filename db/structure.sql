@@ -61,6 +61,9 @@ create table `issues` (
 	`description` varchar(500) not null default '',
 	`createdby` varchar(45) not null default '',
 	`createddate` bigint(20) not null default 0,
+	`completed` tinyint(1) not null default 0,
+	`completedby` varchar(45) not null default '',
+	`completeddate` bigint(20) not null default 0,
 	primary key (`id`),
 	unique key `id_unique` (`id`),
 	constraint `episode_fk` foreign key (`episode_id`) references `episodes` (`id`) on delete cascade
