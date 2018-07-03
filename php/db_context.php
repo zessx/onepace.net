@@ -183,27 +183,15 @@ class db_context {
 				// Update the arc_id variable with the latest arc id.
 				$arc_id = $row['arc_id'];
 
-				// If the arc is hidden and the user is an admin, it's "admin only".
-				$arc_admin_only = false;
-				if($user != null && $user['role'] >= 4) {
-					$arc_admin_only = $row['arc_hidden'];
-				}
-
 				// Set the arc object.
 				$data['arcs'][] = [
 					'id' => $row['arc_id'],
 					'in_progress' => $row['arc_in_progress'],
 					'title' => $row['arc_title'],
-					'arc_admin_only' => $arc_admin_only,
+					'hidden' => $row['arc_hidden'],
 					'chapters' => $row['arc_chapters'],
 					'in_progress' => false
 				];
-			}
-
-			// If the episode is hidden and the user is an admin, it's "admin only".
-			$admin_only = false;
-			if($user != null && $user['role'] >= 4) {
-				$admin_only = $row['hidden'];
 			}
 
 			// Set the episode object.
@@ -218,7 +206,6 @@ class db_context {
 				"resolution" => $row["resolution"],
 				"torrent_hash" => $row["torrent_hash"],
 				"status" => $row['status'],
-				"admin_only" => $admin_only,
 				"hidden" => $row['hidden'],
 				"in_progress" => $row['in_progress'],
 				"released_date" => $row['released_date'] == null ? '' : $row['released_date'],
