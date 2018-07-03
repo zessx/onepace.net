@@ -15,15 +15,17 @@ export default class List extends React.Component {
 						<Card img={this.props.image} />
 						{this.props.cards.map(i => {
 							const title = i.part == null ? i.title : this.props.title + " " + i.part.toString().padStart(2, "0");
-							const status1 = i.title != null ? i.title : "";
-							const status2 = i.chapters != null ? i.chapters : "";
+							const status1 = i.part != null && i.title != null ? i.title : "";
+							const status2 = i.chapters != null && i.chapters.length > 0 ? "Chapter " + i.chapters : "";
 							const status3 = i.released_date.length > 0 ? Moment(i.released_date, "YYYY-MM-DD HH:mm:ss").format("MMMM D, YYYY") : "";
+							const unreleased = i.in_progress;
 							return <Card
 								user={this.props.user}
 								onView={()=>this.props.onClickCard(i)}
 								key={i.id}
 								admin_only={i.admin_only}
 								title={title}
+								unreleased={unreleased}
 								status1={status1}
 								status2={status2}
 								status3={status3}

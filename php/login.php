@@ -18,13 +18,16 @@ if(sizeof($rows) > 0) {
 	$context->connect();
 	$stmt = $context->prepare("update users set token = '" . $token . "' where id = " . $user["id"] . ";");
 	$context->execute($stmt);
-	$context->disconnect();
-	echo json_encode([
+	$user = [
 		"id" => $user["id"],
 		"role" => $user["role"],
 		"name" => $user["name"],
 		"token" => $token
-	]);
+	];
+	$data = $context->list_progress_episodes($user);
+	$context->disconnect();
+	$data['user'] = $user;
+	echo json_encode($data);
 } else {
 	http_response_code(400);
 }

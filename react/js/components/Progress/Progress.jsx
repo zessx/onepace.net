@@ -82,16 +82,21 @@ export default class Progress extends React.Component {
 		NetworkHandler.get("/login.php", {
 			"name": this.state.name,
 			"password": this.state.password
-		}, user => {
+		}, responseJson => {
+			const user = responseJson.user;
 			LocalStorageUtils.setUser(user);
-			this.setState({"user": user});
+			this.setState({name: "", password: "", "user": user, arcs: responseJson.arcs, episodes: responseJson.episodes});
 		}, () => {
 			alert("Couldnt log in");
 		});
 	}
 	logOut = () => {
 		LocalStorageUtils.setUser(null);
-		this.setState({"user": null});
+		NetworkHandler.get("/logout.php", { "token": this.state.user.token },
+			responseJson => {
+				this.setState({ user: null, arcs: responseJson.arcs, episodes: responseJson.episodes });
+			}, () => this.setState({ user: null })
+		);
 	}
 	changePassword = (formdata) => {
 		NetworkHandler.get("/update_user_password.php",{

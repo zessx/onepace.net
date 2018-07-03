@@ -150,6 +150,10 @@ class db_context {
 		return true;
 	}
 
+	/* Users */
+	function update_user($id, $params) {
+		return $this->update("users", $id, $params);
+	}
 	/* Episodes */
 	function update_episode($id, $params) {
 		return $this->update("episodes", $id, $params);
@@ -158,41 +162,51 @@ class db_context {
 		$rows = $this->prepare_and_get_result(
 			"select
 				(select count(*) from issues where episode_id = episodes.id) as issues_total,
+				((episodes.hidden is null or episodes.hidden = false) and (released_date is null or released_date > now())) as in_progress,
+				(select count(*) from episodes where arcs.id = arc_id and hidden = false and (released_date is null or released_date > now())) > 0 as arc_in_progress,
 				episodes.*, arcs.title as arc_title, arcs.chapters as arc_chapters,
 				arcs.episodes as arc_episodes, arcs.completed as arc_completed, arcs.resolution as arc_resolution,
 				arcs.torrent_hash as arc_torrent_hash, arcs.released as arc_released, arcs.hidden as arc_hidden
 			from episodes
 			right join arcs on arcs.id = episodes.arc_id
 			left join issues on issues.episode_id = episodes.id".
-			(
-				$user == null || $user["role"] <= 1
-					? " where arcs.hidden = false and episodes.hidden = false and (episodes.released_date is null or episodes.released_date > now())"
-					: ""
-			)
+			($user == null || $user['role'] <= 1 ? " where arcs.hidden = false and episodes.hidden = false" : "")
 			." group by episodes.id
-			order by abs(arc_chapters) desc, hidden, released_date, chapters
+			order by arc_in_progress desc, in_progress desc, abs(arc_chapters) desc, chapters
 			;"
 		);
 		$data = [];
 		$arc_id = -1;
 		foreach($rows as $row) {
+			// Only add a new arc object if the arc id is different from the previous row.
 			if($arc_id != $row['arc_id']) {
+				// Update the arc_id variable with the latest arc id.
+				$arc_id = $row['arc_id'];
+
+				// If the arc is hidden and the user is an admin, it's "admin only".
 				$arc_admin_only = false;
 				if($user != null && $user['role'] >= 4) {
 					$arc_admin_only = $row['arc_hidden'];
 				}
-				$arc_id = $row['arc_id'];
+
+				// Set the arc object.
 				$data['arcs'][] = [
 					'id' => $row['arc_id'],
+					'in_progress' => $row['arc_in_progress'],
 					'title' => $row['arc_title'],
 					'arc_admin_only' => $arc_admin_only,
-					'chapters' => $row['arc_chapters']
+					'chapters' => $row['arc_chapters'],
+					'in_progress' => false
 				];
 			}
+
+			// If the episode is hidden and the user is an admin, it's "admin only".
 			$admin_only = false;
 			if($user != null && $user['role'] >= 4) {
-				$admin_only = $row['hidden'] || ($row['released_date'] != null && strtotime($row['released_date']) <= time());
+				$admin_only = $row['hidden'];
 			}
+
+			// Set the episode object.
 			$data['episodes'][] = [
 				'id' => $row['id'],
 				"crc32" => $row["crc32"],
@@ -203,9 +217,10 @@ class db_context {
 				"episodes" => $row["episodes"],
 				"resolution" => $row["resolution"],
 				"torrent_hash" => $row["torrent_hash"],
-				"hidden" => $row['hidden'],
 				"status" => $row['status'],
 				"admin_only" => $admin_only,
+				"hidden" => $row['hidden'],
+				"in_progress" => $row['in_progress'],
 				"released_date" => $row['released_date'] == null ? '' : $row['released_date'],
 				"issues_total" => $row['issues_total']
 			];

@@ -348,33 +348,6 @@ table.releases tr:hover {
 	background: #E2E4E6;
 	border-radius: 3px;
 }
-/*  Card */
-.progress-container .progress-card {
-	background-color: #ffffff;
-	margin: 10px;
-	border-radius: 3px;
-	border-bottom: 1px solid #ccc;
-}
-.progress-card.title:hover {
-	background-color: #f3f3f3;
-	cursor: pointer;
-}
-/* Card icon*/
-.progress-card .glyphicon {
-	display: none;
-	color: #666;
-}
-.progress-card:hover .glyphicon {
-	float: right;
-	display: inline-block;
-	position: relative;
-	cursor: pointer;
-	right: 13px;
-	top: 9px;
-}
-.progress-card .glyphicon:hover {
-	color: #101010;
-}
 /* Card add button*/
 .progress-container .add-card-button-container {
 	padding-bottom: 1px;
@@ -402,13 +375,63 @@ table.releases tr:hover {
 	background-color: #ffffff;
 	cursor: pointer;
 }
-/*Card text*/
+/* Progress card */
+.progress-container .progress-card {
+	background-color: #ffffff;
+	margin: 10px;
+	border-radius: 3px;
+	border-bottom: 1px solid #ccc;
+}
+.progress-card.title:hover {
+	background-color: #f3f3f3;
+	cursor: pointer;
+}
+.progress-card .glyphicon {
+	display: none;
+	color: #666;
+}
+.progress-card:hover .glyphicon {
+	float: right;
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+	right: 13px;
+	top: 9px;
+}
+.progress-card .glyphicon:hover {
+	color: #101010;
+}
 .progress-container .progress-card .text {
 	margin: 5px 10px;
 	display: inline-block;
 	font-size: 13px;
 	color: #696868;
 	font-style: italic;
+}
+/* Progress card unreleased */
+.progress-card.unreleased {
+	background-color: #415671;
+}
+.progress-card.title.unreleased:hover {
+	background-color: #516b8c;
+	cursor: pointer;
+}
+.progress-card.unreleased .text {
+	color: #e0e0e0;
+}
+.progress-card.unreleased .status {
+	color: #c5c5c5;
+}
+/* Progress card admin only*/
+.progress-card.title.admin-only:hover {
+	background-color: #989898;
+	cursor: pointer;
+}
+.progress-card.admin-only .text {
+	color: #e0e0e0;
+}
+.progress-card.admin-only .status {
+	color: #c5c5c5;
 }
 /*Card image*/
 .progress-container .cards .list-image {

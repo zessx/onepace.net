@@ -16,7 +16,7 @@ if(!Authenticator::authenticate($context, $_GET['token'], 4, $user)) {
 		"episodes" => $_GET['episodes'],
 		"resolution" => $_GET['resolution'],
 		"title" => $_GET['title'],
-		"part" => $_GET['part'],
+		"part" => $_GET['part'] < 1 ? null : $_GET['part'],
 		"torrent_hash" => $_GET['torrent_hash'],
 		"hidden" => $_GET['hidden'],
 		"released_date" => $released_date == '' ? null : $released_date,

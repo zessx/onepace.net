@@ -3,6 +3,10 @@ require_once 'db_context.php';
 require_once 'config.php';
 class Authenticator {
 	static function authenticate($context, $token, $role, &$user) {
+		$user = null;
+		if($token == null || strlen($token) == 0) {
+			return false;
+		}
 		$context->connect();
 		$stmt = $context->prepare("select * from users where token = ?;");
 		$stmt->bind_param("s", $token);
@@ -10,8 +14,6 @@ class Authenticator {
 		$context->disconnect();
 		if(sizeof($rows) > 0) {
 			$user = $rows[0];
-		}else{
-			$user = null;
 		}
 		return sizeof($rows) > 0 && $rows[0]["role"] >= $role;
 	}
