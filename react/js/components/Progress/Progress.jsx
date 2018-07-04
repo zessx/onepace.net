@@ -5,11 +5,12 @@ import List from "./List";
 import CreateEpisodeForm from "./CreateEpisodeForm";
 import LocalStorageUtils from "../../LocalStorageUtils";
 import ViewEpisodeForm from "./ViewEpisodeForm";
+import ViewArcForm from "./ViewArcForm";
 import ChangePasswordForm from "./ChangePasswordForm";
 import CreateUserForm from "./CreateUserForm";
 
 export default class Progress extends React.Component {
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.state = {
 			"arcs": [],
@@ -166,6 +167,15 @@ export default class Progress extends React.Component {
 							episodes[index].issues_total += issuesCreated;
 							this.setState({episodes});
 						}}
+					/>
+				}
+				{
+					this.state.showViewArcForm != null &&
+					<ViewArcForm
+						user={this.state.user}
+						arc={this.state.showViewArcForm}
+						onClose={()=>this.setState({showViewArcForm:null})}
+						onUpdateArc={formdata=>this.onUpdateArc(formdata)}
 					/>
 				}
 				<Layout layoutContentClassName="flex-scroll-x">
