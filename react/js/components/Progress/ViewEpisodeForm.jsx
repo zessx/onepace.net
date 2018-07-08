@@ -10,24 +10,27 @@ export default class ViewEpisodeForm extends React.Component {
 		this.state = {
 			issue_create_description: "",
 			user: this.props.user,
-			issues: [],
-			episode: this.props.episode
+			episodeversions: [],
+			episode: this.props.episode,
+			selectedEpisodeVersion: null
 		};
 	}
 	componentDidMount() {
 		const token = this.state.user != null ? this.state.user.token : "";
-		NetworkHandler.get("/list_issues.php", {"token": token, "episode_id": this.state.episode.id}, responseJson => {
-			this.setState({issues: responseJson.issues});
+		NetworkHandler.get("/list_episodeversions.php", {"token": token, "episode_id": this.state.episode.id}, responseJson => {
+			this.setState({episodeversions: responseJson.episodeversions});
 		});
 	}
 	createIssue = description => {
+		const episodeVersion = this.state.selectedEpisodeVersion;
 		NetworkHandler.get("/create_issue.php",{
 			"token": this.state.user.token,
 			"description": description,
-			"episode_id": this.state.episode.id
+			"episodeversion_id": episodeVersion.id
 		}, responseJson => {
-			const issuesCreated = responseJson.issues.length - this.state.issues.length;
-			this.setState({issues:responseJson.issues});
+			const [newSelectedEpisodeVersion] = responseJson.episodeversions.filter(i => i.id == episodeVersion.id);
+			const issuesCreated = newSelectedEpisodeVersion.issues.length - episodeVersion.issues.length;
+			this.setState({episodeversions:responseJson.episodeversions, selectedEpisodeVersion: newSelectedEpisodeVersion});
 			this.props.onIssueCreated(this.state.episode, issuesCreated);
 		}, e => {
 			alert("Error: " + e.message);
@@ -35,13 +38,13 @@ export default class ViewEpisodeForm extends React.Component {
 	}
 	deleteIssue = issue => {
 		NetworkHandler.get("/delete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson)=>{
-			this.setState({issues:responseJson.issues});
+			this.setState({episodeversions:responseJson.episodeversions});
 			this.props.onIssueDeleted(this.state.episode);
 		});
 	}
 	completeIssue = issue => {
 		NetworkHandler.get("/complete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson)=>{
-			this.setState({ issues:responseJson.issues });
+			this.setState({ issepisodeversionsues:responseJson.episodeversions });
 			this.props.onIssueDeleted(this.state.episode, 1);
 		});
 	}
@@ -60,6 +63,7 @@ export default class ViewEpisodeForm extends React.Component {
 		this.setState({issues});
 	}
 	render() {
+		const {selectedEpisodeVersion} = this.state;
 		const {user} = this.props;
 		const isLoggedIn = user != null;
 		const isQCer = isLoggedIn && user.role >= 1;
@@ -96,8 +100,16 @@ export default class ViewEpisodeForm extends React.Component {
 						</div>
 					}
 					<div style={{display:"flex"}}>
+						<div className="submit-button">+</div>
 						{
-							this.state.episode.crc32 != null && this.state.episode.crc32.length > 0 &&
+							this.state.episodeversions.map(i =>
+								<div key={i.id} className="submit-button">v{i.major}.{i.minor}</div>
+							)
+						}
+					</div>
+					<div style={{display:"flex"}}>
+						{
+							isQCer && selectedEpisodeVersion != null && selectedEpisodeVersion.filename.length > 0 &&
 							<div className="subform-container" style={{flex:1}}>
 								<div>
 									<video autoPlay muted ref={(i) => this.videoRef = i} controls poster="assets/logo-poster.png">
@@ -108,6 +120,8 @@ export default class ViewEpisodeForm extends React.Component {
 								</div>
 							</div>
 						}
+						{ isEditor && <label htmlFor="file-upload" className="upload-button">Upload stream</label> }
+						{ isEditor && <input id="file-upload" type="file" onChange={e => e.target.files[0]} /> }
 						<div className="subform-container" style={{flex:1}}>
 							{ isQCer && <textarea className="create-issue-input" type="text" value={this.state.issue_create_description} onChange={e => this.setState({issue_create_description: e.target.value})} /> }
 							{ isQCer && <div className={"submit-button" + (this.state.issue_create_description.length == 0 ? " disabled" : "")} onClick={()=>this.createIssue(this.state.issue_create_description)}>Create issue</div> }

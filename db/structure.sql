@@ -33,7 +33,18 @@ create table `episodes` (
 	primary key (`id`),
 	unique key `id` (`id`),
 	key `arc_id_fk_idx` (`arc_id`),
-	constraint `arc_id_fk` foreign key (`arc_id`) references `arcs` (`id`) on update set null
+	constraint `arc_id_fk` foreign key (`arc_id`) references `arcs` (`id`) on delete set null
+);
+
+create table `episodeversions` (
+	`id` int(10) unsigned not null auto_increment,
+	`episode_id` int(10) unsigned not null,
+	`major` int unsigned not null default 0,
+	`minor` int unsigned not null default 0,
+	`filename` varchar(100) not null default '',
+	primary key (`id`)
+	unqiue key `id_unique` (`id`),
+	constraint `episode_fk` foreign key (`episode_id`) references `episodes` (`id`) on delete cascade
 );
 
 create table `sagas` (
@@ -57,7 +68,7 @@ create table `users` (
 
 create table `issues` (
 	`id` int(10) unsigned not null auto_increment,
-	`episode_id` int(10) unsigned not null,
+	`episodeversion_id` int(10) unsigned not null,
 	`description` varchar(500) not null default '',
 	`createdby` varchar(45) not null default '',
 	`createddate` bigint(20) not null default 0,
@@ -66,5 +77,5 @@ create table `issues` (
 	`completeddate` bigint(20) not null default 0,
 	primary key (`id`),
 	unique key `id_unique` (`id`),
-	constraint `episode_fk` foreign key (`episode_id`) references `episodes` (`id`) on delete cascade
+	constraint `episode_fk` foreign key (`episodeversion_id`) references `episodeversions` (`id`) on delete cascade
 );

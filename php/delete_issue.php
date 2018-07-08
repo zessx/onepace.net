@@ -13,9 +13,9 @@ if(!Authenticator::authenticate($context, $_GET['token'], 2, $user)) {
 		http_response_code(400);
 	} else {
 		$context->delete_issue($_GET['id']);
-		$issues = $context->list_issues($user, $issue["episode_id"]);
+		$data = $context->list_episodeversions($user, $issue["episode_id"]);
 		$context->disconnect();
-		echo json_encode($issues);
+		echo json_encode($data);
 	}
 }
 ?>

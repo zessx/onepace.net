@@ -1,3 +1,4 @@
+/* Global */
 body {
 	font-family: Calibri;
 	font-size: 15px;
@@ -14,6 +15,38 @@ body {
 input{
 	color:black;
 }
+input[type="file"] {
+	display: none;
+}
+ul {
+	list-style-type: none;
+}
+li {
+	padding: 5px;
+}
+li a {
+	color: #ffffff;
+	text-decoration: none;
+}
+li a:hover {
+	color: #d2d2d2;
+	text-shadow: 2px 2px #000000;
+	padding: 3px;
+}
+@media screen and (max-width: 800px) {
+	.main, .side {
+		width: 100%;
+		padding: 0;
+	}
+}
+@media screen and (max-width: 400px) {
+	.topnav a {
+		float: none;
+		width: 100%;
+	}
+}
+
+/* Navbar */
 .topnav {
 	background-color: #313131;
 	display: inline-block;
@@ -40,21 +73,6 @@ input{
 .topnav .link:hover {
 	color: #d2d2d2;
 	text-shadow: 2px 2px #000000;
-}
-ul {
-	list-style-type: none;
-}
-li {
-	padding: 5px;
-}
-li a {
-	color: #ffffff;
-	text-decoration: none;
-}
-li a:hover {
-	color: #d2d2d2;
-	text-shadow: 2px 2px #000000;
-	padding: 3px;
 }
 .main {
 	width: 75%;
@@ -84,18 +102,6 @@ li a:hover {
 	margin: 15px;
 	padding: 15px;
 	border-radius: 4px;
-}
-@media screen and (max-width: 800px) {
-	.main, .side {
-		width: 100%;
-		padding: 0;
-	}
-}
-@media screen and (max-width: 400px) {
-	.topnav a {
-		float: none;
-		width: 100%;
-	}
 }
 img.logo {
 	height: 70px;
@@ -280,7 +286,7 @@ table.releases tr:hover {
 	font-size: 16px;
 	cursor: pointer;
 	padding: 7px;
-	margin: 5px 0;
+	margin: 5px 0 0 0;
 	text-align: center;
 	background-color: #5176af;
 	border-radius: 0px;
@@ -528,4 +534,17 @@ table.releases tr:hover {
 .form-container video {
 	width: 100%;
 	background-color: #35465a;
+}
+.upload-button {
+	flex: 1;
+	color: #fff;
+	font-size: 16px;
+	cursor: pointer;
+	padding: 10px;
+	margin: 10px;
+	text-align: center;
+	background-color: #5176af;
+	font-weight: 100;
+	font-size: 18px;
+	max-height: 87px;
 }
