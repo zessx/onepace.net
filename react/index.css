@@ -23,21 +23,6 @@ input[type="file"] {
 	position: absolute;
 	width: 100%;
 }
-ul {
-	list-style-type: none;
-}
-li {
-	padding: 5px;
-}
-li a {
-	color: #ffffff;
-	text-decoration: none;
-}
-li a:hover {
-	color: #d2d2d2;
-	text-shadow: 2px 2px #000000;
-	padding: 3px;
-}
 .topnav img {
 	float: left;
 	padding: 10px;
@@ -59,8 +44,30 @@ li a:hover {
 	color: #d2d2d2;
 	text-shadow: 2px 2px #000000;
 }
+ul {
+	list-style-type: none;
+}
+li {
+	padding: 5px;
+}
+li a {
+	color: #ffffff;
+	text-decoration: none;
+}
+li a:hover {
+	color: #d2d2d2;
+	text-shadow: 2px 2px #000000;
+	padding: 3px;
+}
 .main {
 	width: 75%;
+}
+.side {
+	background-color: rgba(35,35,35,0.8);
+	border-left: 4px solid #395d9e;
+	padding: 55px 15px 0 15px;
+	width: 300px;
+	min-height: 100%;
 }
 @media screen and (max-width: 800px) {
 	.main, .side {
@@ -73,13 +80,6 @@ li a:hover {
 		float: none;
 		width: 100%;
 	}
-}
-.side {
-	background-color: rgba(35,35,35,0.8);
-	border-left: 4px solid #395d9e;
-	padding: 55px 15px 0 15px;
-	width: 300px;
-	min-height: 100%;
 }
 .side-minimised {
 	background-color: #232323;

@@ -60,7 +60,6 @@ export default class ViewEpisodeForm extends React.Component {
 		this.setState({issues});
 	}
 	render() {
-		const {selectedEpisodeVersion} = this.state;
 		const {user} = this.props;
 		const isLoggedIn = user != null;
 		const isQCer = isLoggedIn && user.role >= 1;

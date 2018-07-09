@@ -150,6 +150,10 @@ class db_context {
 		return true;
 	}
 
+	/* Users */
+	function update_user($id, $params) {
+		return $this->update("users", $id, $params);
+	}
 	/* Episodes */
 	function update_episode($id, $params) {
 		return $this->update("episodes", $id, $params);
@@ -214,9 +218,6 @@ class db_context {
 	/* Users */
 	function create_user($params) {
 		return $this->create("users", $params);
-	}
-	function update_user($id, $params) {
-		return $this->update("users", $id, $params);
 	}
 
 	/* Issues */
