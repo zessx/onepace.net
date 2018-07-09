@@ -150,43 +150,6 @@ class db_context {
 		return true;
 	}
 
-	/* Episode versions */
-	function list_episodeversions($user, $episode_id) {
-		$rows = $this->prepare_and_get_result(
-			"select
-				episodeversions.*, issues.id as issue_id, issues.completed as issue_completed, issues.createdby as issue_created_by,
-				issues.createddate as issue_createddate, issues.description as issue_description
-			from episodeversions
-			right join issues on issues.episodeversion_id = episodeversions.id
-			where episodeversions.episode_id = ?
-			order by major desc, minor desc, issues.completed, issues.createddate
-			;"
-		);
-		$data = [];
-		$id = -1;
-		$id_index = -1;
-		foreach($rows as $row) {
-			if($id != $row['id']) {
-				$id = $row['id'];
-				$data['episodeversions'][] = [
-					'id' => $row['id'],
-					'major' => $row['major'],
-					'minor' => $row['minor'],
-					'filename' => $row['filename']
-				];
-				$id_index++;
-			}
-			$data['episodeversions'][$id_index]['issues'][] = [
-				'id' => $row['issue_id'],
-				"description" => $row['issue_description'],
-				'createdby' => $row['issue_createdby'],
-				'createddate' => $row['issue_createddate'],
-				"completed" => $row['issue_completed']
-			];
-		}
-		return $data;
-	}
-
 	/* Episodes */
 	function update_episode($id, $params) {
 		return $this->update("episodes", $id, $params);
@@ -268,5 +231,28 @@ class db_context {
 	}
 	function delete_issue($id) {
 		return $this->delete("issues", $id);
+	}
+	function list_issues($user, $episode_id) {
+		$rows = $this->prepare_and_get_result(
+			"select issues.*, episodes.id as episode_id from issues
+			left join episodes on episodes.id = issues.episode_id
+			where episodes.id = ?".
+			($user == null || $user['role'] <= 1 ? " and episodes.hidden = false" : "")
+			."
+			order by completed, createddate
+			;", ["episode_id" => $episode_id]
+		);
+		$data = ["issues" => []];
+		foreach($rows as $row) {
+			$data["issues"][] = [
+				"id" => $row["id"],
+				"episode_id" => $row["episode_id"],
+				"description" => $row["description"],
+				"createdby" => $row["createdby"],
+				"createddate" => $row["createddate"],
+				"completed" => $row['completed'] == 1
+			];
+		}
+		return $data;
 	}
 }

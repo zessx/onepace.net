@@ -22,8 +22,8 @@ if(!Authenticator::authenticate($context, $_GET['token'], 1, $user)) {
 			]);
 		}
 	}
-	$data = $context->list_episodeversions($user, $_GET["episode_id"]);
+	$issues = $context->list_issues($user, $_GET["episode_id"]);
 	$context->disconnect();
-	echo json_encode($data);
+	echo json_encode($issues);
 }
 ?>
