@@ -33,7 +33,7 @@ create table `episodes` (
 	primary key (`id`),
 	unique key `id` (`id`),
 	key `arc_id_fk_idx` (`arc_id`),
-	constraint `arc_id_fk` foreign key (`arc_id`) references `arcs` (`id`) on update set null
+	constraint `arc_id_fk` foreign key (`arc_id`) references `arcs` (`id`) on delete set null
 );
 
 create table `sagas` (
