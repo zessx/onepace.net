@@ -11,7 +11,7 @@ export default class Watch extends React.Component {
 		"selectedEpisode": null
 	};
 	componentDidMount() {
-		NetworkHandler.post("/get_streams.php", {}, (response) => {
+		NetworkHandler.request("/get_streams.php", null, (response) => {
 			const {
 				arcs,
 				episodes,

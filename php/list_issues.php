@@ -5,9 +5,9 @@ require_once 'config.php';
 include_once 'logger.php';
 include_once 'Authenticator.php';
 $context = new db_context();
-Authenticator::authenticate($context, $_GET['token'], 0, $user);
+Authenticator::authenticate($context, $_POST['token'], 0, $user);
 $context->connect();
-$issues = $context->list_issues($user, $_GET['episode_id']);
+$issues = $context->list_issues($user, $_POST['episode_id']);
 $context->disconnect();
 echo json_encode($issues);
 ?>

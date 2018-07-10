@@ -16,16 +16,19 @@ export default class ViewEpisodeForm extends React.Component {
 	}
 	componentDidMount() {
 		const token = this.state.user != null ? this.state.user.token : "";
-		NetworkHandler.get("/list_issues.php", {"token": token, "episode_id": this.state.episode.id}, responseJson => {
+		const data = new FormData();
+		data.append("token", token);
+		data.append("episode_id", this.state.episode.id);
+		NetworkHandler.request("/list_issues.php", data, responseJson => {
 			this.setState({issues: responseJson.issues});
 		});
 	}
 	createIssue = description => {
-		NetworkHandler.get("/create_issue.php",{
-			"token": this.state.user.token,
-			"description": description,
-			"episode_id": this.state.episode.id
-		}, responseJson => {
+		const data = new FormData();
+		data.append("token", this.state.user.token);
+		data.append("description", description);
+		data.append("episode_id", this.state.episode.id);
+		NetworkHandler.request("/create_issue.php", data, responseJson => {
 			const issuesCreated = responseJson.issues.length - this.state.issues.length;
 			this.setState({issues:responseJson.issues});
 			this.props.onIssueCreated(this.state.episode, issuesCreated);
@@ -34,13 +37,13 @@ export default class ViewEpisodeForm extends React.Component {
 		});
 	}
 	deleteIssue = issue => {
-		NetworkHandler.get("/delete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson)=>{
+		NetworkHandler.request("/delete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson)=>{
 			this.setState({issues:responseJson.issues});
 			this.props.onIssueDeleted(this.state.episode);
 		});
 	}
 	completeIssue = issue => {
-		NetworkHandler.get("/complete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson)=>{
+		NetworkHandler.request("/complete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson)=>{
 			this.setState({ issues:responseJson.issues });
 			this.props.onIssueDeleted(this.state.episode, 1);
 		});
@@ -49,7 +52,7 @@ export default class ViewEpisodeForm extends React.Component {
 		if(!confirm("Are you sure you want to unconfirm this issue?")) {
 			return;
 		}
-		NetworkHandler.get("/uncomplete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson) => {
+		NetworkHandler.request("/uncomplete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson) => {
 			this.setState({ issues:responseJson.issues });
 			this.props.onIssueCreated(this.state.episode, 1);
 		});

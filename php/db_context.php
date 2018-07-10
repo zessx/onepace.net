@@ -155,8 +155,14 @@ class db_context {
 		return $this->update("users", $id, $params);
 	}
 	/* Episodes */
+	function create_episode($params) {
+		return $this->create("episodes", $params);
+	}
 	function update_episode($id, $params) {
 		return $this->update("episodes", $id, $params);
+	}
+	function delete_episode($id) {
+		return $this->delete("episodes", $id);
 	}
 	function list_progress_episodes($user) {
 		$rows = $this->prepare_and_get_result(

@@ -1,26 +1,18 @@
 <?php
-header('Content-Type: application/json; charset=utf-8;');
 require_once 'db_context.php';
 require_once 'config.php';
-require_once 'Authenticator.php';
+require_once 'utils.php';
 include_once 'secure_indexer.php';
-$context = new db_context();
-if(!Authenticator::authenticate($context, $_GET['token'], 0, $user)) {
+$user = Utils::verify($context, $_POST['token'], 0);
+$old_password = sha1($_POST['oldpassword'] . strtolower($user["name"]) . SALT);
+if(!Utils::verify_password($context, $_POST['token'], $old_password)) {
 	http_response_code(400);
-	exit();
+	exit;
 }
-$old_password = sha1($_GET['oldpassword'] . strtolower($user["name"]) . SALT);
-if(!Authenticator::verify_password($context, $_GET['token'], $old_password)) {
-	http_response_code(400);
-	exit();
-} else {
-	$password = sha1($_GET['newpassword'] . strtolower($user["name"]) . SALT);
-	$context->connect();
-	$stmt = $context->prepare("update users set password=? where id=?;");
-	$stmt->bind_param('sd', $password, $user['id']);
-	$context->execute($stmt);
-	$episodes = $context->list_progress_episodes($user);
-	$context->disconnect();
-	echo json_encode($episodes);
-}
+$password = sha1($_POST['newpassword'] . strtolower($user["name"]) . SALT);
+$context->connect();
+$context->update_user($user['id'], [ "password" => $password ]);
+$episodes = $context->list_progress_episodes($user);
+$context->disconnect();
+Utils::echo_json($episodes);
 ?>
