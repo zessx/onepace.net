@@ -15,7 +15,14 @@ input{
 	color:black;
 }
 input[type="file"] {
-	display: none;
+	color: #fff;
+	font-size: 16px;
+	cursor: pointer;
+	padding: 6px;
+	margin: 5px 0;
+	background-color: #5176af;
+	border-radius: 0;
+	display: inline-block;
 }
 .topnav {
 	background-color: #313131;

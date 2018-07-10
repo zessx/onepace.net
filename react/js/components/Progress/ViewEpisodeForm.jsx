@@ -11,7 +11,8 @@ export default class ViewEpisodeForm extends React.Component {
 			issue_create_description: "",
 			user: this.props.user,
 			issues: [],
-			episode: this.props.episode
+			episode: this.props.episode,
+			pdf: null
 		};
 	}
 	componentDidMount() {
@@ -96,6 +97,19 @@ export default class ViewEpisodeForm extends React.Component {
 						isAdmin &&
 						<div className="subform-container">
 							<div className="submit-button" onClick={this.props.onDelete}>Delete episode</div>
+						</div>
+					}
+					{
+						isQCer &&
+						<div className="subform-container">
+							<input id="pdf-upload" type="file" onChange={e => this.setState({pdf: e.target.files[0]})} />
+							<div className={"submit-button left-margin" + (this.state.pdf == null ? " disabled" : "")} onClick={() => {
+								if(this.state.pdf == null) {
+									return;
+								}
+								this.props.onAttachPDF(this.state.pdf);
+								this.setState({pdf: null});
+							}}>Attach PDF</div>
 						</div>
 					}
 					<div style={{display:"flex"}}>

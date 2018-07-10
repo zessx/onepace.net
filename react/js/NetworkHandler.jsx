@@ -7,10 +7,6 @@ export default class NetworkHandler {
 		try {
 			const response = await fetch(Config.ServerURL + route, {
 				"method": "POST",
-				"headers": {
-					"Content-Type": "multipart/form-data",
-					"Accept": "application/json"
-				},
 				"body": data,
 			});
 			if (response.status == 200) {

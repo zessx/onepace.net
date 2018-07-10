@@ -160,6 +160,15 @@ export default class Progress extends React.Component {
 							episodes[index].issues_total = Math.max(0, episodes[index].issues_total - 1);
 							this.setState({episodes});
 						}}
+						onAttachPDF={file => {
+							if(file == null) {
+								return;
+							}
+							const data = new FormData();
+							data.append("token", this.state.user.token);
+							data.append("file", file, file.name);
+							NetworkHandler.request("/upload.php", data);
+						}}
 						onIssueCreated={(episode, issuesCreated) => {
 							let episodes = this.state.episodes.slice();
 							const index = episodes.findIndex(i => i.id == episode.id);
