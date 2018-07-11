@@ -48,7 +48,7 @@ export default class Progress extends React.Component {
 		const token = this.state.user.token;
 		const data = new FormData();
 		episode.arc_id = this.state.showCreateEpisodeFormForArc.id;
-		data.append("episode", episode);
+		data.append("episode", JSON.stringify(episode));
 		data.append("token", token);
 		NetworkHandler.request("/create_episode.php", data, (responseJson) => {
 			this.setState({showCreateEpisodeFormForArc: null, arcs: responseJson.arcs, episodes: responseJson.episodes});
@@ -159,15 +159,6 @@ export default class Progress extends React.Component {
 							if(index == -1) return;
 							episodes[index].issues_total = Math.max(0, episodes[index].issues_total - 1);
 							this.setState({episodes});
-						}}
-						onAttachPDF={file => {
-							if(file == null) {
-								return;
-							}
-							const data = new FormData();
-							data.append("token", this.state.user.token);
-							data.append("file", file, file.name);
-							NetworkHandler.request("/upload.php", data);
 						}}
 						onIssueCreated={(episode, issuesCreated) => {
 							let episodes = this.state.episodes.slice();

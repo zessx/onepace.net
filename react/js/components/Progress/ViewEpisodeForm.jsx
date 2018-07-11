@@ -11,8 +11,9 @@ export default class ViewEpisodeForm extends React.Component {
 			issue_create_description: "",
 			user: this.props.user,
 			issues: [],
+			episodeattachments: [],
 			episode: this.props.episode,
-			pdf: null
+			createdAttachment: null
 		};
 	}
 	componentDidMount() {
@@ -21,7 +22,7 @@ export default class ViewEpisodeForm extends React.Component {
 		data.append("token", token);
 		data.append("episode_id", this.state.episode.id);
 		NetworkHandler.request("/list_issues.php", data, responseJson => {
-			this.setState({issues: responseJson.issues});
+			this.setState({ episodeattachments: responseJson.episodeattachments, issues: responseJson.issues});
 		});
 	}
 	createIssue = description => {
@@ -31,21 +32,27 @@ export default class ViewEpisodeForm extends React.Component {
 		data.append("episode_id", this.state.episode.id);
 		NetworkHandler.request("/create_issue.php", data, responseJson => {
 			const issuesCreated = responseJson.issues.length - this.state.issues.length;
-			this.setState({issues:responseJson.issues});
+			this.setState({ episodeattachments: responseJson.episodeattachments, issues:responseJson.issues});
 			this.props.onIssueCreated(this.state.episode, issuesCreated);
 		}, e => {
 			alert("Error: " + e.message);
 		});
 	}
 	deleteIssue = issue => {
-		NetworkHandler.request("/delete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson)=>{
-			this.setState({issues:responseJson.issues});
+		const data = new FormData();
+		data.append("token", this.state.user.token);
+		data.append("id", issue.id);
+		NetworkHandler.request("/delete_issue.php", data, responseJson => {
+			this.setState({ episodeattachments: responseJson.episodeattachments, issues:responseJson.issues});
 			this.props.onIssueDeleted(this.state.episode);
 		});
 	}
 	completeIssue = issue => {
-		NetworkHandler.request("/complete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson)=>{
-			this.setState({ issues:responseJson.issues });
+		const data = new FormData();
+		data.append("token", this.state.user.token);
+		data.append("id", issue.id);
+		NetworkHandler.request("/complete_issue.php", data, responseJson => {
+			this.setState({ episodeattachments: responseJson.episodeattachments, issues:responseJson.issues });
 			this.props.onIssueDeleted(this.state.episode, 1);
 		});
 	}
@@ -53,8 +60,11 @@ export default class ViewEpisodeForm extends React.Component {
 		if(!confirm("Are you sure you want to unconfirm this issue?")) {
 			return;
 		}
-		NetworkHandler.request("/uncomplete_issue.php", { "id": issue.id, "token": this.state.user.token }, (responseJson) => {
-			this.setState({ issues:responseJson.issues });
+		const data = new FormData();
+		data.append("token", this.state.user.token);
+		data.append("id", issue.id);
+		NetworkHandler.request("/uncomplete_issue.php", data, responseJson => {
+			this.setState({ episodeattachments: responseJson.episodeattachments, issues:responseJson.issues });
 			this.props.onIssueCreated(this.state.episode, 1);
 		});
 	}
@@ -62,6 +72,18 @@ export default class ViewEpisodeForm extends React.Component {
 		let issues = this.state.issues.slice();
 		issues[index] = value;
 		this.setState({issues});
+	}
+	createEpisodeAttachment = file => {
+		if(file == null) {
+			return;
+		}
+		const data = new FormData();
+		data.append("episode_id", this.state.episode.id);
+		data.append("token", this.state.user.token);
+		data.append("file", file, file.name);
+		NetworkHandler.request("/upload_episode_attachment.php", data, responseJson =>
+			this.setState({ createdAttachment: null, episodeattachments: responseJson.episodeattachments, issues: responseJson.issues })
+		);
 	}
 	render() {
 		const {user} = this.props;
@@ -102,14 +124,23 @@ export default class ViewEpisodeForm extends React.Component {
 					{
 						isQCer &&
 						<div className="subform-container">
-							<input id="pdf-upload" type="file" onChange={e => this.setState({pdf: e.target.files[0]})} />
-							<div className={"submit-button left-margin" + (this.state.pdf == null ? " disabled" : "")} onClick={() => {
-								if(this.state.pdf == null) {
+							<input type="file" onChange={e => this.setState({createdAttachment: e.target.files[0]})} />
+							<div className={"submit-button left-margin" + (this.state.createdAttachment == null ? " disabled" : "")} onClick={() => {
+								if(this.state.createdAttachment == null) {
 									return;
 								}
-								this.props.onAttachPDF(this.state.pdf);
-								this.setState({pdf: null});
+								this.setState({createdAttachment: null});
+								this.createEpisodeAttachment(this.state.createdAttachment);
 							}}>Attach PDF</div>
+						</div>
+					}
+					{
+						<div className="subform-container">
+							{
+								this.state.episodeattachments.map(i => 
+									<a key={i.id} className="submit-button right-margin" target="blank" href={i.url}>{i.name}</a>
+								)
+							}
 						</div>
 					}
 					<div style={{display:"flex"}}>

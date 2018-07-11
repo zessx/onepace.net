@@ -4,10 +4,9 @@ require_once 'db_context.php';
 require_once 'config.php';
 require_once 'utils.php';
 include_once 'secure_indexer.php';
-include_once 'logger.php';
 
 $user = Utils::verify($context, $_POST['token'], 4);
-$created_episode = $_POST['episode'];
+$created_episode = (array)json_decode($_POST['episode']);
 if($created_episode['part'] < 1) {
 	$created_episode['part'] = null;
 }

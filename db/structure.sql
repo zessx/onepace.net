@@ -36,6 +36,19 @@ create table `episodes` (
 	constraint `arc_id_fk` foreign key (`arc_id`) references `arcs` (`id`) on delete set null
 );
 
+create table `episodeattachments` (
+	`id` int(10) unsigned not null auto_increment,
+	`episode_id` int(10) unsigned not null,
+	`name` varchar(90) not null default '',
+	`type` varchar(45) not null default '',
+	`size` bigint(20) not null default 0,
+	`uploadeddate` bigint(20) not null default 0,
+	`uploadedby` varchar(90) not null default '',
+	primary key (`id`),
+	unique key `id_unique` (`id`),
+	constraint `episodeattachment_episode_fk` foreign key (`episode_id`) references `episodes` (`id`) on delete cascade
+);
+
 create table `sagas` (
 	`id` int(10) unsigned not null auto_increment,
 	`title` varchar(50) not null,

@@ -298,6 +298,10 @@ table.releases tr:hover {
 .submit-button:hover {
 	background-color: #6186bf;
 }
+a.submit-button:hover, a.submit-button:focus {
+	text-decoration: none;
+	color: white;
+}
 .submit-button.disabled {
 	background-color: #5f6e84;
 	color: #c5c5c5;
@@ -482,6 +486,9 @@ table.releases tr:hover {
 }
 .left-margin {
 	margin-left: 5px;
+}
+.right-margin {
+	margin-right: 5px;
 }
 .issues{
 	max-height: 50%;

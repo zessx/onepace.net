@@ -72,8 +72,9 @@ class db_context {
 	function prepare($sql) {
 		$connection = $this->connection;
 		$stmt = $connection->prepare($sql);
-		if($stmt === false) {
+		if($stmt == null || $stmt === false) {
 			log_error('Wrong SQL: ' . $sql . ' Error: ' . $connection->errno . ' ' . $connection->error, E_USER_ERROR);
+			exit;
 		}
 		return $stmt;
 	}
@@ -148,6 +149,12 @@ class db_context {
 	function delete($table, $id) {
 		$this->prepare_and_execute("delete from ".$table." where id = ?;", ["id" => $id]);
 		return true;
+	}
+
+	/* Episode attachments */
+	function create_episode_attachment($params) {
+		Utils::log_info(print_r($params, true));
+		return $this->create("episodeattachments", $params);
 	}
 
 	/* Users */
@@ -249,7 +256,16 @@ class db_context {
 			order by completed, createddate
 			;", ["episode_id" => $episode_id]
 		);
-		$data = ["issues" => []];
+		$attachments = $this->prepare_and_get_result(
+			"select episodeattachments.* from episodeattachments
+			left join episodes on episodeattachments.episode_id = episodes.id
+			where episodes.id = ?".
+			($user == null || $user['role'] <= 1 ? " and episodes.hidden = false" : "")
+			."
+			order by uploadeddate
+			;", ["episode_id" => $episode_id]
+		);
+		$data = ["issues" => [], "episodeattachments" => []];
 		foreach($rows as $row) {
 			$data["issues"][] = [
 				"id" => $row["id"],
@@ -258,6 +274,18 @@ class db_context {
 				"createdby" => $row["createdby"],
 				"createddate" => $row["createddate"],
 				"completed" => $row['completed'] == 1
+			];
+		}
+		foreach($attachments as $row) {
+			$data["episodeattachments"][] = [
+				"id" => $row['id'],
+				"episode_id" => $row['episode_id'],
+				"name" => $row["name"],
+				"type" => $row["type"],
+				"size" => $row["size"],
+				"uploadeddate" => $row['uploadeddate'],
+				"uploadedby" => $row['uploadedby'],
+				"url" => '/episodeattachments/' . $row['episode_id'] . "_" . $row["uploadeddate"] . "_" . $row['name']
 			];
 		}
 		return $data;
