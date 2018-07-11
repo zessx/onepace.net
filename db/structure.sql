@@ -43,10 +43,11 @@ create table `episodeattachments` (
 	`type` varchar(45) not null default '',
 	`size` bigint(20) not null default 0,
 	`uploadeddate` bigint(20) not null default 0,
-	`uploadedby` varchar(90) not null default '',
+	`uploadedby` int(10) unsigned default null,
 	primary key (`id`),
 	unique key `id_unique` (`id`),
-	constraint `episodeattachment_episode_fk` foreign key (`episode_id`) references `episodes` (`id`) on delete cascade
+	constraint `episodeattachment_episode_fk` foreign key (`episode_id`) references `episodes` (`id`) on update no action on delete cascade,
+	constraint `episodeattachment_user_fk` foreign key (`uploadedby`) references `users` (`id`) on update no action on delete set null
 );
 
 create table `sagas` (

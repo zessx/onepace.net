@@ -1,5 +1,6 @@
 <?php
 include_once 'config.php';
+include_once 'utils.php';
 include_once 'logger.php';
 
 class db_context {
@@ -153,8 +154,13 @@ class db_context {
 
 	/* Episode attachments */
 	function create_episode_attachment($params) {
-		Utils::log_info(print_r($params, true));
 		return $this->create("episodeattachments", $params);
+	}
+	function read_episode_attachment($id) {
+		return $this->read("episodeattachments", $id);
+	}
+	function delete_episode_attachment($id) {
+		return $this->delete("episodeattachments", $id);
 	}
 
 	/* Users */

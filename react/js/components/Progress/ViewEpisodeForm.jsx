@@ -145,9 +145,13 @@ export default class ViewEpisodeForm extends React.Component {
 					{
 						<div className="subform-container">
 							{
-								this.state.episodeattachments.map(i => 
-									<a key={i.id} className="submit-button right-margin" target="blank" href={i.url}>{i.name}</a>
-								)
+								this.state.episodeattachments.map(i => {
+									return (
+										<div key={i.id} className="submit-button right-margin">
+											<a target="blank" href={i.url}>{i.name}</a>
+										</div>
+									);
+								})
 							}
 						</div>
 					}

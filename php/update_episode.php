@@ -8,7 +8,11 @@ $context = new db_context();
 if(!Authenticator::authenticate($context, $_POST['token'], 4, $user)) {
 	http_response_code(400);
 } else {
-	$episode = $_POST['episode'];
+	$episode = (array)json_decode($_POST['episode']);
+	$id = $episode['id'];
+	unset($episode['id']);
+	unset($episode['in_progress']);
+	unset($episode['issues_total']);
 	if($episode['part'] < 1) {
 		$episode['part'] = null;
 	}
@@ -16,7 +20,7 @@ if(!Authenticator::authenticate($context, $_POST['token'], 4, $user)) {
 		$episode['released_date'] = null;
 	}
 	$context->connect();
-	$context->update_episode($episode['id'], $episode);
+	$context->update_episode($id, $episode);
 	$episodes = $context->list_progress_episodes($user);
 	$context->disconnect();
 	echo json_encode($episodes);

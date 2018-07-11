@@ -17,7 +17,7 @@ $context->create_episode_attachment([
 	'type' => $file['type'],
 	'size' => $file['size'],
 	'uploadeddate' => time(),
-	'uploadedby' => $user['name'],
+	'uploadedby' => $user['id'],
 ]);
 $issues = $context->list_issues($user, $_POST['episode_id']);
 $context->disconnect();

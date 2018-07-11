@@ -298,7 +298,10 @@ table.releases tr:hover {
 .submit-button:hover {
 	background-color: #6186bf;
 }
-a.submit-button:hover, a.submit-button:focus {
+.submit-button a {
+	color: white;
+}
+.submit-button a:hover, .submit-button a:focus {
 	text-decoration: none;
 	color: white;
 }
@@ -481,7 +484,7 @@ a.submit-button:hover, a.submit-button:focus {
 .subform-container {
 	margin: 10px;
 }
-.subform-container .submit-button {
+.subform-container .submit-button, .submit-button a {
 	display: inline-block;
 }
 .left-margin {
