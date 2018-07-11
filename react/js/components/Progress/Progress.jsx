@@ -30,9 +30,9 @@ export default class Progress extends React.Component {
 		if(this.state.user) {
 			token = this.state.user.token;
 		}
-		NetworkHandler.get("/list_progress_episodes.php", {
-			"token": token
-		}, (responseJson) => {
+		const data = new FormData();
+		data.append("token", token);
+		NetworkHandler.request("/list_progress_episodes.php", data, (responseJson) => {
 			this.setState({
 				arcs: responseJson.arcs, episodes: responseJson.episodes
 			});
@@ -46,31 +46,31 @@ export default class Progress extends React.Component {
 	}
 	onCreateEpisode = (episode) => {
 		const token = this.state.user.token;
-		NetworkHandler.get("/create_episode.php", {
-			...episode,
-			"token": token,
-			"arc_id": this.state.showCreateEpisodeFormForArc.id
-		}, (responseJson) => {
+		const data = new FormData();
+		episode.arc_id = this.state.showCreateEpisodeFormForArc.id;
+		data.append("episode", JSON.stringify(episode));
+		data.append("token", token);
+		NetworkHandler.request("/create_episode.php", data, (responseJson) => {
 			this.setState({showCreateEpisodeFormForArc: null, arcs: responseJson.arcs, episodes: responseJson.episodes});
 		}, () => {
 		});
 	}
 	onUpdateEpisode = (episode) => {
 		const token = this.state.user.token;
-		NetworkHandler.get("/update_episode.php", {
-			...episode,
-			"token": token
-		}, (responseJson) => {
+		const data = new FormData();
+		data.append("token", token);
+		data.append("episode", JSON.stringify(episode));
+		NetworkHandler.request("/update_episode.php", data, (responseJson) => {
 			this.setState({showUpdateEpisodeForm: null, arcs: responseJson.arcs, episodes: responseJson.episodes});
 		}, () => {
 		});
 	}
 	onDeleteEpisode = () => {
 		const token = this.state.user.token;
-		NetworkHandler.get("/delete_episode.php", {
-			"id": this.state.showViewEpisodeForm.id,
-			"token": token
-		}, (responseJson) => {
+		const data = new FormData();
+		data.append("id", this.state.showViewEpisodeForm.id);
+		data.append("token", token);
+		NetworkHandler.request("/delete_episode.php", data, (responseJson) => {
 			this.setState({showViewEpisodeForm: null, arcs: responseJson.arcs, episodes: responseJson.episodes});
 		}, () => {
 		});
@@ -79,10 +79,10 @@ export default class Progress extends React.Component {
 		this.setState({showViewEpisodeForm: episode});
 	}
 	logIn = () => {
-		NetworkHandler.get("/login.php", {
-			"name": this.state.name,
-			"password": this.state.password
-		}, responseJson => {
+		const data = new FormData();
+		data.append("name", this.state.name);
+		data.append("password", this.state.password);
+		NetworkHandler.request("/login.php", data, responseJson => {
 			const user = responseJson.user;
 			LocalStorageUtils.setUser(user);
 			this.setState({name: "", password: "", "user": user, arcs: responseJson.arcs, episodes: responseJson.episodes});
@@ -92,28 +92,29 @@ export default class Progress extends React.Component {
 	}
 	logOut = () => {
 		LocalStorageUtils.setUser(null);
-		NetworkHandler.get("/logout.php", { "token": this.state.user.token },
-			responseJson => {
-				this.setState({ user: null, arcs: responseJson.arcs, episodes: responseJson.episodes });
-			}, () => this.setState({ user: null })
+		const data = new FormData();
+		data.append("token", this.state.user.token);
+		NetworkHandler.request("/logout.php", data, responseJson => {
+			this.setState({ user: null, arcs: responseJson.arcs, episodes: responseJson.episodes });
+		}, () => this.setState({ user: null })
 		);
 	}
 	changePassword = (formdata) => {
-		NetworkHandler.get("/update_user_password.php",{
-			"oldpassword": formdata.oldpassword,
-			"newpassword": formdata.newpassword,
-			"token": this.state.user.token
-		},() => {
+		const data = new FormData();
+		data.append("oldpassword", formdata.oldpassword);
+		data.append("newpassword", formdata.newpassword);
+		data.append("token", formdata.token);
+		NetworkHandler.request("/update_user_password.php", data, () => {
 			this.setState({showChangePasswordForm: false});
 		});
 	}
 	createUser = (formdata) => {
-		NetworkHandler.get("/create_user.php",{
-			"name": formdata.name,
-			"password": formdata.password,
-			"token": this.state.user.token,
-			"role": formdata.role
-		}, () => {
+		const data = new FormData();
+		data.append("name", formdata.name);
+		data.append("password", formdata.password);
+		data.append("token", this.state.user.token);
+		data.append("role", formdata.role);
+		NetworkHandler.request("/create_user.php", data, () => {
 			this.setState({showCreateUserForm: false});
 		});
 	}

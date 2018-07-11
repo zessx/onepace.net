@@ -2,22 +2,17 @@
 header('Content-Type: application/json; charset=utf-8;');
 require_once 'db_context.php';
 require_once 'config.php';
-require_once 'Authenticator.php';
+require_once 'utils.php';
 include_once 'secure_indexer.php';
-include_once 'logger.php';
-$context = new db_context();
-if(!Authenticator::authenticate($context, $_GET['token'], 4, $user)) {
-	http_response_code(400);
-} else {
-	$context->connect();
-	$stmt = $context->prepare("insert into episodes (`crc32`, `arc_id`, `chapters`, `episodes`, `resolution`, `released_date`, `title`, `part`, `torrent_hash`) values(?, ?, ?, ?, ?, ?, ?, ?, ?);");
-	$stmt->bind_param('sdsssssds',
-		scr_value($_GET, 'crc32'), scr_value($_GET, 'arc_id'), scr_value($_GET, 'chapters'), scr_value($_GET, 'episodes'), scr_value($_GET, 'resolution'),
-		$_GET['released_date'], scr_value($_GET, 'title'), $_GET['part'] < 1 ? null : $_GET['part'], scr_value($_GET, 'torrent_hash')
-	);
-	$context->execute($stmt);
-	$episodes = $context->list_progress_episodes($user);
-	$context->disconnect();
-	echo json_encode($episodes);
+
+$user = Utils::verify($context, $_POST['token'], 4);
+$created_episode = (array)json_decode($_POST['episode']);
+if($created_episode['part'] < 1) {
+	$created_episode['part'] = null;
 }
+$context->connect();
+$context->create_episode($created_episode);
+$episodes = $context->list_progress_episodes($user);
+$context->disconnect();
+echo json_encode($episodes);
 ?>
