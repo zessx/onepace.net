@@ -13,7 +13,9 @@ export default class ViewEpisodeForm extends React.Component {
 			issues: [],
 			episodeattachments: [],
 			episode: this.props.episode,
-			createdAttachment: null
+			createdAttachment: null,
+			uploadingAttachment: false,
+			attachmentUploadProgress: 0.0
 		};
 	}
 	componentDidMount() {
@@ -74,16 +76,23 @@ export default class ViewEpisodeForm extends React.Component {
 		this.setState({issues});
 	}
 	createEpisodeAttachment = file => {
-		if(file == null) {
+		if(file == null || this.state.uploadingAttachment) {
 			return;
 		}
+		this.setState({ uploadingAttachment: true });
 		const data = new FormData();
 		data.append("episode_id", this.state.episode.id);
 		data.append("token", this.state.user.token);
 		data.append("file", file, file.name);
-		NetworkHandler.request("/upload_episode_attachment.php", data, responseJson =>
-			this.setState({ createdAttachment: null, episodeattachments: responseJson.episodeattachments, issues: responseJson.issues })
-		);
+		NetworkHandler.request("/upload_episode_attachment.php", data, responseJson => {
+			this.setState({ uploadingAttachment: false, attachmentUploadProgress: 0.0, createdAttachment: null, episodeattachments: responseJson.episodeattachments, issues: responseJson.issues });
+		}, e => {
+			alert("Upload failed: " + e.message);
+			this.setState({ uploadingAttachment: false, attachmentUploadProgress: 0.0, createdAttachment: null });
+		}, progress => {
+			const attachmentUploadProgress = ((progress.loaded / progress.total) * 100).toFixed(2);
+			this.setState({attachmentUploadProgress});
+		});
 	}
 	render() {
 		const {user} = this.props;
@@ -125,13 +134,12 @@ export default class ViewEpisodeForm extends React.Component {
 						isQCer &&
 						<div className="subform-container">
 							<input type="file" onChange={e => this.setState({createdAttachment: e.target.files[0]})} />
-							<div className={"submit-button left-margin" + (this.state.createdAttachment == null ? " disabled" : "")} onClick={() => {
+							<div className={"submit-button left-margin" + (this.state.createdAttachment == null || this.state.uploadingAttachment ? " disabled" : "")} onClick={() => {
 								if(this.state.createdAttachment == null) {
 									return;
 								}
-								this.setState({createdAttachment: null});
 								this.createEpisodeAttachment(this.state.createdAttachment);
-							}}>Attach PDF</div>
+							}}>{this.state.uploadingAttachment ? "Uploading... (" + this.state.attachmentUploadProgress + "%)" : "Upload"}</div>
 						</div>
 					}
 					{

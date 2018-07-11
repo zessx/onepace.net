@@ -1,33 +1,32 @@
 import Config from "webpack-config";
+import Axios from "axios";
 
 export default class NetworkHandler {
-	static async request(route, data, onSuccess, onError) {
+	static request(route, data, onSuccess, onError, onUploadProgress) {
 		onSuccess = onSuccess == null ? (f) => f : onSuccess;
 		onError = onError == null ? (f) => f : onError;
-		try {
-			const response = await fetch(Config.ServerURL + route, {
-				"method": "POST",
-				"body": data,
-			});
-			if (response.status == 200) {
-				const responseJson = await response.json();
-				onSuccess({
-					...responseJson,
-					"status": response.status,
-					"message": response.statusText,
-				});
+		Axios.request({
+			method: "POST",
+			url: Config.ServerURL + route,
+			data: data,
+			responseType: "json",
+			onUploadProgress: onUploadProgress
+		}).then(response => {
+			const responseObject = {
+				...response.data,
+				"status": response.status,
+				"message": response.statusText,
+			};
+			if(response.status == 200) {
+				onSuccess(responseObject);
 			} else {
-				onError({
-					"status": response.status,
-					"message": response.statusText,
-				});
+				onError(responseObject);
 			}
-			return response.responseText;
-		} catch (e) {
+		}).catch(error => {
 			onError({
 				"status": 500,
-				"message": e.message,
+				"message": error.message,
 			});
-		}
+		});
 	}
 }
