@@ -228,7 +228,8 @@ class db_context {
 				"hidden" => $row['hidden'],
 				"in_progress" => $row['in_progress'],
 				"released_date" => $row['released_date'] == null ? '' : $row['released_date'],
-				"issues_total" => $row['issues_total']
+				"issues_total" => $row['issues_total'],
+                "openload" => $row['openload']
 			];
 		}
 		return $data;
