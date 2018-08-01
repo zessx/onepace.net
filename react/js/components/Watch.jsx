@@ -127,16 +127,11 @@ export default class Watch extends React.Component {
 				</center>
 				</div>
 				<div className="video-player-wrapper">
-				{ selectedEpisode != null && selectedEpisode.openload.length > 0 &&
-					<iframe src={"https://openload.co/embed/" + selectedEpisode.openload} scrolling="no" frameBorder="0" style={{width:"100%",height:"100%"}} allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
-				}
-                { selectedEpisode == null || selectedEpisode.openload.length == 0 &&
-                    <video ref={(i) => this.videoRef = i} className="video-player" controls poster="assets/logo-poster.png">
+					<video ref={(i) => this.videoRef = i} className="video-player" controls poster="assets/logo-poster.png">
 					{ selectedEpisode != null &&
 						<source type="video/mp4" src={"/streams/" + selectedEpisode.crc32 + ".mp4"} />
 					}
 					</video>
-                }
 				</div>
 			</div>
 		);

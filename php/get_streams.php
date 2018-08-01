@@ -31,46 +31,46 @@ $context->disconnect();
 $data = [];
 $arc_id = -1;
 foreach($rows as $row) {
-    if($arc_id != scr_value($row, 'arc_id')) {
-        $arc_id = scr_value($row, 'arc_id');
-        $data['arcs'][] = [
-            'id' => scr_value($row, 'arc_id'),
-            'title' => scr_value($row, 'arc_title'),
-            'chapters' => scr_value($row, 'arc_chapters'),
-            'resolution' => scr_value($row, 'arc_resolution'),
-						"released" => scr_value($row, "arc_released") == 1,
-						"episodes" => scr_value($row, "arc_episodes")
-        ];
+	if($arc_id != scr_value($row, 'arc_id')) {
+		$arc_id = scr_value($row, 'arc_id');
+		$data['arcs'][] = [
+			'id' => scr_value($row, 'arc_id'),
+			'title' => scr_value($row, 'arc_title'),
+			'chapters' => scr_value($row, 'arc_chapters'),
+			'resolution' => scr_value($row, 'arc_resolution'),
+			"released" => scr_value($row, "arc_released") == 1,
+			"episodes" => scr_value($row, "arc_episodes")
+		];
 	}
-    $is_released = isset($row["released_date"]) && strtotime($row["released_date"]) <= time();
-    
-    // Set the episode object
-    $data['episodes'][] = [
-        'id' => scr_value($row, 'id'),
-        'crc32' => $is_released ? scr_value($row, 'crc32') : "",
-        'resolution' => scr_value($row, 'resolution'),
-        'title' => scr_value($row, 'title'),
-        'chapters' => scr_value($row, 'chapters'),
-        "episodes" => scr_value($row, "episodes"),
-        "isReleased" => $is_released,
-        'status' => scr_value($row, 'status'),
-        'part' => scr_value($row, 'part'),
-        'arcId' => scr_value($row, 'arc_id'),
-        'openload' => $row['openload']
-    ];
+	$is_released = isset($row["released_date"]) && strtotime($row["released_date"]) <= time();
+
+	// Set the episode object
+	$data['episodes'][] = [
+		'id' => scr_value($row, 'id'),
+		'crc32' => $is_released ? scr_value($row, 'crc32') : "",
+		'resolution' => scr_value($row, 'resolution'),
+		'title' => scr_value($row, 'title'),
+		'chapters' => scr_value($row, 'chapters'),
+		"episodes" => scr_value($row, "episodes"),
+		"isReleased" => $is_released,
+		'status' => scr_value($row, 'status'),
+		'part' => scr_value($row, 'part'),
+		'arcId' => scr_value($row, 'arc_id'),
+		'openload' => $row['openload']
+	];
 }
 function usortchapters($a, $b) {
-    return strnatcmp($a['chapters'], $b['chapters']);
+	return strnatcmp($a['chapters'], $b['chapters']);
 }
 usort($data['arcs'], "usortchapters");
 usort($data['episodes'], 'usortchapters');
 for($i = 0; $i < sizeof($data['arcs']); $i++) {
-    $arc = $data['arcs'][$i];
-    if($arc['chapters'] == null) {
-        unset($data['arcs'][$i]);
-        $data['arcs'][] = $arc;
-        $data['arcs'] = array_values($data['arcs']);
-    }
+	$arc = $data['arcs'][$i];
+	if($arc['chapters'] == null) {
+		unset($data['arcs'][$i]);
+		$data['arcs'][] = $arc;
+		$data['arcs'] = array_values($data['arcs']);
+	}
 }
 echo json_encode($data);
 ?>

@@ -13,6 +13,7 @@ import Watch from "./Watch";
 import About from "./About";
 import Torrents from "./Torrents";
 import Progress from "./Progress/Progress";
+import SupportUs from "./SupportUs";
 
 export default class Index extends React.Component {
 	componentDidMount() {
@@ -34,6 +35,7 @@ ReactDOM.render(
 			<Route name="torrents" path="/torrents" component={Torrents} />
 			<Route name="about" path="/about" component={About} />
 			<Route name="progress" path="/progress" component={Progress} />
+			<Route name="supportus" path="/supportus" component={SupportUs} />
 		</Route>
 	</Router>,
 	document.getElementById("reactentry")
