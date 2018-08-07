@@ -203,7 +203,6 @@ export default class Progress extends React.Component {
 										onAddCardButtonClick={() => isAdmin && this.onAddCardButtonClick(i)}
 										onClickCard={i=>this.onClickCard(i)}
 										image={"/assets/arc_" + i.id + ".png"}
-										title={i.title}
 										cards={this.state.episodes.filter(j => j.arc_id == i.id)}
 										key={"arc"+i.id}
 									/>
