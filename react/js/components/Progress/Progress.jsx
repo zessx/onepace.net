@@ -55,16 +55,6 @@ export default class Progress extends React.Component {
 		}, () => {
 		});
 	}
-	onUpdateEpisode = (episode) => {
-		const token = this.state.user.token;
-		const data = new FormData();
-		data.append("token", token);
-		data.append("episode", JSON.stringify(episode));
-		NetworkHandler.request("/update_episode.php", data, (responseJson) => {
-			this.setState({showUpdateEpisodeForm: null, arcs: responseJson.arcs, episodes: responseJson.episodes});
-		}, () => {
-		});
-	}
 	onDeleteEpisode = () => {
 		const token = this.state.user.token;
 		const data = new FormData();
@@ -152,7 +142,7 @@ export default class Progress extends React.Component {
 						episode={this.state.showViewEpisodeForm}
 						onDelete={()=>isAdmin&&this.onDeleteEpisode()}
 						onClose={()=>this.setState({showViewEpisodeForm:null})}
-						onUpdateEpisode={formdata=>this.onUpdateEpisode(formdata)}
+						onUpdatedEpisode={responseJson => this.setState({arcs: responseJson.arcs, episodes: responseJson.episodes})}
 						onIssueDeleted={episode => {
 							let episodes = this.state.episodes.slice();
 							const index = episodes.findIndex(i => i.id == episode.id);

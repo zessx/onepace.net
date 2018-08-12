@@ -11,7 +11,6 @@ export default class Card extends React.Component {
 	}
 	render() {
 		const {episode, arc} = this.state;
-		const b = episode && episode.issues_total > 0 && episode.in_progress ? true : false;
 		return (
 			<div>
 				{
@@ -28,7 +27,6 @@ export default class Card extends React.Component {
 							|| episode.chapters && <div className="status">Chapter {episode.chapters}</div>
 							|| episode.episodes && <div className="status">Episode {episode.episodes}</div>
 						}
-						{ b && <div className="status">{episode.issues_total + " issue" + (episode.issues_total == 1 ? "" : "s")}</div> }
 					</div>
 				}
 			</div>

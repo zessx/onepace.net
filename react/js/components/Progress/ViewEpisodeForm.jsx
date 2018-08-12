@@ -15,7 +15,8 @@ export default class ViewEpisodeForm extends React.Component {
 			episode: this.props.episode,
 			createdAttachment: null,
 			uploadingAttachment: false,
-			attachmentUploadProgress: 0.0
+			attachmentUploadProgress: 0.0,
+			updatingEpisode: false
 		};
 	}
 	componentDidMount() {
@@ -94,12 +95,28 @@ export default class ViewEpisodeForm extends React.Component {
 			this.setState({attachmentUploadProgress});
 		});
 	}
+	updateEpisode = () => {
+		this.setState({updatingEpisode: true});
+		const token = this.state.user.token;
+		const data = new FormData();
+		data.append("token", token);
+		data.append("episode", JSON.stringify(this.state.episode));
+		NetworkHandler.request("/update_episode.php", data, responseJson => {
+			this.setState({updatingEpisode: false});
+			this.props.onUpdatedEpisode(responseJson);
+		}, error => {
+			this.setState({updatingEpisode: false});
+			console.log(error);
+			alert("Error");
+		});
+	}
 	render() {
 		const {user} = this.props;
 		const isLoggedIn = user != null;
 		const isQCer = isLoggedIn && user.role >= 1;
 		const isEditor = isLoggedIn && user.role >= 2;
 		const isAdmin = isLoggedIn && user.role >= 4;
+		const {updatingEpisode} = this.state;
 		return (
 			<div>
 				<Form onClose={this.props.onClose}>
@@ -114,25 +131,19 @@ export default class ViewEpisodeForm extends React.Component {
 						Released date: <input type="text" disabled={!isAdmin} value={this.state.episode.released_date} onChange={e => this.setState({episode:{...this.state.episode,released_date: e.target.value}})} />
 						Episodes: <input type="text" disabled={!isAdmin} value={this.state.episode.episodes} onChange={e => this.setState({episode:{...this.state.episode,episodes: e.target.value}})} />
 						Status: <input type="text" disabled={!isAdmin} value={this.state.episode.status} onChange={e => this.setState({episode:{...this.state.episode,status: e.target.value}})} />
-                        Openload: <input type="text" disabled={!isAdmin} value={this.state.episode.openload} onChange={e => this.setState({episode:{...this.state.episode,openload: e.target.value}})} />
-						{
-							isAdmin &&
+						Openload: <input type="text" disabled={!isAdmin} value={this.state.episode.openload} onChange={e => this.setState({episode:{...this.state.episode,openload: e.target.value}})} />
+						{ isAdmin &&
 							<span>Hidden: <input type="checkbox" disabled={!isAdmin} checked={this.state.episode.hidden == 1} onChange={e => this.setState({episode:{...this.state.episode,hidden: e.target.checked ? 1 : 0}})} /></span>
 						}
 						<br />
-						{
-							isAdmin &&
-							<div className="submit-button" onClick={()=>this.props.onUpdateEpisode(this.state.episode)}>Submit</div>
-						}
+						{ isAdmin && <div className={"submit-button" + (updatingEpisode ? " disabled" : "")} onClick={()=>this.updateEpisode()}>Submit</div> }
 					</div>
-					{
-						isAdmin &&
+					{ isAdmin &&
 						<div className="subform-container">
 							<div className="submit-button" onClick={this.props.onDelete}>Delete episode</div>
 						</div>
 					}
-					{
-						isQCer &&
+					{ isQCer &&
 						<div className="subform-container">
 							<input type="file" onChange={e => this.setState({createdAttachment: e.target.files[0]})} />
 							<div className={"submit-button left-margin" + (this.state.createdAttachment == null || this.state.uploadingAttachment ? " disabled" : "")} onClick={() => {
