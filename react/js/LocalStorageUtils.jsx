@@ -25,9 +25,16 @@ export default class LocalStorageUtils {
 		localStorage.setItem("watchSelectedEpisodeId", value);
 	}
 	static getUser() {
-		return JSON.parse(localStorage.getItem("user"));
+		const user = localStorage.getItem("user");
+		return user && user !== 'undefined' && JSON.parse(user) || null;
 	}
 	static setUser(value) {
-		localStorage.setItem("user", JSON.stringify(value));
+		let json = '';
+		if(value) {
+			json = JSON.stringify(value);
+		} else {
+			json = null;
+		}
+		localStorage.setItem("user", json);
 	}
 }

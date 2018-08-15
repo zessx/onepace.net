@@ -328,10 +328,6 @@ table.releases tr:hover {
 }
 /*List*/
 .progress-container {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 	color: #444444;
 	display: flex;
 	overflow-x: auto;
@@ -401,10 +397,6 @@ table.releases tr:hover {
 	border-radius: 3px;
 	border-bottom: 1px solid #ccc;
 }
-.progress-card.title:hover {
-	background-color: #f3f3f3;
-	cursor: pointer;
-}
 .progress-card .glyphicon {
 	display: none;
 	color: #666;
@@ -430,10 +422,6 @@ table.releases tr:hover {
 /* Progress card unreleased */
 .progress-card.unreleased {
 	background-color: #415671;
-}
-.progress-card.title.unreleased:hover {
-	background-color: #516b8c;
-	cursor: pointer;
 }
 .progress-card.unreleased .text {
 	color: #e0e0e0;

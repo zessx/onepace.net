@@ -18,7 +18,7 @@ export default class Card extends React.Component {
 					<div className="progress-card">
 						<img className="list-image" src={this.props.img} />
 					</div> ||
-					<div className={"progress-card title" + (episode.in_progress ? " unreleased" : "") + (episode.hidden ? " admin-only" : "")} onClick={this.props.onView}>
+					<div className={"progress-card title" + (episode.in_progress ? " unreleased" : "") + (episode.hidden ? " admin-only" : "")}>
 						<div className="text">{episode.part ? arc.title + " " + episode.part.toString().padStart(2, "0") : episode.title}{(episode.status && episode.in_progress ? " (" + episode.status + ")" : "")}</div>
 						{ episode.title && episode.part && <div className="status">“{episode.title}”</div> }
 						{ episode.released_date && <div className="status">{Moment(episode.released_date, "YYYY-MM-DD HH:mm:ss").format("MMMM D, YYYY")}</div> }

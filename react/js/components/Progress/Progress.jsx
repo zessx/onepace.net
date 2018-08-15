@@ -9,7 +9,7 @@ import ChangePasswordForm from "./ChangePasswordForm";
 import CreateUserForm from "./CreateUserForm";
 
 export default class Progress extends React.Component {
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.state = {
 			"arcs": [],
@@ -20,9 +20,9 @@ export default class Progress extends React.Component {
 			"showCreateIssueForm": null,
 			"showUpdateIssueForm": null,
 			"showChangePasswordForm": false,
-			"name":"",
-			"password":"",
-			"user":LocalStorageUtils.getUser()
+			"name": "",
+			"password": "",
+			"user": LocalStorageUtils.getUser()
 		};
 	}
 	componentDidMount() {
@@ -161,29 +161,6 @@ export default class Progress extends React.Component {
 				}
 				<Layout layoutContentClassName="flex-scroll-x">
 					<div className="card progress-container">
-						{
-							isLoggedIn &&
-							<div className="login-side-container">
-								Logged in as {this.state.user.name}.
-								<div className="submit-button" onClick={this.logOut}>Log out</div>
-								<div className="submit-button" onClick={()=>this.setState({showChangePasswordForm:true})}>Change password</div>
-								{ isAdmin && <div className="submit-button" onClick={()=>this.setState({showCreateUserForm:true})}>Create user</div> }
-							</div>
-							||
-							<div className="login-side-container">
-								Looking to apply as a QCer?
-								Contact Galaxy 9000 in our <a href="https://discordapp.com/invite/uzmumFv" rel="noopener noreferrer" target="_blank">Discord</a> to get access!
-								<div className="login-container">
-									Name:
-									<br />
-									<input type="text" value={this.state.name} onChange={e => this.setState({name: e.target.value})} />
-									Password:
-									<br />
-									<input type="password" value={this.state.password} onChange={e => this.setState({password: e.target.value})} />
-									<div className={"submit-button" + ((this.state.password.length==0||this.state.name.length==0) ? " disabled" : "")} onClick={this.logIn}>Log in</div>
-								</div>
-							</div>
-						}
 						<div className="list-container">
 							{
 								this.state.arcs.map(i =>
