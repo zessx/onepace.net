@@ -30,6 +30,7 @@ create table `episodes` (
 	`status` varchar(50) not null default '',
 	`hidden` tinyint(1) not null default 0,
 	`part` int(11) default null,
+	`openload` varchar(50) not null default '',
 	primary key (`id`),
 	unique key `id` (`id`),
 	key `arc_id_fk_idx` (`arc_id`),
@@ -41,7 +42,7 @@ create table `users` (
 	`role` int(10) unsigned not null default 0, -- 0=User 1=QCer 2=Editor 4=Admin
 	`name` varchar(45) not null,
 	`password` varchar(40) not null,
-	`token` varchar(40) not null,
+	`token` varchar(40) not null default '',
 	primary key (`id`),
 	unique key `id_unique` (`id`),
 	unique key `name_unique` (`name`)
