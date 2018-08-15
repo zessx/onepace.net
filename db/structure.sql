@@ -36,6 +36,17 @@ create table `episodes` (
 	constraint `arc_id_fk` foreign key (`arc_id`) references `arcs` (`id`) on delete set null
 );
 
+create table `users` (
+	`id` int(10) unsigned not null auto_increment,
+	`role` int(10) unsigned not null default 0, -- 0=User 1=QCer 2=Editor 4=Admin
+	`name` varchar(45) not null,
+	`password` varchar(40) not null,
+	`token` varchar(40) not null,
+	primary key (`id`),
+	unique key `id_unique` (`id`),
+	unique key `name_unique` (`name`)
+);
+
 create table `episodeattachments` (
 	`id` int(10) unsigned not null auto_increment,
 	`episode_id` int(10) unsigned not null,
@@ -56,17 +67,6 @@ create table `sagas` (
 	`chapters` varchar(50) not null,
 	`episodes` varchar(50) not null,
 	primary key (`id`)
-);
-
-create table `users` (
-	`id` int(10) unsigned not null auto_increment,
-	`role` int(10) unsigned not null default 0, -- 0=User 1=QCer 2=Editor 4=Admin
-	`name` varchar(45) not null,
-	`password` varchar(40) not null,
-	`token` varchar(40) not null,
-	primary key (`id`),
-	unique key `id_unique` (`id`),
-	unique key `name_unique` (`name`)
 );
 
 create table `issues` (
