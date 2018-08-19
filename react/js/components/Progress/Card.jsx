@@ -21,7 +21,7 @@ export default class Card extends React.Component {
 					<div className={"progress-card title" + (episode.in_progress ? " unreleased" : "") + (episode.hidden ? " admin-only" : "")}>
 						<div className="text">{episode.part ? arc.title + " " + episode.part.toString().padStart(2, "0") : episode.title}{(episode.status && episode.in_progress ? " (" + episode.status + ")" : "")}</div>
 						{ episode.title && episode.part && <div className="status">“{episode.title}”</div> }
-						{ episode.released_date && <div className="status">{Moment(episode.released_date, "YYYY-MM-DD HH:mm:ss").format("MMMM D, YYYY")}</div> }
+						<div className="status">{episode.released_date && Moment(episode.released_date, "YYYY-MM-DD HH:mm:ss").format("MMMM D, YYYY") || "TBA"}</div>
 						{
 							episode.chapters && episode.episodes && <div className="status">Ch. {episode.chapters} / Ep. {episode.episodes}</div>
 							|| episode.chapters && <div className="status">Chapter {episode.chapters}</div>
