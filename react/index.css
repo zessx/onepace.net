@@ -11,7 +11,7 @@ body {
 * {
 	box-sizing: border-box;
 }
-input{
+input {
 	color:black;
 }
 input[type="file"] {
@@ -66,34 +66,124 @@ li a:hover {
 	text-shadow: 2px 2px #000000;
 	padding: 3px;
 }
-.main {
-	width: 75%;
-}
+/* Side */
 .side {
 	background-color: rgba(35,35,35,0.8);
 	border-left: 4px solid #395d9e;
-	padding: 55px 15px 0 15px;
-	width: 300px;
-	min-height: 100%;
+	height: 100%;
+	position: relative;
 }
-.side-minimised {
-	background-color: #232323;
-	border-left: 4px solid #395d9e;
-	padding: 55px 15px 0 15px;
-	width: 50px;
-	min-height: 100%;
+.side:not(.minimized) {
+	width: 25%;
 }
-.side-toggle {
-	margin-top: 20px;
-	margin-bottom: 10px;
+.side.minimized {
+	width: 10%;
+}
+.side .arcs {
+	height: 100%;
+	overflow-y: auto;
+}
+.side .toggler {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	right: 5%;
+}
+.side .toggler:hover {
+	background: red;
+}
+/**/
+
+/* Arc side box */
+.arc-side-box {
+	padding: 10px 0px 0px 10px;
+}
+.arc-side-box .arc-img {
+	width: 100px;
+	height: 100px;
+}
+.arc-side-box .arc-header {
+	display: flex;
+	background: #254d71;
+}
+.arc-header:hover, .arc-side-box.selected .arc-header {
+	background-color: #316491;
 	cursor: pointer;
 }
-.card {
-	background-color: rgba(35,35,35,0.8);
-	padding: 0 15px;
-	margin: 15px;
+.arc-side-box .arc-header .arc-info {
+	margin: 0 12px;
+	width: 100%;
+}
+.arc-side-box .arc-header .arc-title {
+	font-size: 20px;
+}
+.arc-side-box .arc-header .arc-subtitle {
+	white-space: pre-line;
+}
+.arc-side-box .arc-links {
+	padding: 6px 0;
+}
+.arc-side-box .svg-button {
+	display: inline-block;
+}
+.svg-button.magnet .injected-svg {
+	fill: rgb(207, 123, 27);
+}
+.svg-button.torrent .injected-svg {
+	fill: #439a4e;
+}
+.svg-button.magnet .injected-svg:hover {
+	fill: rgb(238, 145, 39);
+}
+.svg-button.torrent .injected-svg:hover {
+	fill: #51b95f;
+}
+/**/
+
+/* Episode side box */
+.episode-side-box {
+	padding-left: 12px;
+}
+.episode-side-box.selected, .episode-side-box:hover {
+	cursor: pointer;
+}
+.episode-side-box .episode-links {
+	margin: 0px 0px 14px 0;
+}
+.episode-side-box .episode-info {
+	padding: 5px 12px;
+	margin: 6px 0 6px 0;
+	background-color: #2a5067;
+	width: 100%;
+}
+.episode-side-box.selected .episode-info, .episode-side-box:hover .episode-info {
+	background-color: #366a8a
+}
+.episode-side-box .episode-title {
+	font-size: 16px;
+}
+.episode-side-box .episode-subtitle {
+	white-space: pre-line;
+	font-size: 12px;
+}
+/**/
+
+.layout-container {
+	padding: 66px 0 0 0;
+	height: 100%;
+	background-color: rgba(35,35,35,.8);
+	width: 100%;
+}
+.watch {
+	display: flex;
+}
+.main-content {
+	height: 100%;
+	width: 100%;
+	overflow-y: auto;
+}
+.with-padding {
 	padding: 15px;
-	border-radius: 4px;
 }
 @media screen and (max-width: 800px) {
 	.main, .side {
@@ -156,15 +246,6 @@ img.logo {
 .watch-top span.chapters {
 	margin: 10px;
  }
-.magnet, .torrent, .animetosho {
-	color: #ffffff;
-	text-decoration: none;
-	margin-left: 16px;
-}
-.magnet .fa, .torrent .fa, .animetosho .fa {
-	position: relative;
-	top: 1px;
-}
 .animetosho .fa {
 	font-weight: bold;
 }
@@ -275,16 +356,6 @@ table.releases tr:hover {
 .members table tr:last-of-type > td {
 	padding: 1px 10px 10px 45px;
 }
-
-.layout-container {
-	display: flex;
-}
-.layout-content {
-	flex: 1;
-	margin-top: 10px;
-	padding-top: 55px;
-}
-
 .submit-button {
 	color: white;
 	font-size: 16px;
@@ -549,4 +620,10 @@ table.releases tr:hover {
 	font-weight: 100;
 	font-size: 18px;
 	max-height: 87px;
+}
+iframe.discord {
+	border: none;
+	width: 100%;
+	height: 70%;
+	text-align: center;
 }

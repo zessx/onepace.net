@@ -1,0 +1,14 @@
+{
+  "entry": "index.html",
+  "uploadDirectory": "/www/pre.onepace.net/public_html",
+  "include": [
+    {
+      "file": "index.css",
+      "entryLinkPattern": "<link rel=\"stylesheet\" href=\"(index\\.css[\\?v=A-Fa-f\\d]*)\" />"
+    },
+    {
+      "file": "index.js",
+      "entryLinkPattern": "<script src=\"(index\\.js[\\?v=A-Fa-f\\d]*)\"></script>"
+    }
+  ]
+}

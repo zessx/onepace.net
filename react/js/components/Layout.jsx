@@ -1,24 +1,7 @@
 import React from "react";
 import Side from "./Side";
-import SideMinimised from "./SideMinimised";
-import LocalStorageUtils from "../LocalStorageUtils";
 
 export default class Layout extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			sideMinimised: LocalStorageUtils.getSidebarToggled()
-		};
-		this.toggleSide = this.toggleSide.bind(this);
-	}
-
-	toggleSide = (e) => {
-		e.preventDefault();
-		LocalStorageUtils.setSidebarToggled(!this.state.sideMinimised);
-		this.setState({ sideMinimised: !this.state.sideMinimised });
-	}
-
 	render() {
 		return (
 			<div>
@@ -30,8 +13,7 @@ export default class Layout extends React.Component {
 					<a className="link" href="/#/supportus">Donate</a>
 				</div>
 				<div className="layout-container">
-					{this.state.sideMinimised ? <SideMinimised toggle={this.toggleSide} /> : <Side toggle={this.toggleSide} />}
-					<div className={"layout-content " + this.props.layoutContentClassName}>
+					<div className="main-content">
 						{this.props.children}
 					</div>
 				</div>
