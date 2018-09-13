@@ -1,5 +1,4 @@
 import React from "react";
-import Layout from "./Layout";
 
 export default class About extends React.Component {
 	componentDidMount() {

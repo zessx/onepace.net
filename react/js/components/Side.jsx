@@ -31,30 +31,29 @@ export default class Side extends Component {
 			} else if(selectedEpisode) {
 				[selectedArc] = arcs.filter((i) => i.id == selectedEpisode.arcId);
 				LocalStorageUtils.setWatchSelectedArcId(selectedArc ? selectedArc.id : null);
-			} else {
-				[selectedArc] = arcs;
-				LocalStorageUtils.setWatchSelectedArcId(selectedArc ? selectedArc.id : null);
-			}
-			if (selectedArc && !selectedEpisode) {
-				[selectedEpisode] = episodes.filter((i) => i.arcId == selectedArc.id);
-				LocalStorageUtils.setWatchSelectedEpisodeId(selectedEpisode ? selectedEpisode.id : null);
 			}
 			this.setState({ selectedArc, selectedEpisode, arcs, episodes }, () => {
 				this.props.onSetState(this.state.selectedArc, this.state.selectedEpisode);
-				if(this.state.selectedArc != null) {
-					const domNode = ReactDOM.findDOMNode(this.SelectedArcRef);
-					domNode.scrollIntoView();
-				}
+				this.scrollToArc();
 			});
 		});
 	}
-	changeArc = (selectedArc, cb) => {
+	scrollToArc = () => {
+		if(this.state.selectedArc != null && this.SelectedArcRef != null) {
+			const domNode = ReactDOM.findDOMNode(this.SelectedArcRef);
+			domNode.scrollIntoView();
+		}
+	}
+	changeArc = (selectedArc) => {
 		if(this.state.selectedArc && selectedArc.id == this.state.selectedArc.id) {
 			selectedArc = null;
 		}
 		LocalStorageUtils.setWatchSelectedArcId(selectedArc ? selectedArc.id : null);
 		LocalStorageUtils.setWatchSelectedEpisodeId(null);
-		this.setState({ selectedArc: selectedArc, selectedEpisode: null }, cb);
+		this.setState({ selectedArc: selectedArc, selectedEpisode: null }, () => {
+			this.props.onChangeArc(this.state.selectedArc);
+			this.scrollToArc();
+		});
 	}
 	changeEpisode = (selectedEpisode, cb) => {
 		if(this.state.selectedEpisode && selectedEpisode.id == this.state.selectedEpisode.id) {
@@ -84,6 +83,7 @@ export default class Side extends Component {
 			magnet={episode.torrent ? episode.torrent.magnet : null}
 			torrentLink={episode.torrent ? "/torrents/" + episode.torrent.torrent_name : null}
 			isSelected={isSelected}
+			isReleased={episode.isReleased}
 		/>
 	}
 	getArcEpisodes = arc => this.state.episodes.filter(episode => episode.arcId == arc.id);
@@ -92,14 +92,15 @@ export default class Side extends Component {
 		var subtitle = (arc.chapters ? "Chapter " : "") + arc.chapters + (arc.episodes ? "\n" + "Episode " + arc.episodes : "");
 		var arcEpisodes = isSelected ? this.getArcEpisodes(arc) : [];
 		var img = "/assets/arc_" + arc.id + ".png";
-		return <ArcSideBox onClick={() => this.changeArc(arc, () => {
-				this.props.onChangeArc(this.state.selectedArc);
-			})}
+		return <ArcSideBox
+			onStopVideo={()=>this.props.onStopVideo()}
+			onClick={() => this.changeArc(arc)}
 			key={arc.id} img={img} title={arc.title} subtitle={subtitle}
 			magnet={arc.torrent ? arc.torrent.magnet : null}
 			torrentLink={arc.torrent ? "/torrents/" + arc.torrent.torrent_name : null}
 			isSelected={isSelected}
-			ref={(section) => { isSelected ? this.SelectedArcRef = section : null }}>
+			ref={isSelected ? (section) => { this.SelectedArcRef = section } : null}
+		>
 			<div className="episodes">
 				{arcEpisodes.map(episode => this.getEpisodeSideBox(episode))}
 			</div>
@@ -107,7 +108,7 @@ export default class Side extends Component {
 	}
 	render() {
 		return <div className={"side" + (this.state.isMinimized ? " minimized" : "")}>
-			<div className="toggler"></div>
+			<div className="toggler" onClick={this.toggleMinimize}></div>
 			<div className="arcs">
 				{this.state.arcs.map(arc => this.getArcSideBox(arc))}
 			</div>

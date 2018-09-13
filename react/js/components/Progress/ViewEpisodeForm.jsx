@@ -106,7 +106,6 @@ export default class ViewEpisodeForm extends React.Component {
 			this.props.onUpdatedEpisode(responseJson);
 		}, error => {
 			this.setState({updatingEpisode: false});
-			console.log(error);
 			alert("Error");
 		});
 	}

@@ -4,8 +4,8 @@ import ReactSVG from "react-svg";
 export default class EpisodeSideBox extends React.Component {
 	render() {
 		return (
-			<div className={"episode-side-box" + (this.props.isSelected ? " selected" : "")}>
-				<div className="episode-info" onClick={this.props.onClick}>
+			<div className={"episode-side-box" + (this.props.isSelected ? " selected" : "") + (this.props.isReleased ? " released" : "")}>
+				<div className="episode-info" onClick={this.props.isReleased ? this.props.onClick : null}>
 					<div className="episode-title">{this.props.title}</div>
 					<div className="episode-subtitle">{this.props.subtitle}</div>
 				</div>

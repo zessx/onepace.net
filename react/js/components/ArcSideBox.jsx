@@ -17,12 +17,12 @@ export default class ArcSideBox extends React.Component {
 				<div className="arc-body">
 					<div className="arc-links">
 						{this.props.magnet &&
-						<a href={this.props.magnet}>
+						<a href={this.props.magnet} onClick={()=>this.props.onStopVideo()}>
 							<ReactSVG className="svg-button magnet" src="assets/baseline-offline_bolt-24px.svg" />
 						</a>
 						}
 						{this.props.torrentLink &&
-						<a href={this.props.torrentLink}>
+						<a href={this.props.torrentLink} onClick={()=>this.props.onStopVideo()}>
 							<ReactSVG className="svg-button torrent" src="assets/baseline-device_hub-24px.svg" />
 						</a>
 						}

@@ -7,10 +7,8 @@ export default class Layout extends React.Component {
 			<div>
 				<div className="topnav bottom-shadow">
 					<a href="/#/"><img className="logo" src="assets/Logo.png" /></a>
-					<a className="link" href="/#/Torrents">Torrents</a>
 					<a className="link" href="/#/About">About</a>
-					<a className="link" href="/#/Progress">Progress</a>
-					<a className="link" href="/#/supportus">Donate</a>
+					<a className="link" href="/#/Donate">Donate</a>
 				</div>
 				<div className="layout-container">
 					<div className="main-content">
