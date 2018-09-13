@@ -19,16 +19,22 @@ export default class Side extends Component {
 	componentDidMount() {
 		NetworkHandler.request("/get_streams.php", null, (response) => {
 			const {arcs, episodes} = response;
-			const selectedArcId = LocalStorageUtils.getWatchSelectedArcId();
-			const selectedEpisodeId = LocalStorageUtils.getWatchSelectedEpisodeId();
 			let selectedArc = null;
 			let selectedEpisode = null;
-			if (selectedEpisodeId) {
+			const selectedEpisodeId = LocalStorageUtils.getWatchSelectedEpisodeId();
+			const selectedArcId = LocalStorageUtils.getWatchSelectedArcId();
+
+			if(this.props.params.episode) {
+				[selectedEpisode] = episodes.filter((i) => i.id == this.props.params.episode || i.crc32 == this.props.params.episode);
+				LocalStorageUtils.setWatchSelectedEpisodeId(selectedEpisode ? selectedEpisode.id : null);
+			} else if(selectedEpisodeId) {
 				[selectedEpisode] = episodes.filter((i) => i.id == selectedEpisodeId);
+				[selectedArc] = arcs.filter((i) => i.id == selectedEpisode.arcId);
 			}
-			if(selectedArcId) {
+			if(!selectedArc && selectedArcId) {
 				[selectedArc] = arcs.filter((i) => i.id == selectedArcId);
-			} else if(selectedEpisode) {
+			}
+			if(!selectedArc && selectedEpisode) {
 				[selectedArc] = arcs.filter((i) => i.id == selectedEpisode.arcId);
 				LocalStorageUtils.setWatchSelectedArcId(selectedArc ? selectedArc.id : null);
 			}
