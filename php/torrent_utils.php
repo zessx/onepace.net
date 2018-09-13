@@ -44,7 +44,7 @@ function get_torrent($path) {
         $info = $data['info'];
         $dn = $info['name'];
         $size = 0;
-        if($info['files'] != null) {
+        if(isset($info['files'])) {
             foreach($info['files'] as $file_info) {
                 $size += $file_info['length'];
             }

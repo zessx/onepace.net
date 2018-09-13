@@ -18,6 +18,12 @@ export default class LocalStorageUtils {
 	static setSortAscending(value) {
 		localStorage.setItem("sortAscending", value);
 	}
+	static getWatchSelectedArcId() {
+		return localStorage.getItem("watchSelectedArcId");
+	}
+	static setWatchSelectedArcId(value) {
+		localStorage.setItem("watchSelectedArcId", value);
+	}
 	static getWatchSelectedEpisodeId() {
 		return localStorage.getItem("watchSelectedEpisodeId");
 	}

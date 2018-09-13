@@ -3,6 +3,8 @@ header('Content-Type: application/json; charset=utf-8;');
 require_once 'db_context.php';
 include_once 'string_utils.php';
 include_once 'secure_indexer.php';
+include_once 'torrent_utils.php';
+$torrents = TorrentUtils::getTorrents();
 $context = new db_context();
 $context->connect();
 $stmt = $context->prepare("select episodes.id,".
@@ -32,6 +34,7 @@ $data = [];
 $arc_id = -1;
 foreach($rows as $row) {
 	if($arc_id != scr_value($row, 'arc_id')) {
+		$arc_torrent = TorrentUtils::findTorrent($torrents, $row['arc_torrent_hash']);
 		$arc_id = scr_value($row, 'arc_id');
 		$data['arcs'][] = [
 			'id' => scr_value($row, 'arc_id'),
@@ -39,12 +42,14 @@ foreach($rows as $row) {
 			'chapters' => scr_value($row, 'arc_chapters'),
 			'resolution' => scr_value($row, 'arc_resolution'),
 			"released" => scr_value($row, "arc_released") == 1,
-			"episodes" => scr_value($row, "arc_episodes")
+			"episodes" => scr_value($row, "arc_episodes"),
+			'torrent' => $arc_torrent
 		];
 	}
 	$is_released = isset($row["released_date"]) && strtotime($row["released_date"]) <= time();
 
 	// Set the episode object
+	$torrent = TorrentUtils::findTorrent($torrents, $row['torrent_hash']);
 	$data['episodes'][] = [
 		'id' => scr_value($row, 'id'),
 		'crc32' => $is_released ? scr_value($row, 'crc32') : "",
@@ -56,7 +61,7 @@ foreach($rows as $row) {
 		'status' => scr_value($row, 'status'),
 		'part' => scr_value($row, 'part'),
 		'arcId' => scr_value($row, 'arc_id'),
-		'openload' => $row['openload']
+		'torrent' => $torrent
 	];
 }
 function usortchapters($a, $b) {

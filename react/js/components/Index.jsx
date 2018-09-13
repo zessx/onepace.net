@@ -8,35 +8,19 @@ import {
 } from "react-router";
 import "../../index.css";
 import "babel-polyfill";
-import Layout from "./Layout";
 import Watch from "./Watch";
 import About from "./About";
-import Torrents from "./Torrents";
-import Progress from "./Progress/Progress";
-import SupportUs from "./SupportUs";
-
-export default class Index extends React.Component {
-	componentDidMount() {
-		document.title = "One Pace | Home";
-	}
-	render() {
-		return (
-			<Layout>
-				<Watch location={this.props.location} />
-			</Layout>
-		);
-	}
-}
+import Donate from "./Donate";
+import Layout from "./Layout";
 
 ReactDOM.render(
-	<Router history={hashHistory}>
-		<Route path="/(?episode=:episode)">
-			<IndexRoute component={Index} />
-			<Route name="torrents" path="/torrents" component={Torrents} />
-			<Route name="about" path="/about" component={About} />
-			<Route name="progress" path="/progress" component={Progress} />
-			<Route name="supportus" path="/supportus" component={SupportUs} />
-		</Route>
-	</Router>,
-	document.getElementById("reactentry")
+	<Layout>
+		<Router history={hashHistory}>
+			<Route path="/(:episode)">
+				<IndexRoute component={Watch} />
+				<Route name="about" path="/about" component={About} />
+				<Route name="donate" path="/donate" component={Donate} />
+			</Route>
+		</Router>
+	</Layout>, document.getElementById("reactentry")
 );
