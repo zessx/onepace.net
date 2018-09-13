@@ -43,6 +43,7 @@
     "react-dom": "^15.6.2",
     "react-fontawesome": "^1.6.1",
     "react-html5video": "^2.5.1",
+    "react-https-redirect": "^1.0.10",
     "react-konva": "^1.1.6",
     "react-live-clock": "^2.0.2",
     "react-modal": "^2.2.2",
