@@ -20,7 +20,7 @@ ReactDOM.render(
 			<Router history={hashHistory}>
 				<Route path="/">
 					<IndexRedirect to="watch/" />
-					<Route name="watch" path="/watch/(:episode)" component={Watch} />
+					<Route name="watch" path="/watch/(:episode)(?episode=:qepisode)" component={Watch} />
 					<Route name="about" path="/about" component={About} />
 					<Route name="donate" path="/donate" component={Donate} />
 				</Route>

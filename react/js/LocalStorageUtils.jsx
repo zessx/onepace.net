@@ -20,26 +20,26 @@ export default class LocalStorageUtils {
 	}
 	static getWatchSelectedArcId() {
 		const value = localStorage.getItem("watchSelectedArcId");
-		if(!Number.isInteger(value)) {
+		if(isNaN(value)) {
 			return null;
 		}
 		return value;
 	}
 	static setWatchSelectedArcId(value) {
-		if(!Number.isInteger(value)) {
+		if(isNaN(value)) {
 			value = null;
 		}
 		localStorage.setItem("watchSelectedArcId", value);
 	}
 	static getWatchSelectedEpisodeId() {
 		const value = localStorage.getItem("watchSelectedEpisodeId");
-		if(!Number.isInteger(value)) {
+		if(isNaN(value)) {
 			return null;
 		}
 		return value;
 	}
 	static setWatchSelectedEpisodeId(value) {
-		if(!Number.isInteger(value)) {
+		if(isNaN(value)) {
 			value = null;
 		}
 		localStorage.setItem("watchSelectedEpisodeId", value);

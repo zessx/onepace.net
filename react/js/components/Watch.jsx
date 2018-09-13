@@ -26,6 +26,7 @@ export default class Watch extends React.Component {
 			<div className="watch">
 				<Side
 					params={this.props.params}
+					location={this.props.location}
 					onSetState={(selectedArc, selectedEpisode) => {
 						this.setState({ selectedArc, selectedEpisode });
 						this.videoRef.load();
