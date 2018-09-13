@@ -19,15 +19,29 @@ export default class LocalStorageUtils {
 		localStorage.setItem("sortAscending", value);
 	}
 	static getWatchSelectedArcId() {
-		return localStorage.getItem("watchSelectedArcId");
+		const value = localStorage.getItem("watchSelectedArcId");
+		if(!Number.isInteger(value)) {
+			return null;
+		}
+		return value;
 	}
 	static setWatchSelectedArcId(value) {
+		if(!Number.isInteger(value)) {
+			value = null;
+		}
 		localStorage.setItem("watchSelectedArcId", value);
 	}
 	static getWatchSelectedEpisodeId() {
-		return localStorage.getItem("watchSelectedEpisodeId");
+		const value = localStorage.getItem("watchSelectedEpisodeId");
+		if(!Number.isInteger(value)) {
+			return null;
+		}
+		return value;
 	}
 	static setWatchSelectedEpisodeId(value) {
+		if(!Number.isInteger(value)) {
+			value = null;
+		}
 		localStorage.setItem("watchSelectedEpisodeId", value);
 	}
 	static getUser() {

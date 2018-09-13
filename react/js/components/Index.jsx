@@ -4,7 +4,7 @@ import {
 	Router,
 	Route,
 	hashHistory,
-	IndexRoute,
+	IndexRedirect
 } from "react-router";
 import "../../index.css";
 import "babel-polyfill";
@@ -16,8 +16,9 @@ import Layout from "./Layout";
 ReactDOM.render(
 	<Layout>
 		<Router history={hashHistory}>
-			<Route path="/(:episode)">
-				<IndexRoute component={Watch} />
+			<Route path="/">
+				<IndexRedirect to="watch/" />
+				<Route name="watch" path="/watch/(:episode)" component={Watch} />
 				<Route name="about" path="/about" component={About} />
 				<Route name="donate" path="/donate" component={Donate} />
 			</Route>

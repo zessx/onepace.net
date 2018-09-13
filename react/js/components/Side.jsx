@@ -26,18 +26,19 @@ export default class Side extends Component {
 
 			if(this.props.params.episode) {
 				[selectedEpisode] = episodes.filter((i) => i.id == this.props.params.episode || i.crc32 == this.props.params.episode);
-				LocalStorageUtils.setWatchSelectedEpisodeId(selectedEpisode ? selectedEpisode.id : null);
-			} else if(selectedEpisodeId) {
+				[selectedArc] = arcs.filter((i) => i.id == selectedEpisode.arcId);
+			} else if(selectedEpisodeId != null) {
 				[selectedEpisode] = episodes.filter((i) => i.id == selectedEpisodeId);
 				[selectedArc] = arcs.filter((i) => i.id == selectedEpisode.arcId);
 			}
-			if(!selectedArc && selectedArcId) {
+			if(!selectedArc != null && selectedArcId != null) {
 				[selectedArc] = arcs.filter((i) => i.id == selectedArcId);
 			}
-			if(!selectedArc && selectedEpisode) {
+			if(!selectedArc != null && selectedEpisode != null) {
 				[selectedArc] = arcs.filter((i) => i.id == selectedEpisode.arcId);
-				LocalStorageUtils.setWatchSelectedArcId(selectedArc ? selectedArc.id : null);
 			}
+			LocalStorageUtils.setWatchSelectedEpisodeId(selectedEpisode != null ? selectedEpisode.id : null);
+			LocalStorageUtils.setWatchSelectedArcId(selectedArc != null ? selectedArc.id : null);
 			this.setState({ selectedArc, selectedEpisode, arcs, episodes }, () => {
 				this.props.onSetState(this.state.selectedArc, this.state.selectedEpisode);
 				this.scrollToArc();
