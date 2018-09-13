@@ -17,14 +17,14 @@ import HttpsRedirect from 'react-https-redirect';
 ReactDOM.render(
 	<HttpsRedirect>
 		<Layout>
-				<Router history={hashHistory}>
-					<Route path="/">
-						<IndexRedirect to="watch/" />
-						<Route name="watch" path="/watch/(:episode)" component={Watch} />
-						<Route name="about" path="/about" component={About} />
-						<Route name="donate" path="/donate" component={Donate} />
-					</Route>
-				</Router>
+			<Router history={hashHistory}>
+				<Route path="/">
+					<IndexRedirect to="watch/" />
+					<Route name="watch" path="/watch/(:episode)" component={Watch} />
+					<Route name="about" path="/about" component={About} />
+					<Route name="donate" path="/donate" component={Donate} />
+				</Route>
+			</Router>
 		</Layout>
 	</HttpsRedirect>, document.getElementById("reactentry")
 );
