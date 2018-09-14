@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: application/json; charset=utf-8;');
+require_once 'RequestHeader.php';
 require_once 'db_context.php';
 include_once 'string_utils.php';
 include_once 'secure_indexer.php';
