@@ -66,8 +66,18 @@
         "resolution": s,
         "released": b,
         "episodes": s,
-        "magnet": s,
-        "torrent": s
+        "torrent": {
+			"age_days":i,
+			"hash":s,
+			"trackers":[s,...],
+			"magnet":s,
+			"torrent_name":s,
+			"display_name":s,
+			"size_raw":i,
+			"size":s,
+			"created":s,
+			"created_raw":ut
+		}
       }
     ],
     "episodes":
@@ -79,142 +89,23 @@
         "title": s,
         "chapters": s,
         "episodes": s,
-        "stream_id": s,
         "isReleased": b,
         "status": s,
         "part": i?,
-        "arcId": i?
-      }
-    ]
-}
-```
-## /getreleases
-```
-{
-    "releases":
-    [
-      {
-        "crc32": s,
-        "name": s,
-        "magnet": s,
-        "torrent": s,
-        "createddate": ut?,
-        "ageDays": i
-      }
-    ]
-}
-```
-## /list_progress_episodes
-```
-{
-	"arcs":[
-		{
-			"id":i,
-			"title":s,
-			"chapters":s
-		},
-		...
-	],
-	"episodes":[
-		{
-			"id":i,
-			"arc_id":i,
-			"part":i,
-			"title":s,
-			"chapters":s,
-			"released_date":s
-		},
-		...
-	],
-	"issues":[
-		{
-			"id":i,
-			"episode_id":i,
-			"description":s,
-			"status":i,
-			"createdby":s,
-			"createddate":ut
+        "arcId": i?,
+		"torrent": {
+			"age_days":i,
+			"hash":s,
+			"trackers":[s,...],
+			"magnet":s,
+			"torrent_name":s,
+			"display_name":s,
+			"size_raw":i,
+			"size":s,
+			"created":s,
+			"created_raw":ut
 		}
-	]
+      }
+    ]
 }
 ```
-## /create_episode
-### Request (GET)
-```
-{
-	"token":s,
-	"arc_id":i,
-	"title":s,
-	"part":i,
-	"released_date":s,
-	"torrent_hash":s,
-	"episodes":s,
-	"chapters":s,
-	"resolution":s
-}
-```
-### Response
-See /list_progress_episodes
-## /update_episode
-### Request (GET)
-```
-{
-	"token":s,
-	"id":i,
-	"arc_id":i,
-	"title":s,
-	"part":i,
-	"released_date":s,
-	"torrent_hash":s,
-	"episodes":s,
-	"chapters":s,
-	"resolution":s
-}
-```
-### Response
-See /list_progress_episodes
-## /delete_episode
-### Request (GET)
-```
-{
-	"token":s,
-	"id":i
-}
-```
-### Response
-See /list_progress_episodes
-## /create_issue
-### Request (GET)
-```
-{
-	"token":s,
-	"id":i
-}
-```
-### Response
-```
-{
-	"arcs":[
-		{
-			"id":i,
-			"title":s,
-			"chapters":s
-		},
-		...
-	],
-	"episodes":[
-		{
-			"id":i,
-			"arc_id":i,
-			"part":i,
-			"title":s,
-			"chapters":s,
-			"released_date":s
-		},
-		...
-	]
-}
-```
-## /update_issue
-## /close_issue
-## /open_issue
