@@ -24,10 +24,6 @@
 			"error",
 			"tab"
 		],
-		"linebreak-style": [
-			"error",
-			"unix"
-		],
 		"no-console": "warn",
 		"eol-last": "error",
 		"quotes": [

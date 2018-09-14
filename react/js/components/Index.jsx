@@ -3,10 +3,9 @@ import ReactDOM from "react-dom";
 import {
 	Router,
 	Route,
-	hashHistory,
-	IndexRedirect
+	browserHistory,
+	IndexRoute
 } from "react-router";
-import "../../index.css";
 import "babel-polyfill";
 import Watch from "./Watch";
 import About from "./About";
@@ -17,10 +16,9 @@ import HttpsRedirect from 'react-https-redirect';
 ReactDOM.render(
 	<HttpsRedirect>
 		<Layout>
-			<Router history={hashHistory}>
-				<Route path="/">
-					<IndexRedirect to="watch/" />
-					<Route name="watch" path="/watch/(:episode)(?episode=:qepisode)" component={Watch} />
+			<Router history={browserHistory}>
+				<Route path="/(?episode=:episode)">
+					<IndexRoute component={Watch} />
 					<Route name="about" path="/about" component={About} />
 					<Route name="donate" path="/donate" component={Donate} />
 				</Route>

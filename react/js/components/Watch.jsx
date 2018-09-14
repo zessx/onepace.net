@@ -1,6 +1,4 @@
 import React from "react";
-import { browserHistory } from "react-router";
-import LocalStorageUtils from "../LocalStorageUtils";
 import Side from "./Side";
 
 export default class Watch extends React.Component {
@@ -44,7 +42,7 @@ export default class Watch extends React.Component {
 					}}
 					onStopVideo={()=>this.videoRef.pause()}
 				/>
-				<video ref={(i) => this.videoRef = i} className="video-player" controls poster="assets/logo-poster.png">
+				<video ref={(i) => this.videoRef = i} className="video-player" controls poster="/assets/logo-poster.png">
 				{ this.state.selectedEpisode != null &&
 					<source type="video/mp4" src={"http://onepace.net/streams/" + this.state.selectedEpisode.crc32 + ".mp4"} />
 				}

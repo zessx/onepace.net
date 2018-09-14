@@ -21,7 +21,7 @@ export default class Side extends Component {
 			const {arcs, episodes} = response;
 			let selectedArc = null;
 			let selectedEpisode = null;
-			const selectedEpisodeId = this.props.params.episode || this.props.location.query.episode || LocalStorageUtils.getWatchSelectedEpisodeId();
+			const selectedEpisodeId = this.props.location.query.episode || LocalStorageUtils.getWatchSelectedEpisodeId();
 			const selectedArcId = LocalStorageUtils.getWatchSelectedArcId();
 			
 			if(selectedEpisodeId) {
