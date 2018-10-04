@@ -1,7 +1,5 @@
 ﻿var path = require("path");
 var webpack = require("webpack");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var extractSass = new ExtractTextPlugin("index.css");
 
 module.exports = {
 	entry: "./js/components/Index.jsx",
@@ -17,8 +15,7 @@ module.exports = {
 		}),
 		new webpack.DefinePlugin({
 			"process.env.NODE_ENV": JSON.stringify("development")
-		}),
-		extractSass
+		})
 	],
 	resolve: {
 		extensions: [".js", ".jsx"],
@@ -30,9 +27,12 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.css$/,
-				include: [path.join(__dirname, "index.css")],
-				use: extractSass.extract({ loader: "css-loader", options: { minimize: true } })
+				test: /\.scss$/,
+				use: [
+					"style-loader",
+					"css-loader",
+					"sass-loader"
+				]
 			},
 			{
 				test: /\.jsx?$/,

@@ -1,5 +1,4 @@
 import React from "react";
-import ReactSVG from "react-svg";
 
 export default class EpisodeSideBox extends React.Component {
 	render() {
@@ -9,16 +8,16 @@ export default class EpisodeSideBox extends React.Component {
 					<div className="episode-title">{this.props.title}</div>
 					<div className="episode-subtitle">{this.props.subtitle}</div>
 				</div>
-				{this.props.isSelected && (this.props.magnet || this.props.torrentLink) &&
+				{(this.props.magnet || this.props.torrentLink) &&
 				<div className="episode-links">
 					{this.props.magnet &&
-					<a href={this.props.magnet} onClick={()=>this.props.onStopVideo()}>
-						<ReactSVG className="svg-button magnet" src="assets/baseline-offline_bolt-24px.svg" />
+					<a className="torrent-link" href={this.props.magnet} onClick={()=>this.props.onStopVideo()}>
+						<i className="fas fa-magnet" />
 					</a>
 					}
 					{this.props.torrentLink &&
-					<a href={this.props.torrentLink} onClick={()=>this.props.onStopVideo()}>
-						<ReactSVG className="svg-button torrent" src="assets/baseline-device_hub-24px.svg" />
+					<a className="torrent-link" href={this.props.torrentLink} onClick={()=>this.props.onStopVideo()}>
+						<i className="fas fa-file-download" />
 					</a>
 					}
 				</div>
