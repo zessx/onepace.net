@@ -25,11 +25,14 @@
 1. Open HeidiSQL
 2. Create a new session
 3. File -> Load SQL File
-4. Select /onepace/db/db.sql
-5. Run (F5)
+4. Select /onepace/db/structure.sql
+5. Run (F5) to create the database structure
 6. Refresh the view to see onepace database
 7. Click on the users icon
 8. Add a new user with username onepace_site and password 12345
+9. File -> Load SQL File
+10. Select /onepace/db/data.sql
+11. Run (F5) to import data
 
 ### PHP
 1. Put extracted PHP contents under C:\
