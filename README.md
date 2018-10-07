@@ -25,13 +25,13 @@
 1. Open HeidiSQL
 2. Create a new session
 3. File -> Load SQL File
-4. Select /onepace/db/structure.sql
+4. Select `/onepace.net/db/structure.sql`
 5. Run (F5) to create the database structure
 6. Refresh the view to see onepace database
 7. Click on the users icon
-8. Add a new user with username onepace_site and password 12345
+8. Add a new user with username `onepace_site` and password `12345`
 9. File -> Load SQL File
-10. Select /onepace/db/data.sql
+10. Select `/onepace.net/db/data.sql`
 11. Run (F5) to import data
 
 ### PHP
@@ -52,63 +52,61 @@
 - Accept: application/json
 - Charset: utf-8
 ## Data Types
-- i: sint32
-- b: bool
-- s: string
-- ut: unix-time
-- .*\?$: nullable
+- `i`: sint32
+- `b`: bool
+- `s`: string
+- `ut`: unix-time
+- `.*\?$`: nullable
 ## /get_streams
-```
+```json
 {
-    "arcs":
-    [
-      {
-        "id": i,
-        "title": s,
-        "chapters": s,
-        "resolution": s,
-        "released": b,
-        "episodes": s,
-        "torrent": {
-			"age_days":i,
-			"hash":s,
-			"trackers":[s,...],
-			"magnet":s,
-			"torrent_name":s,
-			"display_name":s,
-			"size_raw":i,
-			"size":s,
-			"created":s,
-			"created_raw":ut
-		}
+  "arcs": [
+    {
+      "id": i,
+      "title": s,
+      "chapters": s,
+      "resolution": s,
+      "released": b,
+      "episodes": s,
+      "torrent": {
+        "age_days": i,
+        "hash": s,
+        "trackers": [s, …],
+        "magnet": s,
+        "torrent_name": s,
+        "display_name": s,
+        "size_raw": i,
+        "size": s,
+        "created": s,
+        "created_raw": ut
       }
-    ],
-    "episodes":
-    [
-      {
-        "id": i,
-        "crc32": s,
-        "resolution": s,
-        "title": s,
-        "chapters": s,
-        "episodes": s,
-        "isReleased": b,
-        "status": s,
-        "part": i?,
-        "arcId": i?,
-		"torrent": {
-			"age_days":i,
-			"hash":s,
-			"trackers":[s,...],
-			"magnet":s,
-			"torrent_name":s,
-			"display_name":s,
-			"size_raw":i,
-			"size":s,
-			"created":s,
-			"created_raw":ut
-		}
+    }
+  ],
+  "episodes": [
+    {
+      "id": i,
+      "crc32": s,
+      "resolution": s,
+      "title": s,
+      "chapters": s,
+      "episodes": s,
+      "isReleased": b,
+      "status": s,
+      "part": i?,
+      "arcId": i?,
+      "torrent": {
+        "age_days": i,
+        "hash": s,
+        "trackers": [s, …],
+        "magnet": s,
+        "torrent_name": s,
+        "display_name": s,
+        "size_raw": i,
+        "size": s,
+        "created": s,
+        "created_raw": ut
       }
-    ]
+    }
+  ]
 }
 ```
